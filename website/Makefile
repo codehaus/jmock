@@ -1,26 +1,37 @@
 # Make sure you have installed the catalog files for XHTML on your local filesystem
 
-BASE=http://www.jmock.org
+OUTDIR=build/local
+BASE=$(PWD)/build/local
 
-CONTENT=$(shell find content -type f -and -not -wholename '*/CVS/*')
-OUTPUT=$(CONTENT:content/%=build/%)
+CONTENT=$(shell find content -not -wholename '*/CVS*')
+SKIN=$(shell find templates -not -name *.xslt -and -not -wholename '*/CVS*')
+OUTPUT=$(CONTENT:content/%=$(OUTDIR)/%) $(SKIN:templates/%=$(OUTDIR)/%)
 
 all: $(OUTPUT)
 
-build/%.html: content/%.html templates/skin.xslt
-	@mkdir -p build
+$(OUTDIR)/%.html: content/%.html templates/skin.xslt
+	@mkdir -p $(OUTDIR)
 	xsltproc \
-	  --nonet --nodtdattr \
+	  --nodtdattr \
 	  --stringparam base $(BASE) \
-	  --param isindex false \
-	  --stringparam history http://cvs.jmock.codehaus.org/jmock/website/content/$*.html \
-	  templates/skin.xslt $< | xmllint --format - > $@
+	  --stringparam path $*.html \
+	  templates/skin.xslt $< > $@
 
-build/%: content/%
-	@mkdir -p build
+$(OUTDIR)/%: content/%
+	@mkdir -p $(OUTDIR)
 	cp $< $@
 
+$(OUTDIR)/%: templates/%
+	@mkdir -p $(OUTDIR)
+	cp $< $@
+
+dist:
+	$(MAKE) BASE=http://www.jmock.org OUTDIR=build/dist clean all
+
 clean:
+	rm -rf $(OUTDIR)
+
+pristine:
 	rm -rf build
 
 again: clean all
