@@ -8,6 +8,7 @@
 	
   <xsl:param name="base"/> <!-- The base URL of the site -->
   <xsl:param name="path"/> <!-- the path of the file below the base -->
+  <xsl:param name="news"/> <!-- absolute URL of the news feed file in the workspace -->
   
   <xsl:template match="/">
 	<html>
@@ -21,10 +22,19 @@
 	  
 	  <body>
 	    <div id="banner">
-	      <a href="/index.html"><img id="logo" src="{$base}/logo.gif" alt="jMock"/></a>
+	      <a href="{$base}/index.html"><img id="logo" src="{$base}/logo.gif" alt="jMock"/></a>
 	    </div>
 		
-	    <div id="center" class="Content2Column">
+	    <div id="center">
+	      <xsl:choose>
+	        <xsl:when test="$path = 'index.html'">
+	          <xsl:attribute name="class">Content3Column</xsl:attribute>
+	        </xsl:when>
+	        <xsl:otherwise>
+	          <xsl:attribute name="class">Content2Column</xsl:attribute>
+	        </xsl:otherwise>
+	      </xsl:choose>
+	      
 	      <div id="content">
 	        <xsl:copy-of select="/html:html/html:body/*"/>
 	      </div>
@@ -95,6 +105,22 @@
 	        </ul>
 	      </div>
 	    </div>
+	    
+	    <xsl:if test="$path = 'index.html'">
+	      <div class="SidePanel" id="right">
+	        <div class="NewsGroup">
+	          <h1>Recent News</h1>
+				<xsl:for-each select="document('../content/news-rss2.xml')/rss/channel/item[position() &lt;= 5]">
+                  <div class="NewsItem">
+	    		    <p class="NewsTitle"><xsl:value-of select="title"/></p>
+		    	    <p class="NewsDate"><xsl:value-of select="pubDate"/></p>
+		    	    <p class="NewsText"><xsl:copy-of select="html:div/node()"/></p>
+		    	  </div>
+                </xsl:for-each>	    
+	          <p class="NewsMore"><a href="{$base}/news-rss2.xml">News feed (RSS 2.0)</a></p>
+	        </div>
+	      </div>
+	    </xsl:if>
 	  </body>
 	</html>
   </xsl:template>
