@@ -302,12 +302,32 @@ ul, ol {
     font-weight: bold;
 }
 
+.SidePanel h2 {
+    margin: 0px;
+    border: 0px;
+    padding: 3px;
+    
+    color: #006;
+    
+    font-size: 11px;
+    font-weight: normal;
+}
 
 .SidePanel a { text-decoration: none; }
 .SidePanel a:link { color: #006; }
 .SidePanel a:visited { color: #006; }
 .SidePanel a:active { color: red; }
 .SidePanel a:hover { color: red; }
+
+.SidePanel ul {
+    margin: 0px;
+    padding-left: 4px;
+    list-style-type: none;
+}
+
+.SidePanel li {
+    padding: 2px;
+}
 
 /*---------------------------------------------------------------------------
  *  Menus
@@ -321,16 +341,6 @@ ul, ol {
     margin-bottom: 8px;
     background-color: white;
     color: #006;
-}
-
-.MenuGroup ul {
-    margin: 0px;
-    padding-left: 4px;
-    list-style-type: none;
-}
-
-.MenuGroup li {
-    padding: 2px;
 }
 
 .More {

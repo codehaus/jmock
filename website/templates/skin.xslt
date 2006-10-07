@@ -4,7 +4,8 @@
 	version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:v="http://www.jmock.org/xmlns/versions/1.0">
 	
   <xsl:param name="base"/> <!-- The base URL of the site -->
   <xsl:param name="path"/> <!-- the path of the file below the base -->
@@ -108,6 +109,21 @@
 	    
 	    <xsl:if test="$path = 'index.html'">
 	      <div class="SidePanel" id="right">
+	        <div class="NewsGroup">
+	          <h1>Latest Versions</h1>
+		      <xsl:for-each select="document('../data/versions.xml')">
+		      	<xsl:for-each select="versions/branch">
+		          <h2><xsl:value-of select="name"/></h2>
+		          <ul>
+		          <xsl:for-each select="version">
+		            <li><a href="download.html"><xsl:value-of select="."/>: <xsl:value-of select="@number"/></a></li>
+		          </xsl:for-each>
+		          </ul>
+		        </xsl:for-each>
+	          </xsl:for-each>
+	          <p class="NewsMore"><a href="versioning.html">About jMock version numbers...</a></p>
+	        </div>
+	        
 	        <div class="NewsGroup">
 	          <h1>Recent News</h1>
 				<xsl:for-each select="document('../content/news-rss2.xml')/rss/channel/item[position() &lt;= 5]">

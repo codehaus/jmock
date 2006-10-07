@@ -9,6 +9,8 @@ OUTPUT=$(CONTENT:content/%=$(OUTDIR)/%) $(SKIN:templates/%=$(OUTDIR)/%)
 
 all: $(OUTPUT)
 
+$(OUTDIR)/index.html: data/versions.xml
+
 $(OUTDIR)/%.html: content/%.html templates/skin.xslt
 	@mkdir -p $(OUTDIR)
 	xsltproc \

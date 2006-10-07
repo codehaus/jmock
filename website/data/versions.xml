@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<versions>
+  <branch>
+    <name>jMock 1 (Java 1.3 and above)</name>
+    <version number="1.1.0">Stable</version>
+  </branch>
+  <branch>
+    <name>jMock 2 (Java 5 and above)</name>
+    <version number="2.0.0-alpha">Bleeding Edge</version>
+  </branch>
+</versions>
