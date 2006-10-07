@@ -181,7 +181,8 @@ ul, ol {
     margin-bottom: 12px;
 }
 
-#content .FirstChild {  /* IE doesn't understand first-child pseudoelement */
+/* IE doesn't understand the first-child pseudoclass, but sod 'em. */
+#content h1:first-child {
     margin-top: 0px;
 }
 

@@ -11,8 +11,16 @@
   <xsl:param name="path"/> <!-- the path of the file below the base -->
   <xsl:param name="news"/> <!-- absolute URL of the news feed file in the workspace -->
   
+  <xsl:output
+    method="xml"
+    version="1.0"
+    doctype-public="-//W3C//DTD XHTML 1.1//EN"
+    doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
+    indent="yes"/>
+  
+  
   <xsl:template match="/">
-	<html>
+	<html xmlns="http://www.w3.org/1999/xhtml">
 	  <head>
 	    <title>jMock - <xsl:value-of select="/html:html/html:head/html:title"/></title>
 	    <link media="screen" rel="stylesheet" title="Navigation View" type="text/css" href="{$base}/jmock.css"/>
@@ -37,8 +45,16 @@
 	      </xsl:choose>
 	      
 	      <div id="content">
-	        <xsl:copy-of select="/html:html/html:body/*"/>
+	        <xsl:apply-templates select="/html:html/html:body/*"/>
 	      </div>
+	      
+	      <div class="LinkFootnotes">
+	        <p class="LinkFootnotesHeader">Links:</p>
+	      	<xsl:for-each select="//html:a">
+	      		<p><xsl:number level="any" format="1"/>. <xsl:value-of select="."/>: <xsl:value-of select="@href"/></p>
+	      	</xsl:for-each>
+	      </div>
+	      
 	      <div class="Meta">
 	         <p><a href="http://cvs.jmock.codehaus.org/jmock/website/content/{$path}">Document History</a></p>
 	      </div>
@@ -139,5 +155,15 @@
 	    </xsl:if>
 	  </body>
 	</html>
+  </xsl:template>
+  
+  <xsl:template match="@*|node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="html:a">
+  	<xsl:copy-of select="."/><sup class="LinkFootnoteRef"><xsl:number level="any" format="1"/></sup>
   </xsl:template>
 </xsl:stylesheet>

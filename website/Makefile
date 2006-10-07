@@ -17,7 +17,8 @@ $(OUTDIR)/%.html: content/%.html templates/skin.xslt
 	  --nodtdattr \
 	  --stringparam base $(BASE) \
 	  --stringparam path $*.html \
-	  templates/skin.xslt $< > $@
+	  --output $@ \
+	  templates/skin.xslt $<
 
 $(OUTDIR)/%: content/%
 	@mkdir -p $(OUTDIR)
