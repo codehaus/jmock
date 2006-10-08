@@ -1,40 +1,47 @@
 # Make sure you have installed the catalog files for XHTML on your local filesystem
 
-OUTDIR=build/local
-BASE=$(PWD)/build/local
 
 CONTENT=$(shell find content -not -wholename '*/CVS*')
 SKIN=$(shell find templates -not -name *.xslt -and -not -wholename '*/CVS*')
-OUTPUT=$(CONTENT:content/%=$(OUTDIR)/%) $(SKIN:templates/%=$(OUTDIR)/%)
 
-all: $(OUTPUT)
+OUTDIR=build/local
+OUTPUT_LOCAL=$(CONTENT:content/%=$(OUTDIR)/%) $(SKIN:templates/%=$(OUTDIR)/%)
 
-$(OUTDIR)/index.html: data/versions.xml
+DISTDIR=build/dist
+OUTPUT_DIST=$(CONTENT:content/%=$(DISTDIR)/%) $(SKIN:templates/%=$(DISTDIR)/%)
+
+all: $(OUTPUT_LOCAL)
+dist: $(OUTPUT_DIST)
+
+$(OUTDIR)/index.html $(DISTDIR)/index.html: data/versions.xml
 
 $(OUTDIR)/%.html: content/%.html templates/skin.xslt
-	@mkdir -p $(OUTDIR)
+	@mkdir -p $(dir $@)
 	xsltproc \
 	  --nodtdattr \
-	  --stringparam base $(BASE) \
+	  --stringparam base $(PWD)/build/local \
 	  --stringparam path $*.html \
 	  --output $@ \
 	  templates/skin.xslt $<
 
-$(OUTDIR)/%: content/%
-	@mkdir -p $(OUTDIR)
+$(DISTDIR)/%.html: content/%.html templates/skin.xslt
+	@mkdir -p $(dir $@)
+	xsltproc \
+	  --nodtdattr \
+	  --stringparam base http://www.jmock.org \
+	  --stringparam path $*.html \
+	  --output $@ \
+	  templates/skin.xslt $<
+
+$(OUTDIR)/% $(DISTDIR)/%: content/%
+	@mkdir -p $(dir $@)
 	cp $< $@
 
-$(OUTDIR)/%: templates/%
-	@mkdir -p $(OUTDIR)
+$(OUTDIR)/% $(DISTDIR)/%: templates/%
+	@mkdir -p $(dir $@)
 	cp $< $@
-
-dist:
-	$(MAKE) BASE=http://www.jmock.org OUTDIR=build/dist clean all
 
 clean:
-	rm -rf $(OUTDIR)
-
-pristine:
 	rm -rf build
 
 again: clean all
