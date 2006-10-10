@@ -10,10 +10,10 @@ OUTPUT_LOCAL=$(CONTENT:content/%=$(OUTDIR)/%) $(SKIN:templates/%=$(OUTDIR)/%)
 DISTDIR=build/dist
 OUTPUT_DIST=$(CONTENT:content/%=$(DISTDIR)/%) $(SKIN:templates/%=$(DISTDIR)/%)
 
-all: $(OUTPUT_LOCAL)
+local: $(OUTPUT_LOCAL)
 dist: $(OUTPUT_DIST)
 
-$(OUTDIR)/index.html $(DISTDIR)/index.html: data/versions.xml
+$(OUTDIR)/index.html $(DISTDIR)/index.html: data/versions-*.xml
 
 $(OUTDIR)/%.html: content/%.html templates/skin.xslt
 	@mkdir -p $(dir $@)
@@ -44,4 +44,6 @@ $(OUTDIR)/% $(DISTDIR)/%: templates/%
 clean:
 	rm -rf build
 
-again: clean all
+rebuild-local: clean local
+
+rebuild-dist: clean dist
