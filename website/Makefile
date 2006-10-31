@@ -1,8 +1,8 @@
 # Make sure you have installed the catalog files for XHTML on your local filesystem
 
 
-CONTENT=$(shell find content -not -wholename '*/CVS*')
-SKIN=$(shell find templates -not -name *.xslt -and -not -wholename '*/CVS*')
+CONTENT=$(shell find content -not -name '*~' -and -not -wholename '*/CVS*')
+SKIN=$(shell find templates -not -name '*.xslt' -and -not -name '*~' -and -not -wholename '*/CVS*')
 
 OUTDIR=build/local
 OUTPUT_LOCAL=$(CONTENT:content/%=$(OUTDIR)/%) $(SKIN:templates/%=$(OUTDIR)/%)
