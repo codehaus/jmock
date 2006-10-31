@@ -4,8 +4,7 @@
     version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:v="http://www.jmock.org/xmlns/versions/1.0">
+    xmlns:html="http://www.w3.org/1999/xhtml">
   
   <xsl:param name="base"/> <!-- The base URL of the site -->
   <xsl:param name="path"/> <!-- the path of the file below the base -->
@@ -48,12 +47,14 @@
 	    <xsl:apply-templates select="/html:html/html:body/*"/>
 	  </div>
 	  
-	  <div class="LinkFootnotes">
-	    <p class="LinkFootnotesHeader">Links:</p>
-	    <xsl:for-each select="//html:a">
-	      <p><xsl:number level="any" format="1"/>. <xsl:value-of select="."/>: <xsl:value-of select="@href"/></p>
-	    </xsl:for-each>
-	  </div>
+          <xsl:if test="//html:a">
+    	    <div class="LinkFootnotes">
+	      <p class="LinkFootnotesHeader">Links:</p>
+	      <xsl:for-each select="//html:a">
+	        <p><xsl:number level="any" format="1"/>. <xsl:value-of select="."/>: <xsl:value-of select="@href"/></p>
+	      </xsl:for-each>
+	    </div>
+          </xsl:if>
 	  
 	  <div class="Meta">
 	    <p><a href="http://cvs.jmock.codehaus.org/jmock/website/content/{$path}">Document History</a></p>
