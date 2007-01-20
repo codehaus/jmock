@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf8"?>
+<!DOCTYPE 
+ html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+ "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>jMock 2 Cheat Sheet</title>
+  <link rel="stylesheet" type="text/css" href="cheat-sheet.css"/>
+</head>
+
+<body>
+<h1>jMock 2 Cheat Sheet</h1>
+
+<h2>Test Fixture Class</h2>
+
+<div class="Raw">
+<h3>Raw</h3>
+<div class="Source Java"><pre>
+public class AJMock2TestCase ... {
+    Mockery context = new Mockery();
+    
+    ...
+}
+</pre></div>
+</div>
+
+<div class="JUnit3">
+<h3>JUnit 3 Integration</h3>
+<div class="Source Java"><pre>
+public class AJMock2TestCase extends MockObjectTestCase {
+    ...
+}
+</pre></div>
+</div>
+
+<div class="JUnit4">
+<h3>JUnit 4 Integration</h3>
+<div class="Source Java"><pre>
+@RunWith(JMock.class)
+public class AJMock2TestCase {
+    Mockery context = new Mockery();
+    
+    ...
+}
+</pre></div>
+</div>
+
+<div class="Explanation">
+<p>A <code>Mockery</code> represents the context of the object under test: 
+the objects that it communicates with.  A Mockery creates mock objects and
+checks expectations that are set upon those mock objects.
+By convention the Mockery is stored in an instance variable named 
+<var>context</var>.</p>
+
+<p class="JUnit3">Tests written with JUnit 3 can extend MockObjectTestCase, in which case they don't need to
+explictly create or refer to the context.  Some of the method names are renamed to
+be more declarative:</p>
+
+<p class="JUnit4">Tests written with JUnit 4 do not need to extend a specific base class but
+must specify that they use jMock with the <code>@RunWith</code> attribute and must
+store the Mockery in an instance variable.</p>
+</div>
+
+<h2>Creating Mock Objects</h2>
+
+<div class="Raw">
+<h3>Raw</h3>
+<div class="Source Java"><pre>
+Sheep sheep = context.mock(Sheep.class);
+Sheep merino = context.mock(Sheep.class, "merino");
+</pre></div>
+</div>
+
+<div class="JUnit3">
+<h3>JUnit 3 Integration</h3>
+<div class="Source Java"><pre>
+Sheep sheep = mock(Sheep.class);
+Sheep merino = mock(Sheep.class, "merino");
+</pre></div>
+</div>
+
+<div class="JUnit4">
+<h3>JUnit 4 Integration</h3>
+<div class="Source Java"><pre>
+Sheep sheep = context.mock(Sheep.class);
+Sheep merino = context.mock(Sheep.class, "merino");
+</pre></div>
+</div>
+
+<p>Local variables holding references to mock objects must be declared as 
+<code>final</code> so that they can be used within expectation blocks (see below).</p>
+
+<h2>Tests with Expectations</h2>
+
+<div class="Raw">
+<h3>Raw</h3>
+<div class="Source Java"><pre>
+public void testSomeAction() {
+    context.check(new Expectations() {{
+        ... expectations go here ...
+    }});
+    
+    ... code being tested ...
+    
+    context.assertIsSatisfied();
+    
+    ... other assertions ...
+}
+</pre></div>
+</div>
+
+<div class="JUnit3 JUnit4">
+<h3>JUnit Integration</h3>
+<div class="Source Java"><pre>
+public void testSomeAction() {
+    context.check(new Expectations() {{
+        ... expectations go here ...
+    }});
+    
+    ... code being tested ...
+    
+    ... assertions ...
+}
+</pre></div>
+</div>
+
+<div class="JUnit3 JUnit4">
+<p>The JUnit 3 and JUnit 4 integration layers (see below) automatically assert 
+that all expectations have been satisfied.</p>
+</div>
+
+<h2>Expectations</h2>
+
+<p>Expectations have the following structure:</p>
+
+<div class="Source Java"><pre>
+<var>cardinality</var> (<var>mock-object</var>).<var>method</var>(<var>argument-constraints</var>);
+    will(<var>action</var>);
+</pre></div>
+
+<p>Some examples:</p>
+
+<div class="Source Java"><pre>
+one (sheep).eat(grass);      // The mock sheep will be told to eat the grass once only
+allowing (sheep).baa();      // The mock sheep can baa any number of times, or not at all
+ignoring (sheep);            // The mock sheep can do anything.
+one (merino).shear();        // The mock merino will be sheared once, returning wool
+    will(returnValue(wool));
+</pre></div>
+
+<h3>Cardinalities</h3>
+
+<table>
+<tr>
+  <td>one</td>
+  <td>The invocation is expected once and once only.</td>
+</tr>
+<tr>
+  <td>exactly(<var>n</var>)</td>
+  <td>The invocation is expected exactly <var>n</var> times.
+  Note: <code>one</code> is a convenient shorthand for
+  <code>exactly(1)</code>.</td>
+</tr>
+<tr>
+  <td>atLeast(<var>n</var>)</td>
+  <td>The invocation is expected at least <var>n</var>.</td>
+</tr>
+<tr>
+  <td>atMost(<var>n</var>)</td>
+  <td>The invocation is expected at most <var>n</var> times.</td>
+</tr>
+<tr>
+  <td>between(<var>min</var>,&nbsp;<var>max</var>)</td>
+  <td>The invocation is expected at least <var>min</var> times and at most
+  <var>max</var> times.</td>
+</tr>
+<tr>
+  <td>allowing</td>
+  <td>The invocation is allowed any number of times but does not have to happen.</td>
+</tr>
+<tr>
+  <td>ignoring</td>
+  <td>The same as <code>allowing</code>.  Allowing or ignoring should be
+  chosen to make the test code clearly express intent.</td>
+</tr>
+<tr>
+  <td>never</td>
+  <td>The invocation is not expected at all. This is used to make tests
+  more explicit and so easier to understand.</td>
+</tr>
+</table>
+
+<h3>Methods And Expectations</h3>
+
+<p>Expected methods are specified by a literal call to the method within an
+expectation block.</p>
+
+<p>Arguments passed to the method in an expectation will be compared for equality.</p>
+
+<div class="Source Java"><pre>
+one (calculator).add(1, 1); will(returnValue(2));
+one (calculator).add(2, 2); will(returnValue(5));
+</pre></div>
+
+<p>To define looser constraints, specify <em>all</em> arguments as matchers 
+within <code>with</code> clauses:</p>
+
+<div class="Source Java"><pre>
+allowing (calculator).add(with(any(int.class)), with(any(int.class)));
+</pre></div>
+
+<h3>Argument Matchers</h3>
+<p>Some commonly used matchers:</p>
+<table>
+<tr>
+  <td>eq(<var>n</var>)</td>
+  <td>The argument is equal to <var>n</var>.</td>
+</tr>
+<tr>
+  <td>same(<var>o</var>)</td>
+  <td>The argument is the same object as <var>o</var>.</td>
+</tr>
+<tr>
+  <td>null</td>
+  <td>The argument is null.</td>
+</tr>
+<tr>
+  <td>any(Class&lt;T&gt; type)</td>
+  <td>The argument is any value of type T.</td>
+</tr>
+<tr>
+  <td>not(<var>m</var>)</td>
+  <td>The argument does not match <var>m</var>.</td>
+</tr>
+<tr>
+  <td>anyOf(<var>m1</var>, <var>m2</var>, ...)</td>
+  <td>The argument matches one of <var>m1</var>, <var>m2</var>...</td>
+</tr>
+<tr>
+  <td>allOf(<var>m1</var>, <var>m2</var>, ...)</td>
+  <td>The argument matches all of <var>m1</var>, <var>m2</var>...</td>
+</tr>
+</table>
+
+<h3>Actions</h3>
+
+<table>
+<tr>
+  <td>returnValue(<var>v</var>)</td>
+  <td>Return <var>v</var> to the caller</td>
+</tr>
+<tr>
+  <td>throwException(<var>e</var>)</td>
+  <td>Throw <var>e</var> to the caller.</td>
+</tr>
+</table>
+
+</body>
+</html>
