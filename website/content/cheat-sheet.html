@@ -126,7 +126,7 @@ public void testSomeAction() {
 </div>
 
 <div class="JUnit3 JUnit4">
-<p>The JUnit 3 and JUnit 4 integration layers (see below) automatically assert 
+<p>The JUnit 3 and JUnit 4 integration layers automatically assert 
 that all expectations have been satisfied.</p>
 </div>
 
@@ -137,14 +137,19 @@ that all expectations have been satisfied.</p>
 <div class="Source Java"><pre>
 <var>cardinality</var> (<var>mock-object</var>).<var>method</var>(<var>argument-constraints</var>);
     will(<var>action</var>);
+    named(<var>name</var>);
+    before(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);
+    after(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);
 </pre></div>
+
+<p>Except for the cardinality and the mock object, all clauses are optional.</p>
 
 <p>Some examples:</p>
 
 <div class="Source Java"><pre>
 one (sheep).eat(grass);      // The mock sheep will be told to eat the grass once only
 allowing (sheep).baa();      // The mock sheep can baa any number of times, or not at all
-ignoring (sheep);            // The mock sheep can do anything.
+ignoring (sheep);            // The mock sheep can do anything; this test ignores it.
 one (merino).shear();        // The mock merino will be sheared once, returning wool
     will(returnValue(wool));
 </pre></div>
@@ -253,6 +258,25 @@ allowing (calculator).add(with(any(int.class)), with(any(int.class)));
 <tr>
   <td>throwException(<var>e</var>)</td>
   <td>Throw <var>e</var> to the caller.</td>
+</tr>
+</table>
+
+<h3>Ordering Constraints</h3>
+
+<table>
+<tr>
+  <td>named(<var>name</var>);</td>
+  <td>Assigns a name to the last expectation.</td>
+</tr>
+<tr>
+  <td>before(<var>name_1</var>,&nbsp;<var>name_2</var>,&nbsp;...,&nbsp;<var>name_n</var>);</td>
+  <td>Constrains the last expectation to occur before the expectations that have
+  the names given as parameters.</td>
+</tr>
+<tr>
+  <td>after(<var>name_1</var>,&nbsp;<var>name_2</var>,&nbsp;...,&nbsp;<var>name_n</var>);</td>
+  <td>Constrains the last expectation to occur after the expectations that have
+  the names given as parameters.</td>
 </tr>
 </table>
 
