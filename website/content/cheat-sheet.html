@@ -97,7 +97,7 @@ Sheep merino = context.mock(Sheep.class, "merino");
 <h3>Raw</h3>
 <div class="Source Java"><pre>
 public void testSomeAction() {
-    context.check(new Expectations() {{
+    context.checking(new Expectations() {{
         ... expectations go here ...
     }});
     
@@ -110,11 +110,26 @@ public void testSomeAction() {
 </pre></div>
 </div>
 
-<div class="JUnit3 JUnit4">
-<h3>JUnit Integration</h3>
+<div class="JUnit3">
+<h3>JUnit 3 Integration</h3>
 <div class="Source Java"><pre>
 public void testSomeAction() {
-    context.check(new Expectations() {{
+    checking(new Expectations() {{
+        ... expectations go here ...
+    }});
+    
+    ... code being tested ...
+    
+    ... assertions ...
+}
+</pre></div>
+</div>
+
+<div class="JUnit4">
+<h3>JUnit 4 Integration</h3>
+<div class="Source Java"><pre>
+public void testSomeAction() {
+    context.checking(new Expectations() {{
         ... expectations go here ...
     }});
     
@@ -219,16 +234,12 @@ allowing (calculator).add(with(any(int.class)), with(any(int.class)));
 <p>Some commonly used matchers:</p>
 <table>
 <tr>
-  <td>eq(<var>n</var>)</td>
+  <td>equal(<var>n</var>)</td>
   <td>The argument is equal to <var>n</var>.</td>
 </tr>
 <tr>
   <td>same(<var>o</var>)</td>
   <td>The argument is the same object as <var>o</var>.</td>
-</tr>
-<tr>
-  <td>null</td>
-  <td>The argument is null.</td>
 </tr>
 <tr>
   <td>any(Class&lt;T&gt; type)</td>
