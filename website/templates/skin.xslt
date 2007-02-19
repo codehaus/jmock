@@ -66,9 +66,11 @@
 	  <div class="MenuGroup">
 	    <h1><a href="download.html">Software</a></h1>
 	    <ul>
-	      <li><a href="download.html">Download</a></li>
+	      <xsl:apply-templates select="document('../data/versions-jmock1.xml')"/>
+	      <xsl:apply-templates select="document('../data/versions-jmock2.xml')"/>
 	      <li><a href="repository.html">Anonymous CVS Access</a></li>
 	      <li><a href="license.html">Project License</a></li>
+	      <p class="NewsMore"><a href="versioning.html">About jMock version numbers...</a></p>
 	    </ul>
 	  </div>
 	  
@@ -118,13 +120,6 @@
 	
 	<xsl:if test="$path = 'index.html'">
 	  <div class="SidePanel" id="right">
-	    <div class="NewsGroup">
-	      <h1>Latest Versions</h1>
-	      <xsl:apply-templates select="document('../data/versions-jmock1.xml')"/>
-	      <xsl:apply-templates select="document('../data/versions-jmock2.xml')"/>
-	      <p class="NewsMore"><a href="versioning.html">About jMock version numbers...</a></p>
-	    </div>
-	    
 	    <div class="NewsGroup">
 	      <h1>Recent News</h1>
 	      <xsl:for-each select="document('../content/news-rss2.xml')/rss/channel/item[position() &lt;= 5]">
