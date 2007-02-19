@@ -32,7 +32,7 @@ $(OUTDIR)/%: templates/%
 	cp $< $@
 
 $(OUTDIR)/%.png: assets/%.svg
-	inkscape --export-png=$@ --export-area-drawing --export-area-snap --export-height=80 $<
+	inkscape --export-png=$@ --export-area-drawing --export-area-snap --export-width=176 $<
 
 clean:
 	rm -rf build

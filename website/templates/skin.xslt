@@ -56,65 +56,39 @@
 	      </xsl:for-each>
 	    </div>
           </xsl:if>
-	  
-	  <div class="Meta">
-	    <p><a href="http://cvs.jmock.codehaus.org/jmock/website/content/{$path}">Document History</a></p>
-	  </div>
 	</div>
 	
 	<div class="SidePanel" id="left">
 	  <div class="MenuGroup">
 	    <h1><a href="download.html">Software</a></h1>
-	    <ul>
-	      <xsl:apply-templates select="document('../data/versions-jmock1.xml')"/>
-	      <xsl:apply-templates select="document('../data/versions-jmock2.xml')"/>
-	      <li><a href="repository.html">Anonymous CVS Access</a></li>
-	      <li><a href="license.html">Project License</a></li>
-	      <p class="NewsMore"><a href="versioning.html">About jMock version numbers...</a></p>
-	    </ul>
+	    <xsl:apply-templates select="document('../data/versions-jmock1.xml')"/>
+	    <xsl:apply-templates select="document('../data/versions-jmock2.xml')"/>
+	    <p><a href="repository.html">Anonymous CVS Access</a></p>
+	    <p><a href="license.html">Project License</a></p>
+	    <p><a href="versioning.html">jMock Versioning</a></p>
 	  </div>
 	  
 	  <div class="MenuGroup">
 	    <h1><a href="docs.html">Documentation</a></h1>
-	    <ul>
-	      <li><a href="getting-started.html">Getting Started</a></li>
-	      <li><a href="docs/javadoc/index.html" target="jmock-javadoc">JavaDocs</a></li>
-	      <li class="More"><a href="docs.html">More...</a></li>
-	    </ul>
+	    <p><a href="getting-started.html">Getting Started</a></p>
+	    <p><a href="docs/javadoc/index.html" target="jmock-javadoc">JavaDocs</a></p>
+	    <p><a href="http://www.mockobjects.com">All about Mock Objects</a></p>
+	    <p class="More"><a href="docs.html">More...</a></p>
 	  </div>
 	  
 	  <div class="MenuGroup">
 	    <h1>User Support</h1>
-	    <ul>
-	      <li><a href="mailing-lists.html">Mailing Lists</a></li>
-	      <li><a href="http://jira.codehaus.org/secure/BrowseProject.jspa?id=10336">Issue Tracker</a></li>
-	      <li><a href="news-rss2.xml">News Feed (RSS 2.0)</a></li>
-	    </ul>
+	    <p><a href="mailing-lists.html">Mailing Lists</a></p>
+	    <p><a href="http://jira.codehaus.org/secure/BrowseProject.jspa?id=10336">Issue Tracker</a></p>
+	    <p><a href="news-rss2.xml">News Feed (RSS 2.0)</a></p>
 	  </div>
 	  
 	  <div class="MenuGroup">
 	    <h1><a href="development.html">Development</a></h1>
-	    <ul>
-	      <li><a href="how-to-contribute.html">How to Contribute</a></li>
-	      <li><a href="team.html">Development Team</a></li>
-	      <li class="More"><a href="development.html">More...</a></li>
-	    </ul>
-	  </div>
-	  
-	  <div class="MenuGroup">
-	    <h1>Extensions</h1>
-	    <ul>
-	      <li><a href="http://jdummy.sf.net">jDummy</a></li>
-	    </ul>
-	  </div>
-	  
-	  <div class="MenuGroup">
-	    <h1>Related Sites</h1>
-	    <ul>
-	      <li><a href="http://www.mockobjects.com">All about Mock Objects</a></li>
-	      <li><a href="http://www.junit.org">JUnit</a></li>
-	      <li><a href="http://www.codehaus.org">Project hosted by Codehaus</a></li>
-	    </ul>
+	    <p><a href="how-to-contribute.html">How to Contribute</a></p>
+	    <p><a href="team.html">Development Team</a></p>
+	    <p><a href="http://www.codehaus.org">Project hosted by Codehaus</a></p>
+	    <p class="More"><a href="development.html">More...</a></p>
 	  </div>
 	</div>
 	
