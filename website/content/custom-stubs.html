@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
-<!DOCTYPE 
- html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +9,7 @@
 </head>
 
 <body>
-<h1>Custom Stubs in jMock</h1>
+<h1>Custom Actions in jMock</h1>
 
 <h2>or <i>Unusual Behaviour Deserves to be Mocked</i></h2>
 
@@ -45,9 +44,9 @@ class to stub the side effect of the <code>Named</code> objects.</p>
 <p>To write a stub:</p>
 <ol>
   <li><p>Write a class that implements the <code><a
-    href="java:org.jmock.core.Stub">Stub</a></code> interface.
-    Here's a stub that adds an element to a List received as the first
-    argument of the method.</p>
+    href="java:org.jmock.core.Stub">Stub</a></code> interface. Here's a stub
+    that adds an element to a List received as the first argument of the
+    method.</p>
 
     <div class="Source Java">
     <pre>public class AddToListStub implements Stub

@@ -3,17 +3,16 @@
 
 CONTENT=$(shell find content -not -name '*~' -and -not -wholename '*/CVS*')
 SKIN=$(shell find templates -not -name '*.xslt' -and -not -name '*~' -and -not -wholename '*/CVS*')
+ASSETS=$(shell find assets -not -name '*~' -and -not -wholename '*/CVS*')
 
-OUTDIR=build/local
-OUTPUT_LOCAL=$(CONTENT:content/%=$(OUTDIR)/%) $(SKIN:templates/%=$(OUTDIR)/%)
+OUTDIR=build
+OUTPUT=$(CONTENT:content/%=$(OUTDIR)/%) \
+       $(SKIN:templates/%=$(OUTDIR)/%) \
+       $(ASSETS:assets/%.svg=$(OUTDIR)/%.png)
 
-DISTDIR=build/dist
-OUTPUT_DIST=$(CONTENT:content/%=$(DISTDIR)/%) $(SKIN:templates/%=$(DISTDIR)/%)
+all: $(OUTPUT)
 
-local: $(OUTPUT_LOCAL)
-dist: $(OUTPUT_DIST)
-
-$(OUTDIR)/index.html $(DISTDIR)/index.html: data/versions-*.xml
+$(OUTDIR)/index.html: data/versions-*.xml
 
 $(OUTDIR)/%.html: content/%.html templates/skin.xslt
 	@mkdir -p $(dir $@)
@@ -24,26 +23,18 @@ $(OUTDIR)/%.html: content/%.html templates/skin.xslt
 	  --output $@ \
 	  templates/skin.xslt $<
 
-$(DISTDIR)/%.html: content/%.html templates/skin.xslt
-	@mkdir -p $(dir $@)
-	xsltproc \
-	  --nodtdattr \
-	  --stringparam base http://www.jmock.org \
-	  --stringparam path $*.html \
-	  --output $@ \
-	  templates/skin.xslt $<
-
-$(OUTDIR)/% $(DISTDIR)/%: content/%
+$(OUTDIR)/%: content/%
 	@mkdir -p $(dir $@)
 	cp $< $@
 
-$(OUTDIR)/% $(DISTDIR)/%: templates/%
+$(OUTDIR)/%: templates/%
 	@mkdir -p $(dir $@)
 	cp $< $@
+
+$(OUTDIR)/%.png: assets/%.svg
+	inkscape --export-png=$@ --export-area-drawing --export-area-snap --export-height=80 $<
 
 clean:
 	rm -rf build
 
-rebuild-local: clean local
-
-rebuild-dist: clean dist
+again: clean all
