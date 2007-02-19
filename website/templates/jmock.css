@@ -133,9 +133,8 @@ ul, ol {
 #banner {
     margin: 0px;
     border: 0px;
-    border-bottom: 1px solid #aaf;
     padding: 0px;
-    background-color: #e0e0f0;
+    background-color: white;
     color: #006;
     vertical-align: bottom;
 }
@@ -173,6 +172,7 @@ ul, ol {
 #content h1 {
     width: 100%;
     font-size: 18px;
+    -moz-border-radius: 18px 0px 0px 0px;
     background-color: #006;
     color: white;
     padding: 2px;
@@ -330,38 +330,47 @@ ul, ol {
     padding: 2px;
 }
 
-/*---------------------------------------------------------------------------
- *  Menus
- */
-
-.MenuGroup {
-    border-left: 1px solid #aaf;
-    border-top: 1px solid #aaf;
-    border-bottom: 1px solid white; /* IE work-around */
+.SidePanel > div {
+    border: 1px solid #006;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
     
     margin-bottom: 8px;
     background-color: white;
     color: #006;
+    background-color: #eeeeff;
 }
 
+.SidePanel h1 {
+    background-color: #006;
+    color: #ffffff;
+}
+
+.SidePanel a { text-decoration: none; }
+
+.SidePanel a:link { color: #006; }
+.SidePanel a:visited { color: #006; }
+.SidePanel a:active { color: red; }
+.SidePanel a:hover { color: red; }
+
+.SidePanel h1 a:link { color: #ffffff; }
+.SidePanel h1 a:visited { color: #ffffff; }
+
+
+/*---------------------------------------------------------------------------
+ *  Menus
+ */
+
 .More {
-		width: 100%;
-		text-align: right;
+    width: 100%;
+    text-align: right;
+    padding-right: 8px;
 }
 
 
 /*---------------------------------------------------------------------------
  *  News panel
  */
-
-.NewsGroup {
-    border-left: 1px solid #aaf;
-    border-top: 1px solid #aaf;
-    border-bottom: 1px solid white; /* IE workaround */
-    margin-bottom: 8px;
-    
-    color: #006;
-}
 
 .NewsItem {
     margin: 4px;
@@ -392,10 +401,10 @@ ul, ol {
 .NewsText a:hover { color: red; }
 
 .NewsMore {
-		font-size: smaller;
-		margin: 4px;
-		margin-top: 12px;
-		text-align: left;
+    font-size: smaller;
+    margin: 4px;
+    margin-top: 12px;
+    text-align: left;
 }
 
 .NewsGroup td {
