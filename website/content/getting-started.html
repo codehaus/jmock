@@ -1,8 +1,5 @@
-<?xml version="1.0"?>
-<!DOCTYPE 
- html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
- "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+      "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="" />
@@ -13,10 +10,12 @@
 <h1>Getting Started</h1>
 
 <p>This guide assumes you are familiar with unit-testing and <a
-href="http://junit.org/">JUnit</a>.</p>
+href="http://junit.org/">JUnit</a> 3.8.x. jMock can also be used with JUnit 4
+and provides plug-in points that allow you to adapt it to work with any
+testing framework of your choice.</p>
 
-<p>For a simple example we are going to test a publish/subscribe message
-system. A Publisher sends objects to zero or more Subscribers.  We want to
+<p>For this simple example we are going to test a publish/subscribe message
+system. A Publisher sends objects to zero or more Subscribers. We want to
 test the Publisher, which involves testing its interactions with its
 Subscribers.</p>
 
@@ -33,47 +32,51 @@ Subscriber. To test interactions between the Publisher and the Subscriber we
 will use a mock Subscriber object.</p>
 
 <p>First we must import the jMock classes, define our test fixture class and
-define a test case method.</p>
+create a "Mockery" that represents the context in which the Publisher exists.
+The context mocks out the objects that the Publisher collaborates with (in
+this case a Subscriber) and checks that they are used correctly.</p>
 
 <div class="Source Java">
 <pre>import org.jmock.*;
 
-class PublisherTest extends MockObjectTestCase {
-    public void testOneSubscriberReceivesAMessage() {
-    }
+class PublisherTest extends TestCase {
+    Mockery context = new Mockery();
+    ...    
 }</pre>
 </div>
+
+<p>Now we want to write the method that will run our test:</p>
+<pre>public void testOneSubscriberReceivesAMessage() {
+    ...
+}
+</pre>
 
 <p>We will now write the body of the
 <code>testOneSubscriberReceivesAMessage</code> method.</p>
 
 <p>We first <i>set up</i> the context in which our test will execute. We
-create a Publisher to test.  We create a mock Subscriber that should receive
-the message.  We then register the Subscriber with the Publisher. Finally we
+create a Publisher to test. We create a mock Subscriber that should receive
+the message. We then register the Subscriber with the Publisher. Finally we
 create a message object to publish.</p>
 
 <div class="Source Java">
-<pre>Mock mockSubscriber = mock(Subscriber.class);
+<pre>final Subscriber subscriber = mock(Subscriber.class);
+
 Publisher publisher = new Publisher();
-publisher.add( (Subscriber)mockSubscriber.proxy() );
+publisher.add(subscriber);
 
 final String message = "message";</pre>
 </div>
 
 <p>Next we define <i>expectations</i> on the mock Subscriber that specify the
-methods that we expect to be called upon it during the test run.  We expect
-the receive method to be called with a single argument, the message that will
-be sent.  The <code>eq</code> method is defined in the MockObjectTestCase
-class and specifies a &quot;<a href="constraints.html">constraint</a>&quot; 
-on the value of the argument passed to the subscriber: 
-we expect the argument to be the equal to the <var>message</var>, but not necessarily
-the same object.  (jMock provides <a href="constraints.html">several constraint types</a>
-that can be used to precisely specify expected argument values).
-We don't need to specify what will be returned from the receive method because it has 
-a void return type.</p>
+methods that we expect to be called upon it during the test run. We expect
+the receive method to be called once with a single argument, the message that
+will be sent.</p>
 
 <div class="Source Java">
-<pre>mockSubscriber.expects(once()).method("receive").with( eq(message) );</pre>
+<pre>context.checking(new Expectations() {{
+    one (subscriber).receive(message);
+}});</pre>
 </div>
 
 <p>We then <i>execute</i> the code that we want to test.</p>
@@ -82,34 +85,37 @@ a void return type.</p>
 <pre>publisher.publish(message);</pre>
 </div>
 
-<p>After the test has finished, jMock will <i>verify</i> that the mock 
-Subscriber was called as expected.  If the expected calls were not
-made, the test will fail.</p>
+<p>After the test has finished, jMock will <i>verify</i> that the mock
+Subscriber was called as expected. If the expected calls were not made, the
+test will fail.</p>
 
 <p>Here is the complete test.</p>
 
 <div class="Source Java">
 <pre>import org.jmock.*;
 
-class PublisherTest extends MockObjectTestCase {
+class PublisherTest extends TestCase {
     public void testOneSubscriberReceivesAMessage() {
         // set up
-        Mock mockSubscriber = mock(Subscriber.class);
+        final Subscriber subscriber = mock(Subscriber.class);
         Publisher publisher = new Publisher();
-        publisher.add((Subscriber) mockSubscriber.proxy());
+        publisher.add(subscriber);
         
         final String message = "message";
         
         // expectations
-        mockSubscriber.expects(once()).method("receive").with( eq(message) );
-        
+        context.checking(new Expectations() {{
+            one (subscriber).receive(message);
+        }});    
         // execute
         publisher.publish(message);
     }
 }</pre>
 </div>
 
-<p>That concludes this quick introduction.  More advanced topics are covered
-in <a href="docs.html#tutorials">other tutorials</a>.</p>
+<p>That concludes this quick introduction. The <a
+href="cheat-sheet.html">Cheat Sheet</a> provides a broader overview of the
+jMock API. More advanced topics are covered in <a href="cookbook.html">other
+cookbook recipes</a>.</p>
 </body>
 </html>
