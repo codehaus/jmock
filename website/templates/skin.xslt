@@ -31,7 +31,7 @@
       
       <body>
 	<div id="banner">
-	  <a href="{$base}/index.html"><img id="logo" src="logo.png" alt="jMock"/></a>
+	  <a href="index.html"><img id="logo" src="logo.png" alt="jMock"/></a>
 	</div>
 	
 	<div id="center">
