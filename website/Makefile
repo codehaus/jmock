@@ -38,3 +38,6 @@ clean:
 	rm -rf build
 
 again: clean all
+
+continually:
+	while [ true ]; do make all; sleep 1; done
