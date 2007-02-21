@@ -21,11 +21,9 @@ Subscribers.</p>
 
 <p>The Subscriber interface looks like this:</p>
 
-<div class="Source Java">
-<pre>interface Subscriber {
+<pre class="Source Java">interface Subscriber {
     void receive(String message);
 }</pre>
-</div>
 
 <p>We will test that a Publisher sends a message to a single registered
 Subscriber. To test interactions between the Publisher and the Subscriber we
@@ -36,17 +34,16 @@ create a "Mockery" that represents the context in which the Publisher exists.
 The context mocks out the objects that the Publisher collaborates with (in
 this case a Subscriber) and checks that they are used correctly.</p>
 
-<div class="Source Java">
-<pre>import org.jmock.*;
+<pre class="Source Java">import org.jmock.Mockery;
 
 class PublisherTest extends TestCase {
     Mockery context = new Mockery();
     ...    
 }</pre>
-</div>
 
 <p>Now we want to write the method that will run our test:</p>
-<pre>public void testOneSubscriberReceivesAMessage() {
+
+<pre class="Source Java">public void testOneSubscriberReceivesAMessage() {
     ...
 }
 </pre>
@@ -59,31 +56,25 @@ create a Publisher to test. We create a mock Subscriber that should receive
 the message. We then register the Subscriber with the Publisher. Finally we
 create a message object to publish.</p>
 
-<div class="Source Java">
-<pre>final Subscriber subscriber = mock(Subscriber.class);
+<pre class="Source Java">final Subscriber subscriber = mock(Subscriber.class);
 
 Publisher publisher = new Publisher();
 publisher.add(subscriber);
 
 final String message = "message";</pre>
-</div>
 
 <p>Next we define <i>expectations</i> on the mock Subscriber that specify the
 methods that we expect to be called upon it during the test run. We expect
 the receive method to be called once with a single argument, the message that
 will be sent.</p>
 
-<div class="Source Java">
-<pre>context.checking(new Expectations() {{
+<pre class="Source Java">context.checking(new Expectations() {{
     one (subscriber).receive(message);
 }});</pre>
-</div>
 
 <p>We then <i>execute</i> the code that we want to test.</p>
 
-<div class="Source Java">
-<pre>publisher.publish(message);</pre>
-</div>
+<pre class="Source Java">publisher.publish(message);</pre>
 
 <p>After the test has finished, jMock will <i>verify</i> that the mock
 Subscriber was called as expected. If the expected calls were not made, the
@@ -91,8 +82,8 @@ test will fail.</p>
 
 <p>Here is the complete test.</p>
 
-<div class="Source Java">
-<pre>import org.jmock.*;
+<pre class="Source Java">import org.jmock.Mockery;
+import org.jmock.Expectations;
 
 class PublisherTest extends TestCase {
     public void testOneSubscriberReceivesAMessage() {
@@ -106,12 +97,12 @@ class PublisherTest extends TestCase {
         // expectations
         context.checking(new Expectations() {{
             one (subscriber).receive(message);
-        }});    
+        }});
+
         // execute
         publisher.publish(message);
     }
 }</pre>
-</div>
 
 <p>That concludes this quick introduction. The <a
 href="cheat-sheet.html">Cheat Sheet</a> provides a broader overview of the

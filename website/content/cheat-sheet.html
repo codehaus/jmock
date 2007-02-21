@@ -16,34 +16,28 @@
 
 <div class="Raw">
 <h3>Raw</h3>
-<div class="Source Java"><pre>
-public class AJMock2TestCase ... {
+<pre class="Source Java">public class AJMock2TestCase ... {
     Mockery context = new Mockery();
     
     ...
-}
-</pre></div>
+}</pre>
 </div>
 
 <div class="JUnit3">
 <h3>JUnit 3 Integration</h3>
-<div class="Source Java"><pre>
-public class AJMock2TestCase extends MockObjectTestCase {
+<pre class="Source Java">public class AJMock2TestCase extends MockObjectTestCase {
     ...
-}
-</pre></div>
+}</pre>
 </div>
 
 <div class="JUnit4">
 <h3>JUnit 4 Integration</h3>
-<div class="Source Java"><pre>
-@RunWith(JMock.class)
+<pre class="Source Java">@RunWith(JMock.class)
 public class AJMock2TestCase {
     Mockery context = new Mockery();
     
     ...
-}
-</pre></div>
+}</pre>
 </div>
 
 <div class="Explanation">
@@ -66,26 +60,20 @@ store the Mockery in an instance variable.</p>
 
 <div class="Raw">
 <h3>Raw</h3>
-<div class="Source Java"><pre>
-Sheep sheep = context.mock(Sheep.class);
-Sheep merino = context.mock(Sheep.class, "merino");
-</pre></div>
+<pre class="Source Java">Sheep sheep = context.mock(Sheep.class);
+Sheep merino = context.mock(Sheep.class, "merino");</pre>
 </div>
 
 <div class="JUnit3">
 <h3>JUnit 3 Integration</h3>
-<div class="Source Java"><pre>
-Sheep sheep = mock(Sheep.class);
-Sheep merino = mock(Sheep.class, "merino");
-</pre></div>
+<pre class="Source Java">Sheep sheep = mock(Sheep.class);
+Sheep merino = mock(Sheep.class, "merino");</pre>
 </div>
 
 <div class="JUnit4">
 <h3>JUnit 4 Integration</h3>
-<div class="Source Java"><pre>
-Sheep sheep = context.mock(Sheep.class);
-Sheep merino = context.mock(Sheep.class, "merino");
-</pre></div>
+<pre class="Source Java">Sheep sheep = context.mock(Sheep.class);
+Sheep merino = context.mock(Sheep.class, "merino");</pre>
 </div>
 
 <p>Local variables holding references to mock objects must be declared as 
@@ -95,7 +83,7 @@ Sheep merino = context.mock(Sheep.class, "merino");
 
 <div class="Raw">
 <h3>Raw</h3>
-<div class="Source Java"><pre>
+<pre class="Source Java">
 public void testSomeAction() {
     context.checking(new Expectations() {{
         ... expectations go here ...
@@ -106,14 +94,12 @@ public void testSomeAction() {
     context.assertIsSatisfied();
     
     ... other assertions ...
-}
-</pre></div>
+}</pre>
 </div>
 
 <div class="JUnit3">
 <h3>JUnit 3 Integration</h3>
-<div class="Source Java"><pre>
-public void testSomeAction() {
+<pre class="Source Java">public void testSomeAction() {
     checking(new Expectations() {{
         ... expectations go here ...
     }});
@@ -121,14 +107,12 @@ public void testSomeAction() {
     ... code being tested ...
     
     ... assertions ...
-}
-</pre></div>
+}</pre>
 </div>
 
 <div class="JUnit4">
 <h3>JUnit 4 Integration</h3>
-<div class="Source Java"><pre>
-public void testSomeAction() {
+<pre class="Source Java">public void testSomeAction() {
     context.checking(new Expectations() {{
         ... expectations go here ...
     }});
@@ -136,8 +120,7 @@ public void testSomeAction() {
     ... code being tested ...
     
     ... assertions ...
-}
-</pre></div>
+}</pre>
 </div>
 
 <div class="JUnit3 JUnit4">
@@ -149,25 +132,21 @@ that all expectations have been satisfied.</p>
 
 <p>Expectations have the following structure:</p>
 
-<div class="Source Java"><pre>
-<var>cardinality</var> (<var>mock-object</var>).<var>method</var>(<var>argument-constraints</var>);
+<pre class="Source Java"><var>cardinality</var> (<var>mock-object</var>).<var>method</var>(<var>argument-constraints</var>);
     will(<var>action</var>);
     named(<var>name</var>);
     before(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);
-    after(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);
-</pre></div>
+    after(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);</pre>
 
 <p>Except for the cardinality and the mock object, all clauses are optional.</p>
 
 <p>Some examples:</p>
 
-<div class="Source Java"><pre>
-one (sheep).eat(grass);      // The mock sheep will be told to eat the grass once only
+<pre class="Source Java">one (sheep).eat(grass);      // The mock sheep will be told to eat the grass once only
 allowing (sheep).baa();      // The mock sheep can baa any number of times, or not at all
 ignoring (sheep);            // The mock sheep can do anything; this test ignores it.
 one (merino).shear();        // The mock merino will be sheared once, returning wool
-    will(returnValue(wool));
-</pre></div>
+    will(returnValue(wool));</pre>
 
 <h3>Cardinalities</h3>
 
@@ -218,17 +197,13 @@ expectation block.</p>
 
 <p>Arguments passed to the method in an expectation will be compared for equality.</p>
 
-<div class="Source Java"><pre>
-one (calculator).add(1, 1); will(returnValue(2));
-one (calculator).add(2, 2); will(returnValue(5));
-</pre></div>
+<pre class="Source Java">one (calculator).add(1, 1); will(returnValue(2));
+one (calculator).add(2, 2); will(returnValue(5));</pre>
 
 <p>To define looser constraints, specify <em>all</em> arguments as matchers 
 within <code>with</code> clauses:</p>
 
-<div class="Source Java"><pre>
-allowing (calculator).add(with(any(int.class)), with(any(int.class)));
-</pre></div>
+<pre class="Source Java">allowing (calculator).add(with(any(int.class)), with(any(int.class)));</pre>
 
 <h3>Argument Matchers</h3>
 <p>Some commonly used matchers:</p>
