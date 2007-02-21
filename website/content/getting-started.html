@@ -20,7 +20,6 @@ test the Publisher, which involves testing its interactions with its
 Subscribers.</p>
 
 <p>The Subscriber interface looks like this:</p>
-
 <pre class="Source Java">interface Subscriber {
     void receive(String message);
 }</pre>
@@ -33,7 +32,6 @@ will use a mock Subscriber object.</p>
 create a "Mockery" that represents the context in which the Publisher exists.
 The context mocks out the objects that the Publisher collaborates with (in
 this case a Subscriber) and checks that they are used correctly.</p>
-
 <pre class="Source Java">import org.jmock.Mockery;
 
 class PublisherTest extends TestCase {
@@ -42,11 +40,9 @@ class PublisherTest extends TestCase {
 }</pre>
 
 <p>Now we want to write the method that will run our test:</p>
-
 <pre class="Source Java">public void testOneSubscriberReceivesAMessage() {
     ...
-}
-</pre>
+}</pre>
 
 <p>We will now write the body of the
 <code>testOneSubscriberReceivesAMessage</code> method.</p>
@@ -55,7 +51,6 @@ class PublisherTest extends TestCase {
 create a Publisher to test. We create a mock Subscriber that should receive
 the message. We then register the Subscriber with the Publisher. Finally we
 create a message object to publish.</p>
-
 <pre class="Source Java">final Subscriber subscriber = mock(Subscriber.class);
 
 Publisher publisher = new Publisher();
@@ -67,13 +62,11 @@ final String message = "message";</pre>
 methods that we expect to be called upon it during the test run. We expect
 the receive method to be called once with a single argument, the message that
 will be sent.</p>
-
 <pre class="Source Java">context.checking(new Expectations() {{
     one (subscriber).receive(message);
 }});</pre>
 
 <p>We then <i>execute</i> the code that we want to test.</p>
-
 <pre class="Source Java">publisher.publish(message);</pre>
 
 <p>After the test has finished, jMock will <i>verify</i> that the mock
@@ -81,7 +74,6 @@ Subscriber was called as expected. If the expected calls were not made, the
 test will fail.</p>
 
 <p>Here is the complete test.</p>
-
 <pre class="Source Java">import org.jmock.Mockery;
 import org.jmock.Expectations;
 
@@ -104,9 +96,31 @@ class PublisherTest extends TestCase {
     }
 }</pre>
 
-<p>That concludes this quick introduction. The <a
-href="cheat-sheet.html">Cheat Sheet</a> provides a broader overview of the
-jMock API. More advanced topics are covered in <a href="cookbook.html">other
-cookbook recipes</a>.</p>
+<h2>Where Next?</h2>
+
+<p>The receive method mocked above does not return anything. Most of the time
+you will want to mock methods that return values or throw exceptions. To do
+this you will need to specify <a href="actions.html">actions</a> for your
+mocked methods.</p>
+
+<p>The test above expects the subscriber to receive a value that is exactly
+equal to the expected message. Often you don't want your tests to be this
+strict: you might want to test that the message contains a substring, but you
+don't care about the precise punctuation and whitespace. In other tests you
+might want your tests to be <em>more</em> strict: to test that the mock
+receives exactly the same object. To do this you will need to specify <a
+href="matchers.html">argument matchers</a> in your expectations.</p>
+
+<p>The test above only expected one call to one mock object. More
+sophisticated tests might need to specify expectations with different <a
+href="cardinalities.html">cardinalities</a> to allow some method calls to
+occur but not fail if they don't, expect methods to be called more than once
+or not all, or ignore mock objects that are not relevant. </p>
+
+<p>More advanced topics are covered in <a href="cookbook.html">other cookbook
+recipes</a>.</p>
+
+<p>The <a href="cheat-sheet.html">Cheat Sheet</a> provides a broader overview
+of the jMock API. </p>
 </body>
 </html>
