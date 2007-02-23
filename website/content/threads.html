@@ -1,8 +1,5 @@
-<?xml version="1.0"?>
-<!DOCTYPE 
- html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
- "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+      "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>Testing Multithreaded Code</title>
@@ -11,48 +8,54 @@
 <body>
 <h1>Testing Multithreaded Code</h1>
 
-<p>A question that is frequently asked on the <a href="http://www.jmock.org">jMock</a> users' 
-<a href="http://www.jmock.org/mailing-lists.html">mailing list</a> is 
-&quot;how do I use mock objects to test a class that spawns new threads&quot;?  
-The problem is that jMock appears to ignore unexpected calls if they are made on a different thread 
-than that which runs the test itself.  The mock object actually does throw an <code>AssertionFailedError</code> 
-when it receives an unexpected call, but the error terminates the concurrent thread instead of the test 
+<p>A question that is frequently asked on the <a
+href="http://www.jmock.org">jMock</a> users' <a
+href="http://www.jmock.org/mailing-lists.html">mailing list</a> is "how do I
+use mock objects to test a class that spawns new threads"? The problem is
+that jMock appears to ignore unexpected calls if they are made on a different
+thread than that which runs the test itself. The mock object actually does
+throw an <code>AssertionFailedError</code> when it receives an unexpected
+call, but the error terminates the concurrent thread instead of the test
 runner's thread.</p>
 
-<p>Here's a far-fetched example.  We have a guard and an alarm.  When the guard gets bored, he shouldn't ring 
-the alarm just for kicks.</p>
+<p>Here's an example. We have a guard and an alarm. When the guard sees a
+burglar, he should ring the alarm once only.</p>
 
-<div class="Source Java">
-<pre>public interface Alarm {
+<pre class="Source Java">public interface Alarm {
 	void ring();
 }
 
-public class testGuardDoesNotRingTheAlarmWhenHeGetsBored() {
-	Mock mockAlarm = mock(Alarm.class);
-	Guard guard = new Guard( (Alarm)alarm.proxy() );
+@Test
+public void ringsTheAlarmOnceWhenNoticesABurglar() {
+	final Alarm alarm = context.mock(Alarm.class);
+	Guard guard = new Guard(alarm);
 	
-	guard.getBored();
+	context.checking(new Expectations() {{
+		one (alarm).ring();
+	}});
+	
+	guard.notice(new Burglar());
 }</pre>
-</div>
 
 <p>Here's an implementation of Guard that should fail the test:</p>
 
-<div class="Source Java">
-<pre>public class Guard {
+<pre class="Source Java">public class Guard {
 	private Alarm alarm;
 	
 	public Guard( Alarm alarm ) {
 		this.alarm = alarm;
 	}
 	
-	public void getBored() {
+	public void notice(Burglar burglar) {
 		startRingingTheAlarm();
 	}
 	
 	private void startRingingTheAlarm() {
 		Runnable ringAlarmTask = new Runnable() {
 			public void run() {
-				alarm.ring();
+				for (int i = 0; i &lt; 10; i++) {
+					alarm.ring();
+				}
 			}
 		};
 		
@@ -60,144 +63,117 @@ public class testGuardDoesNotRingTheAlarmWhenHeGetsBored() {
 		ringAlarmThread.start();
 	}
 }</pre>
-</div>
 
-<p>However, the test will pass because the mock Alarm will throw an AssertionFailedError on the ringAlarmThread, 
-not the test runner's thread.</p>
+<p>Although that implementation is incorrect, the test will appear to pass
+because the mock Alarm will throw an AssertionFailedError on the
+ringAlarmThread, not the test runner's thread.</p>
 
-<p>The root of the problem is trying to use mock objects for integration testing. Mock objects are used for unit 
-testing in the traditional sense: to test units in isolation from other parts of the system. Threads, however, by 
-their very nature, require some kind of integration test. Concurrency and synchronisation are system-wide concerns 
-and code that creates threads must make use of operating system facilities to do so.</p>
+<p>The root of the problem is trying to use mock objects for integration
+testing. Mock objects are used for unit testing in the traditional sense: to
+test units in isolation from other parts of the system. Threads, however, by
+their very nature, require some kind of integration test. Concurrency and
+synchronisation are system-wide concerns and code that creates threads must
+make use of operating system facilities to do so.</p>
 
-<p>A solution is to separate the object that needs to run tasks from the details of how tasks are run and define 
-an interface between the two.  We can test the object that needs to run tasks by mocking the task runner, and test 
-the implementation of the task runner in integration tests.</p>
-
-<p>In our running example, we can introduce a TaskRunner interface to which the Guard passes tasks that it wants 
-to run instead of explicitly creating new threads.</p>
-
-<div class="Source Java">
-<pre>public interface TaskRunner {
-	void start( Runnable task );
-}</pre>
-</div>
+<p>A solution is to separate the object that needs to run tasks from the
+details of how tasks are run and define an interface between the two. We can
+test the object that needs to run tasks by mocking the task runner, and test
+the implementation of the task runner in integration tests. Java's standard
+concurrency library defines just such an interface: <a
+href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/Executor.html">java.util.concurrent.Executor</a>.
+In our example, we can pass an Executor to the Guard and change the Guard so
+that it asks the executor to run tasks instead of explicitly creating new
+threads.</p>
 
 <p>Our test then looks like:</p>
 
-<div class="Source Java">
-<pre>public class testGuardDoesNotRingTheAlarmWhenHeGetsBored() {
-	Mock mockAlarm = mock(Alarm.class);
-	TaskRunner taskRunner = ... // What goes here?
-	Guard guard = new Guard( (Alarm)alarm.proxy(), taskRunner );
+<pre class="Source Java">@Test
+public void ringsTheAlarmOnceWhenNoticesABurglar() {
+	final Alarm alarm = context.mock(Alarm.class);
+	Executor executor = ... // What goes here?
+	Guard guard = new Guard(alarm, executor);
 	
-	guard.getBored();
+	context.checking(new Expectations() {{
+		one (alarm).ring();
+	}});
+	
+	guard.notice(new Burglar());
 }</pre>
-</div>
 
-<p>But how should we implement the TaskRunner that we use in our test?  If we pass in a TaskRunner that creates a 
-new thread we'll be back where we started and our tests will still, wrongly, appear to pass.  We need to run the 
-task in the same thread as the test runner.  The easiest way to do that is to run the task immediately it is started,
-without spawning a thread at all.  To do this we could mock the TaskRunner interface and use a 
-<a href="custom-stubs.html">custom stub</a> to call back to the task's run method, but that's over-complicating things.
-It's much easier just to write a class that implements the interface:</p>
+<p>But how should we implement the Executor for our test? If we use an
+Executor that creates a new thread we'll be back where we started and our
+tests will still, wrongly, appear to pass. We need to run the task in the
+same thread as the test runner. To do this we could mock the Executor
+interface and use a <a href="custom-stubs.html">custom stub</a> to call back
+to the task's run method, but that's over-complicating things. It's much
+easier just to write a class that implements the Executor interface and lets
+us explicitly run the tasks after the <code>notice(Burglar)</code> method has
+returned:</p>
 
+<pre class="Source Java">public class DelayedExecutor implements Executor
+	private List&lt;Runnable&gt; delayedTasks = new ArrayList&lt;Runnable&gt;();
 
-<div class="Source Java">
-<pre>public class ImmediateTaskRunner implements TaskRunner {
-	public void start( Runnable task ) {
-		task.run();
+	public void execute(Runnable task) {
+		delayedTasks.add(task);
 	}
-}</pre>
-</div>
-
-<p>Our test then looks like:</p>
-
-<div class="Source Java">
-<pre>public class testGuardDoesNotRingTheAlarmWhenHeGetsBored() {
-	Mock mockAlarm = mock(Alarm.class);
-	TaskRunner taskRunner = new ImmediateTaskRunner();
-	Guard guard = new Guard( (Alarm)alarm.proxy(), taskRunner );
 	
-	guard.getBored();
+	public void runTasks() {
+		for (Runnable task : delayedTasks) {
+			task.run();
+		}
+                delayedTasks.clear();
+	}
+}
+
+@Test
+public void ringsTheAlarmOnceWhenNoticesABurglar() {
+	final Alarm alarm = context.mock(Alarm.class);
+	DelayedExecutor executor = new DelayedExecutor();
+	Guard guard = new Guard(alarm, executor);
+	
+	context.checking(new Expectations() {{
+		one (alarm).ring();
+	}});
+	
+	guard.notice(new Burglar());
+	executor.runTasks();	
 }</pre>
-</div>
 
-<p>And the implementation of the Guard and the task runner it uses look like this:</p>
-
-<div class="Source Java">
-<pre>public class Guard {
+<p>And the implementation of the Guard that uses an Executor looks like
+this:</p>
+<pre class="Source Java">public class Guard {
 	private Alarm alarm;
-	private TaskRunner taskRunner;
+	private Executor executor;
 	
-	public Guard( Alarm alarm, TaskRunner taskRunner ) {
+	public Guard(Alarm alarm, Executor executor) {
 		this.alarm = alarm;
-		this.taskRunner = taskRunner;
+		this.executor = executor;
 	}
 	
-	public void getBored() {
+	public void notice(Burglar burglar) {
 		startRingingTheAlarm();
 	}
 	
 	private void startRingingTheAlarm() {
 		Runnable ringAlarmTask = new Runnable() {
 			public void run() {
-				alarm.ring();
+				for (int i = 0; i &lt; 10; i++) {
+					alarm.ring();
+				}
 			}
 		};
-		
-		taskRunner.start(ringAlarmTask);
-	}
-}
-
-public class ConcurrentTaskRunner implements TaskRunner {
-	public void start( Runnable task ) {
-		(new Thread(task)).start();
+		executor.execute(ringAlarmTask);
 	}
 }</pre>
-</div>
 
-<p>Another solution for unit testing would be to run the task in the test runner's thread 
-<em>after</em> the call to <code>guard.getBored()</code> has finished. This might be useful if the Guard class 
-contains try...finally statements that mask test failures caused by the task. Again, we can create a TaskRunner 
-implementation to do this:</p>
+<p>It's still not correct, but at least our tests can detect the error
+now!</p>
 
-<div class="Source Java">
-<pre>public class DelayedTaskRunner implements TaskRunner {
-	private List delayedTasks = new ArrayList();
-
-	public void start( Runnable task ) {
-		delayedTasks.add(task);
-	}
-	
-	public void runTasks() {
-		for (Iterator i = delayedTasks.iterator(); i.hasNext(); ) {
-			((Runnable)i.next()).run();
-			i.remove();
-		}
-	}
-}
-
-public void testGuardDoesNotRingTheAlarmWhenHeGetsBored
-	Mock mockAlarm = mock(Alarm.class);
-	DelayedTaskRunner taskRunner = new DelayedTaskRunner();
-	Guard guard = new Guard( (Alarm)alarm.proxy(), taskRunner );
-	
-	guard.getBored();
-	taskRunner.runTasks();	
-}</pre>
-</div>
-
-<p>Pulling the mechanism for running tasks out of the object that needs tasks to be run can have other 
-benefits beyond easier unit testing.  One of the effects that Tim Mackinnon discovered on introducing mock 
-objects into a project was that being forced to test classes in isolation creates &quot;flex points&quot; in 
-the code that, spookily, are exactly where you need them as you evolve the codebase.  For example, it would 
-now be trivial to make our Guards use a shared thread pool instead of a ConcurrentTaskRunner.</p>
-
-
-<address>
-  Nat Pryce
-</address>
+<p>Beyond easy testing, the advantage of pulling out the Executor from the
+Guard is that the Guard does not hide its concurrency policy within its
+implementation. Concurrency is a system-wide concern and should be controlled
+outside the Guard object. By passing an appropriate Executor to its
+constructor, the application can easily adapt the Guard to the application's
+threading policy without having to change the Guard's implementation.</p>
 </body>
 </html>
-

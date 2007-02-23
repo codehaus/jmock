@@ -1,5 +1,7 @@
 # Make sure you have installed the catalog files for XHTML on your local filesystem
 
+SITE=nat@localhost:/home/nat/tmp/jmock-website-test/
+
 
 CONTENT=$(shell find content -not -name '*~' -and -not -wholename '*/CVS*')
 SKIN=$(shell find templates -not -name '*.xslt' -and -not -name '*~' -and -not -wholename '*/CVS*')
@@ -41,3 +43,6 @@ again: clean all
 
 continually:
 	while [ true ]; do make all; sleep 1; done
+
+publish: again
+	rsync --rsh=ssh --exclude-cvs build/ $SITE
