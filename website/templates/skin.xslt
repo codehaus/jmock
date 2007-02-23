@@ -25,13 +25,28 @@
 	<title>jMock - <xsl:value-of select="/html:html/html:head/html:title"/></title>
 	<link media="screen" rel="stylesheet" type="text/css" href="jmock.css"/>
 	<link media="print" rel="stylesheet" type="text/css" href="print.css"/>
+	<style id="testFrameworkStyle" type="text/css"></style>
+	
+	<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+	
 	<xsl:copy-of select="html:html/html:head/*[not(name()='title')]"/>
       </head>
       
       <body>
 	<div id="banner">
 	  <a href="index.html"><img id="logo" src="logo.png" alt="jMock"/></a>
+	  <div id="testFrameworkSelector">
+	    Preferred test framework:
+	    <a id="selectorJUnit3" href="#"
+	       onclick="selectTestFramework('JUnit3')">JUnit 3</a>, 
+	    <a id="selectorJUnit4" href="#"
+	       onclick="selectTestFramework('JUnit4')">JUnit 4</a>, 
+	    <a id="selectorRaw" href="#"
+	       onclick="selectTestFramework('Raw')">Other</a>.
+	  </div>
 	</div>
+	
+	<script type="text/javascript" src="prefs.js"/>
 	
 	<div id="center">
 	  <xsl:choose>

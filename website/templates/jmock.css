@@ -24,7 +24,7 @@
     width: 184px;
     top: 88px;
     margin: 0px;
-    padding 0px;
+    padding: 0px;
 }
 
 #right {
@@ -34,7 +34,7 @@
     width: 264px;
     top: 88px;
     margin: 0px;
-    padding 0px;
+    padding: 0px;
 }
 
 .Content3Column {
@@ -207,11 +207,10 @@ ul, ol {
 }
 
 .Source:before {
-	margin: 0px;
-	padding: 0px;
-	border: 0px;
-	font-size: inherit;
-	line-spacing: 100%;
+     margin: 0px;
+     padding: 0px;
+     border: 0px;
+     font-size: inherit;
 }
 
 .DynaMock:before {
@@ -405,3 +404,19 @@ ul, ol {
 .LinkFootnotes, .LinkFootnoteRef {
     display: none;
 }
+
+#testFrameworkSelector {
+    color: #e0e0ff;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+#testFrameworkSelector a:link {
+    color: #e0e0ff;
+}
+
+#testFrameworkSelector a:visited {
+    color: #e0e0ff;
+}
+
