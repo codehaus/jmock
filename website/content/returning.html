@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+      "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>returning.html</title>
+  <meta name="generator" content="Amaya 9.53, see http://www.w3.org/Amaya/" />
+</head>
+
+<body>
+<h1>Returning Values from Mocked Methods</h1>
+
+<h2>The Simple Case</h2>
+
+<p>You can return values from mocked methods by using the
+<code>returnValue</code> action within the "<code>will</code>" clause of an
+expectation.</p>
+<pre class="Source Java">one (calculator).add(2, 2);
+    will(returnValue(5));</pre>
+
+<p>jMock will fail the test if you try to return a value of the wrong
+type.</p>
+
+<h2>Returning Iterators over Collections</h2>
+
+<p>The <code>returnIterator</code> action returns an iterator over a
+collection. </p>
+
+<p>This is different from using <code>returnValue</code> to return an
+iterator. Using <code>returnValue</code> will return the same iterator each
+time, and so subsequent calls will return an iterator that has consumed all
+of its elemtns. The <code>returnIterator</code> action returns a new iterator
+each time it is invoked.</p>
+
+<p></p>
+
+<h2>Returning Different Values on Different Calls</h2>
+
+<p>Use the <code>onConsecutiveCalls</code> action to return a different value
+(or perform a different action) on different calls.</p>
+<pre class="Source Java">atLeast(1).of (anObject).doSomething();
+   will(onConsecutiveCalls(
+       returnValue(10),
+       returnValue(20),
+       throwException(new IOException("no more stuff"))));</pre>
+
+<p></p>
+</body>
+</html>

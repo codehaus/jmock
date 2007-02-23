@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+      "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Mocking Classes with CGLIB</title>
+</head>
+
+<body>
+<h1>Mocking Classes with jMock and CGLIB</h1>
+
+<p>Because it uses Java's standard reflection capability, the default
+configuration of the jMock framework can only mock interfaces, not classes.
+(Actually, we consider that to be a good thing because it encourages the
+design to focus on communication, not categorisation or data storage). The
+optional <code>org.jmock.cglib</code> extension package uses the <a
+href="http://cglib.sourceforge.net">CGLIB 2</a> library to create mock
+objects of classes as well as interfaces.</p>
+
+<p>To use the CGLIB extension:</p>
+<ol>
+  <li>Download <a
+    href="http://sourceforge.net/project/showfiles.php?group_id=56933&amp;package_id=98218">CGLIB
+    2</a> and the <a href="http://www.jmock.org/download.html">jMock
+    Non-standard Extensions</a>.</li>
+  <li>Add CGLIB and the
+    <code>jmock-nonstd-</code><var>version</var><code>.jar</code> file to the
+    CLASSPATH. If you have downloaded a source snapshot, compile the source
+    and add the output directory to your classpath.</li>
+  <li>In your tests, plug an UnsafeHackConcreteClassImposteriser into the
+    Mockery: 
+    <pre class="Source Java">import org.jmock.Mockery;
+import org.jmock.Expectations;
+import org.jmock.lib.nonstd.UnsafeHackConcreteClassImposteriser;
+
+public class ConcreteClassTest extends TestCase {
+    private Mockery context = new Mockery();
+    {
+        context.setImposteriser(ConcreteClassImposteriser.INSTANCE);
+    }
+    
+    ...
+}</pre>
+  </li>
+  <li>Your tests can now create mocks of abstract or even concrete classes: 
+    <pre class="Source Java">Mock mockGraphics = mock(java.awt.Graphics.class,"mockGraphics");</pre>
+  </li>
+</ol>
+
+<p>The <code>UnsafeHackConcreteClassImposteriser</code> uses an non-standard,
+hack to completely bypass the constructor of the class when creating mock
+objects. However, this only works on some versions of Sun's JVM. It's not
+called an unsafe hack concrete class imposteriser for nothing!</p>
+</body>
+</html>
