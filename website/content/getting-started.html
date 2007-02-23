@@ -31,7 +31,8 @@ will use a mock Subscriber object.</p>
 <p>First we must import the jMock classes, define our test fixture class and
 create a "Mockery" that represents the context in which the Publisher exists.
 The context mocks out the objects that the Publisher collaborates with (in
-this case a Subscriber) and checks that they are used correctly.</p>
+this case a Subscriber) and checks that they are used correctly during the
+test.</p>
 <pre class="Source Java">import org.jmock.Mockery;
 
 class PublisherTest extends TestCase {
@@ -78,9 +79,12 @@ test will fail.</p>
 import org.jmock.Expectations;
 
 class PublisherTest extends TestCase {
+    Mockery context = new Mockery();
+
     public void testOneSubscriberReceivesAMessage() {
         // set up
         final Subscriber subscriber = mock(Subscriber.class);
+
         Publisher publisher = new Publisher();
         publisher.add(subscriber);
         
@@ -96,30 +100,11 @@ class PublisherTest extends TestCase {
     }
 }</pre>
 
-<h2>What Next?</h2>
+<h2>Where Next?</h2>
 
-<p>The receive method mocked above does not return anything. Most of the time
-you will want to mock methods that <a href="returning.html">return values</a>
-or <a href="throwing.html">throw exceptions</a>.</p>
-
-<p>The test above expects the subscriber to receive a value that is exactly
-equal to the expected message. Often you don't want your tests to be this
-strict: you might want to test that the message contains a substring, but you
-don't care about the precise punctuation and whitespace. In other tests you
-might want your tests to be <em>more</em> strict: to test that the mock
-receives exactly the same object. To do this you will need to specify <a
-href="matchers.html">argument matchers</a> in your expectations.</p>
-
-<p>The test above only expected one call to one mock object. More
-sophisticated tests might need to specify expectations with different <a
-href="cardinalities.html">cardinalities</a> to allow some method calls to
-occur but not fail if they don't, expect methods to be called more than once
-or not all, or ignore mock objects that are not relevant. </p>
-
-<p>More advanced topics are covered in <a href="cookbook.html">other cookbook
-recipes</a>.</p>
-
-<p>The <a href="cheat-sheet.html">Cheat Sheet</a> provides a broader overview
-of the jMock API. </p>
+<p>The jMock library is explored in more depth in <a
+href="cookbook.html">other Cookbook recipes</a>. The <a
+href="cheat-sheet.html">Cheat Sheet</a> is an overview of the entire jMock
+API.</p>
 </body>
 </html>

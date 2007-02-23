@@ -64,7 +64,7 @@
 	    <xsl:apply-templates select="document('../data/versions-jmock2.xml')"/>
 	    <p><a href="repository.html">Anonymous CVS Access</a></p>
 	    <p><a href="license.html">Project License</a></p>
-	    <p><a href="versioning.html">jMock Versioning</a></p>
+	    <p><a href="versioning.html">Version Numbering</a></p>
 	  </div>
 	  
 	  <div class="MenuGroup">

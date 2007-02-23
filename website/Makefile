@@ -34,7 +34,7 @@ $(OUTDIR)/%: templates/%
 	cp $< $@
 
 $(OUTDIR)/%.png: assets/%.svg
-	inkscape --export-png=$@ --export-area-drawing --export-area-snap --export-width=176 $<
+	inkscape --without-gui --export-png=$@ --export-area-drawing --export-area-snap --export-width=176 $<
 
 clean:
 	rm -rf build
@@ -42,7 +42,7 @@ clean:
 again: clean all
 
 continually: 
-	while [ true ]; do make all; inotifywait -r -qq -e modify -e delete content templates assets data; done
+	while [ true ]; do make all; inotifywait -r -qq -e modify -e delete content templates assets data Makefile; done
 
 publish: again
 	rsync --recursive --delete --cvs-exclude --compress --stats --verbose --rsh=ssh build/ $(SITE)

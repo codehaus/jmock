@@ -11,6 +11,16 @@
 <body>
 <h1>Throwing Exceptions from Mocked Methods</h1>
 
-<p>To do...</p>
+<p>Use the throwException action to throw an exception from a mocked
+method.</p>
+<pre class="Java Source">allowing (bank).withdraw(with(any(Money.class))); 
+    will(throwException(new WithdrawalLimitReachedException());</pre>
+
+<p>JMock will detect if you try to throw a checked exception that is
+incompatible with the invoked method and fail the test with a descriptive
+error message. It allows you to throw any RuntimeException or Error from any
+method.</p>
+<pre class="Java Source">allowing (bank).withdraw(Money.ZERO); 
+    will(throwException(new IllegalArgumentException("you cannot withdraw nothing!");</pre>
 </body>
 </html>

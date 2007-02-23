@@ -28,7 +28,7 @@ method with different action per invocation. However, it's better to use the
   <li>if you create an "allowing" or "ignoring" or "atLeast(n)" expectation
     before any other expectations that match the same invocations, the
     earlier expectation will always override the later expectation and the
-    later expectation will never be met.</li>
+    later expectation will never be triggered.</li>
   <li>if you create an expectation and then a stub for the same method, the
     expectation will match, and when it stops matching the stub will be used
     instead, possibly masking test failures.</li>

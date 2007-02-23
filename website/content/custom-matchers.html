@@ -16,16 +16,14 @@ let you specify an expectation accurately enough to convey what you mean or
 to keep your tests flexible. In such cases, you can easily define new
 matchers that seamlessly extend the existing set defined by jMock.</p>
 
-<p>A constraint is an object that implements the Matcher <code><a
-href="java:org.jmock.core.Constraint"></a></code>interface. It does two
-things:</p>
+<p>A Matcher is an object that implements the
+<code>org.hamcrest.Matcher</code> interface. It does two things:</p>
 <ul>
   <li>reports whether a parameter value meets the constraint (the
     <code>matches</code> method).</li>
-  <li>provide a readable description to be included in test failure messages
-    (the <code>describeTo</code> method from the <a
-    href="java:org.jmock.core.SelfDescribing"><code>SelfDescribing</code></a>
-    interface).</li>
+  <li>generates a readable description to be included in test failure
+    messages (the <code>describeTo</code> method from the
+    <code>SelfDescribing</code> interface).</li>
 </ul>
 
 <p>To create a new matcher:</p>
@@ -102,7 +100,10 @@ function of stateful matchers cannot be predicted.</p>
 <p>If you want to maintain state in response to invocations, use an <a
 href="custom-actions.html">Action</a>, not a Matcher.</p>
 
-<h2>Where Next?</h2>
+<h2>More Information</h2>
+
+<p>More documentation about how to write Matchers is available from the <a
+href="http://code.google.com/p/hamcrest/">Hamcrest project</a>. </p>
 
 <p></p>
 </body>
