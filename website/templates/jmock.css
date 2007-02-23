@@ -3,44 +3,50 @@
  */
 
 #banner {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 80px;
+    background-color: #006;
+}
+
+#logo {
+    position: absolute;
     top: 8px;
     left: 8px;
-    right: 184px;
-    height: 72px;
 }
 
 #left {
     position: absolute;
     z-index: 2;
-    left: 8px;
+    left: 0px;
     width: 184px;
-    top: 80px;
-    bottom: 8px;
+    top: 88px;
     margin: 0px;
-    padding: 0px;
+    padding 0px;
 }
 
 #right {
     position: absolute;
     z-index: 1;
-    right: 8px;
-    width: 184px;
-    top: 8px;
-    bottom: 8px;
+    right: 0px;
+    width: 264px;
+    top: 88px;
     margin: 0px;
-    padding: 0px;
+    padding 0px;
 }
 
 .Content3Column {
     position: absolute;
-    top: 8px;
+    top: 80px;
     left: 202px;
-    right: 200px;
+    right: 280px;
 }
 
 .Content2Column {
     position: absolute;
-    top: 8px;
+    top: 80px;
     left: 202px;
     right: 8px;
 }
@@ -48,11 +54,9 @@
 #center {
     z-index: 3;
     margin: 0px;
-    border: none;
-    -moz-border-radius: 6px;
+    border: 0px;
     padding: 8px;
-    background-color: white;
-    color: black;
+    height: auto;
 }
 
 
@@ -63,13 +67,12 @@
 body {
     padding: 0px;
     margin: 0px;
-    margin-bottom: 8px;
     border: 0px;
     
     font-family: helvetica, arial, sans-serif;
     font-size: 12px;
     
-    background-color: #006;
+    background-color: white;
     color: black;
 }
 
@@ -129,28 +132,6 @@ ul, ol {
 
 
 /*---------------------------------------------------------------------------
- *  Page banner
- */
-
-#banner {
-    margin: 0px;
-    border: 0px;
-    padding: 0px;
-    vertical-align: middle;
-}
-
-#banner a { text-decoration: none; }
-#banner a:visited { color: #00a; }
-#banner a:hover { color: red; }
-#banner a:active { color: red; }
-
-#logo {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-}
-
-/*---------------------------------------------------------------------------
  *  Page content
  */
 
@@ -174,8 +155,18 @@ ul, ol {
     margin-top: 24px;
     margin-bottom: 16px;    
     font-family: Bitstream Charter, serif;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
+    color: #006;
+}
+
+#content h3 {
+    margin-top: 18px;
+    margin-bottom: 14px;    
+    font-family: Bitstream Charter, serif;
+    font-size: 18px;
+    font-weight: normal;
+    color: #006;
 }
 
 #content a { text-decoration: underline; }
@@ -190,17 +181,23 @@ ul, ol {
 
 #content table {
     width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+#content tr {
+    border: 1px solid #ccc;
 }
 
 #content th {
-    background-color: #aaf;
+    border: 1px solid #ccc;
 }
 
 #content td {
-    background-color: #ddf;
+    border: 1px solid #ccc;
 }
 
-.Source pre {
+.Source {
     padding: 4px;
     font-family: courier new, monospace;
     font-size: 11px;
@@ -272,8 +269,7 @@ ul, ol {
  */
 
 .SidePanel {
-    background-color: #006;
-    padding: 0px;
+    background-color: white;
     font-size: 11px;
 }
 
@@ -283,38 +279,58 @@ ul, ol {
 .SidePanel a:active { color: red; }
 .SidePanel a:hover { color: red; }
 
+#left > div {
+    -moz-border-radius: 0px 6px 6px 0px;
+}
+
+#left > div h1 {
+    -moz-border-radius: 0px 6px 6px 0px;
+}
+
+#right > div {
+    -moz-border-radius: 6px 0px 0px 6px;
+}
+
+#right > div h1 {
+    -moz-border-radius: 6px 0px 0px 6px;
+}
+
 .SidePanel > div {
-    border: 2px solid #ddddff;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
-    
     margin: 0px;
     margin-bottom: 8px;
-    padding: 0px
+    padding: 0px;
+    background-color: #eaeaff;
     color: #006;
-    background-color: #fafaff;
-}
-
-.SidePanel p {
-    margin: 4px;
-}
-
-.SidePanel ul {
-    margin-bottom: 4px;
 }
 
 .SidePanel h1 {
-    background-color: #ddddff;
-    color: #006;
-    padding: 2px;
+    padding: 4px;
     margin-bottom: 4px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
+    border: none;
+    background-color: #e0e0ff;
 }
 
 .SidePanel h2 {
     font-size: 11px;
     font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.SidePanel p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-bottom: 4px;
+}
+
+.SidePanel ul {
+    margin-bottom: 4px;
 }
 
 .SidePanel a { text-decoration: none; }
@@ -343,6 +359,7 @@ ul, ol {
 
 .NewsItem {
     margin: 4px;
+    margin-bottom: 16px;
 }
 
 .NewsTitle {

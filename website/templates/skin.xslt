@@ -23,8 +23,7 @@
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
 	<title>jMock - <xsl:value-of select="/html:html/html:head/html:title"/></title>
-	<link media="screen" rel="stylesheet" title="Navigation View" type="text/css" href="jmock.css"/>
-	<link media="screen" rel="alternate stylesheet" type="text/css" href="print.css" title="Print Preview"/>
+	<link media="screen" rel="stylesheet" type="text/css" href="jmock.css"/>
 	<link media="print" rel="stylesheet" type="text/css" href="print.css"/>
 	<xsl:copy-of select="html:html/html:head/*[not(name()='title')]"/>
       </head>
@@ -69,11 +68,13 @@
 	  </div>
 	  
 	  <div class="MenuGroup">
-	    <h1><a href="docs.html">Documentation</a></h1>
+	    <h1>Documentation</h1>
 	    <p><a href="getting-started.html">Getting Started</a></p>
-	    <p><a href="docs/javadoc/index.html" target="jmock-javadoc">JavaDocs</a></p>
+	    <p><a href="cookbook.html">Cookbook</a></p>
+	    <p><a href="cheat-sheet.html">Cheat Sheet</a></p>
+	    <p><a href="docs/javadoc-2.0.0/index.html">JavaDocs</a></p>
+	    <p><a href="articles.html">Articles and Papers</a></p>
 	    <p><a href="http://www.mockobjects.com">All about Mock Objects</a></p>
-	    <p class="More"><a href="docs.html">More...</a></p>
 	  </div>
 	  
 	  <div class="MenuGroup">
