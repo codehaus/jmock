@@ -10,6 +10,7 @@ function selectTestFramework(frameworkToShow) {
     
     if (framework == frameworkToShow) {
       css += "." + framework + "{ display: block; }\n";
+      css += "." + framework + " h3 { display: none; }\n";
       css += "#selector" + framework + "{ font-weight: bold; }\n";
     }
     else {
@@ -20,6 +21,13 @@ function selectTestFramework(frameworkToShow) {
   
   styleElement.innerHTML = css;
   setCookie("preferredTestFramework", frameworkToShow);
+}
+
+function restorePreferredTestFramework() {
+  framework = getCookie("preferredTestFramework");
+  if (framework != null) {
+    selectTestFramework(framework);
+  }
 }
 
 function setCookie(name, value) {
@@ -48,13 +56,6 @@ function getCookie(name) {
   }
   
   return unescape(cookies.substring(begin + prefix.length, end));
-}
-
-function restorePreferredTestFramework() {
-  framework = getCookie("preferredTestFramework");
-  if (framework != null) {
-    selectTestFramework(framework);
-  }
 }
 
 restorePreferredTestFramework();
