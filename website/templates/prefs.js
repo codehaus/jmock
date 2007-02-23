@@ -1,6 +1,5 @@
 
 testFrameworks = ["JUnit4", "JUnit3", "Raw"];
-
 styleElement = document.getElementById("testFrameworkStyle");
 
 function selectTestFramework(frameworkToShow) {
@@ -20,7 +19,14 @@ function selectTestFramework(frameworkToShow) {
   }
   
   styleElement.innerHTML = css;
-  document.cookie = "preferredTestFramework="+frameworkToShow;
+  setCookie("preferredTestFramework", frameworkToShow);
+}
+
+function setCookie(name, value) {
+  now = new Date();
+  expiry = now.setYear(now.getYear()+1);
+  
+  document.cookie = name + "=" + value + "; Max-Age=40000000";
 }
 
 function getCookie(name) {
@@ -29,19 +35,19 @@ function getCookie(name) {
   var begin = cookies.indexOf("; " + prefix);
   
   if (begin == -1) {
-    begin = dc.indexOf(prefix);
+    begin = cookies.indexOf(prefix);
     if (begin != 0) return null;
   }
   else {
     begin += 2;
   }
   
-  var end = document.cookie.indexOf(";", begin);
+  var end = cookies.indexOf(";", begin);
   if (end == -1) {
-    end = dc.length;
+    end = cookies.length;
   }
   
-  return unescape(dc.substring(begin + prefix.length, end));
+  return unescape(cookies.substring(begin + prefix.length, end));
 }
 
 function restorePreferredTestFramework() {

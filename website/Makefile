@@ -1,6 +1,6 @@
 # Make sure you have installed the catalog files for XHTML on your local filesystem
 
-SITE=nat@localhost:/home/nat/tmp/jmock-website-test
+SITE=np2@howard.doc.ic.ac.uk:/homes/np2/public_html/temp/jmock-website-test
 
 
 CONTENT=$(shell find content -not -name '*~' -and -not -wholename '*/CVS*')
@@ -44,5 +44,5 @@ again: clean all
 continually: 
 	while [ true ]; do make all; inotifywait -r -qq -e modify -e delete content templates assets data Makefile; done
 
-publish: again
+publish: all
 	rsync --recursive --delete --cvs-exclude --compress --stats --verbose --rsh=ssh build/ $(SITE)
