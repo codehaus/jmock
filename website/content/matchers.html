@@ -14,8 +14,8 @@ explicit about the argument values that will be passed to the expected
 methods. Expected argument values are defined using "matchers". Matchers are
 implemented by the <a href="http://www.hamcrest.org">Hamcrest</a> project,
 which is bundled with jMock. Hamcrest provides a set of matchers that are
-suitable for almost all tests. These constraints can be combined to tighten
-or loosen the specification if necessary. The set of matchers is <a
+suitable for almost all tests. These can be combined to tighten or loosen the
+specification if necessary. The set of matchers is <a
 href="custom-matchers.html">extensible</a> so you can write new matchers to
 cover unusual testing scenarios.</p>
 
@@ -113,7 +113,7 @@ second must not be null.</p>
 
 <h3>Anything</h3>
 
-<p>The <code>any&lt;T&gt;(<ins>Class&lt;T&gt;)</ins></code> constraint
+<p>The <code>any&lt;T&gt;(Class&lt;T&gt;)</code> constraint
 specifies that any value of the given type is allowed. This is useful for
 ignoring arguments that are not relevant to the scenario being tested.
 Judicious use of the <code>any</code> constraint ensure that your tests are
