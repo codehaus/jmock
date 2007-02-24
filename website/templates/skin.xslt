@@ -100,11 +100,12 @@
 	  </div>
 	  
 	  <div class="MenuGroup">
-	    <h1><a href="development.html">Development</a></h1>
+	    <h1>Development</h1>
 	    <p><a href="how-to-contribute.html">How to Contribute</a></p>
 	    <p><a href="team.html">Development Team</a></p>
+	    <p><a href="coding-conventions.html">Coding Conventions</a></p>
+            <p><a href="development-feeds.html">Development News Feeds</a></p>
 	    <p><a href="http://www.codehaus.org">Project hosted by Codehaus</a></p>
-	    <p class="More"><a href="development.html">More...</a></p>
 	  </div>
 	</div>
 	

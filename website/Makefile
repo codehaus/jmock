@@ -44,5 +44,5 @@ again: clean all
 continually: 
 	while [ true ]; do make all; inotifywait -r -qq -e modify -e delete content templates assets data Makefile; done
 
-publish: all
+published: all
 	rsync --recursive --delete --cvs-exclude --compress --stats --verbose --rsh=ssh build/ $(SITE)

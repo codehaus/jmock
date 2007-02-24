@@ -183,6 +183,7 @@ ul, ol {
     width: 100%;
     border-collapse: collapse;
     border: 1px solid #ccc;
+    margin-bottom: 8px;
 }
 
 #content tr {
@@ -420,3 +421,8 @@ ul, ol {
     color: #e0e0ff;
 }
 
+.Copyright {
+	color: #aaaaaa;
+	margin-top: 16px;
+	font-size: smaller;
+}

@@ -238,12 +238,14 @@ within <code>with</code> clauses:</p>
       <td>The argument does not match <var>m</var>.</td>
     </tr>
     <tr>
-      <td>anyOf(<var>m1</var>, <var>m2</var>, ...)</td>
-      <td>The argument matches one of <var>m1</var>, <var>m2</var>...</td>
+      <td>anyOf(<var>m<sub>1</sub></var>, <var>m<sub>2</sub></var>, ...)</td>
+      <td>The argument matches one of <var>m<sub>1</sub></var>,
+        <var>m<sub>2</sub></var>...</td>
     </tr>
     <tr>
-      <td>allOf(<var>m1</var>, <var>m2</var>, ...)</td>
-      <td>The argument matches all of <var>m1</var>, <var>m2</var>...</td>
+      <td>allOf(<var>m<sub>1</sub></var>, <var>m<sub>2</sub></var>, ...)</td>
+      <td>The argument matches all of <var>m<sub>1</sub></var>,
+        <var>m<sub>2</sub></var>...</td>
     </tr>
   </tbody>
 </table>
@@ -254,11 +256,28 @@ within <code>with</code> clauses:</p>
   <tbody>
     <tr>
       <td>returnValue(<var>v</var>)</td>
-      <td>Return <var>v</var> to the caller</td>
+      <td>Return <var>v</var> to the caller.</td>
+    </tr>
+    <tr>
+      <td>returnIterator(<var>c</var>)</td>
+      <td>Return a new iterator over collection <var>c</var> on each
+        invocation.</td>
+    </tr>
+    <tr>
+      <td>returnIterator(<var>v<sub>1</sub></var>, <var>v<sub>2</sub></var>,
+        ..., <var>v<sub>n</sub></var>)</td>
+      <td>Return a new iterator over elements <var>v<sub>1</sub></var> to
+        <var>v<sub>n</sub></var> on each invocation.</td>
     </tr>
     <tr>
       <td>throwException(<var>e</var>)</td>
       <td>Throw <var>e</var> to the caller.</td>
+    </tr>
+    <tr>
+      <td>doAll(<var>a<sub>1</sub></var>, <var>a<sub>2</sub></var>, ...,
+        <var>a<sub>n</sub></var>)</td>
+      <td>Do all actions <var>a<sub>1</sub></var> to <var>a<sub>n</sub></var>
+        on every invocation.</td>
     </tr>
   </tbody>
 </table>
@@ -272,18 +291,18 @@ within <code>with</code> clauses:</p>
       <td>Assigns a name to the last expectation.</td>
     </tr>
     <tr>
-      <td>before(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);</td>
+      <td>before(<var>name<sub>1</sub></var>, <var>name<sub>2</sub></var>, ..., <var>name<sub>n</sub></var>);</td>
       <td>Constrains the last expectation to occur before the expectations
         that have the names given as parameters.</td>
     </tr>
     <tr>
-      <td>after(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);</td>
+      <td>after(<var>name<sub>1</sub></var>, <var>name<sub>2</sub></var>, ..., <var>name<sub>n</sub></var>);</td>
       <td>Constrains the last expectation to occur after the expectations
         that have the names given as parameters.</td>
     </tr>
   </tbody>
 </table>
 
-<p class="Blurb">Copyright © 2007 Nat Pryce.</p>
+<p class="Copyright">Copyright © 2007 Nat Pryce.</p>
 </body>
 </html>
