@@ -11,11 +11,10 @@ function selectTestFramework(frameworkToShow) {
     if (framework == frameworkToShow) {
       css += "." + framework + "{ display: block; }\n";
       css += "." + framework + " h3 { display: none; }\n";
-      css += "#selector" + framework + "{ font-weight: bold; }\n";
+      css += "#selector" + framework + "{ font-weight: bold; color: white; }\n";
     }
     else {
       css += "." + framework + "{ display: none; }\n";
-      css += "#selector" + framework + "{ font-weight: normal; }\n";
     }
   }
   

@@ -413,11 +413,8 @@ ul, ol {
     right: 8px;
 }
 
-#testFrameworkSelector a:link {
-    color: #e0e0ff;
-}
-
-#testFrameworkSelector a:visited {
+#testFrameworkSelector a {
+    text-decoration: underline;
     color: #e0e0ff;
 }
 

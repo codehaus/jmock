@@ -38,11 +38,11 @@
 	  <div id="testFrameworkSelector">
 	    Preferred test framework:
 	    <a id="selectorJUnit3" href="#"
-	       onclick="selectTestFramework('JUnit3')">JUnit 3</a>, 
-	    <a id="selectorJUnit4" href="#"
-	       onclick="selectTestFramework('JUnit4')">JUnit 4</a>, 
-	    <a id="selectorRaw" href="#"
-	       onclick="selectTestFramework('Raw')">Other</a>.
+	       onclick="selectTestFramework('JUnit3')">JUnit 3</a>,
+            <a id="selectorJUnit4" href="#"
+	       onclick="selectTestFramework('JUnit4')">JUnit 4</a>,
+            <a id="selectorRaw" href="#"
+	       onclick="selectTestFramework('Raw')">Other</a>
 	  </div>
 	</div>
 	
