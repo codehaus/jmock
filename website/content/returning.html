@@ -11,6 +11,11 @@
 <body>
 <h1>Returning Values from Mocked Methods</h1>
 
+<p>Unless you explicitly specify otherwise, jMock will return an appropriate
+value from any methods that do not have a void return type. In most tests you
+will need to explicltly define the value returned from a mocked
+invocation.</p>
+
 <h2>The Simple Case</h2>
 
 <p>You can return values from mocked methods by using the
