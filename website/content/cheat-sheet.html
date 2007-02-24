@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE 
- html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
- "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+      "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <title>jMock 2 Cheat Sheet</title>
-  <link rel="stylesheet" type="text/css" href="cheat-sheet.css"/>
+  <link rel="stylesheet" type="text/css" href="cheat-sheet.css" />
 </head>
 
 <body>
@@ -16,7 +15,10 @@
 
 <div class="Raw">
 <h3>Raw</h3>
-<pre class="Source Java">public class AJMock2TestCase ... {
+<pre class="Source Java">import org.jmock.Mockery;
+import org.jmock.Expectations;
+
+public class AJMock2TestCase ... {
     Mockery context = new Mockery();
     
     ...
@@ -25,14 +27,21 @@
 
 <div class="JUnit3">
 <h3>JUnit 3 Integration</h3>
-<pre class="Source Java">public class AJMock2TestCase extends MockObjectTestCase {
+<pre class="Source Java">import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.Expectations;
+
+public class AJMock2TestCase extends MockObjectTestCase {
     ...
 }</pre>
 </div>
 
 <div class="JUnit4">
 <h3>JUnit 4 Integration</h3>
-<pre class="Source Java">@RunWith(JMock.class)
+<pre class="Source Java">import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.Mockery;
+import org.jmock.Expectations;
+
+@RunWith(JMock.class)
 public class AJMock2TestCase {
     Mockery context = new Mockery();
     
@@ -41,19 +50,19 @@ public class AJMock2TestCase {
 </div>
 
 <div class="Explanation">
-<p>A <code>Mockery</code> represents the context of the object under test: 
-the objects that it communicates with.  A Mockery creates mock objects and
-checks expectations that are set upon those mock objects.
-By convention the Mockery is stored in an instance variable named 
-<var>context</var>.</p>
+<p>A <code>Mockery</code> represents the context of the object under test:
+the objects that it communicates with. A Mockery creates mock objects and
+checks expectations that are set upon those mock objects. By convention the
+Mockery is stored in an instance variable named <var>context</var>.</p>
 
-<p class="JUnit3">Tests written with JUnit 3 can extend MockObjectTestCase, in which case they don't need to
-explictly create or refer to the context.  Some of the method names are renamed to
-be more declarative:</p>
+<p class="JUnit3">Tests written with JUnit 3 can extend MockObjectTestCase,
+in which case they don't need to explictly create or refer to the context.
+Some of the method names are renamed to be more declarative:</p>
 
-<p class="JUnit4">Tests written with JUnit 4 do not need to extend a specific base class but
-must specify that they use jMock with the <code>@RunWith</code> attribute and must
-store the Mockery in an instance variable.</p>
+<p class="JUnit4">Tests written with JUnit 4 do not need to extend a specific
+base class but must specify that they use jMock with the
+<code>@RunWith</code> attribute and must store the Mockery in an instance
+variable.</p>
 </div>
 
 <h2>Creating Mock Objects</h2>
@@ -76,15 +85,15 @@ Sheep merino = mock(Sheep.class, "merino");</pre>
 Sheep merino = context.mock(Sheep.class, "merino");</pre>
 </div>
 
-<p>Local variables holding references to mock objects must be declared as 
-<code>final</code> so that they can be used within expectation blocks (see below).</p>
+<p>Local variables holding references to mock objects must be declared as
+<code>final</code> so that they can be used within expectation blocks (see
+below).</p>
 
 <h2>Tests with Expectations</h2>
 
 <div class="Raw">
 <h3>Raw</h3>
-<pre class="Source Java">
-public void testSomeAction() {
+<pre class="Source Java">public void testSomeAction() {
     context.checking(new Expectations() {{
         ... expectations go here ...
     }});
@@ -124,24 +133,23 @@ public void testSomeAction() {
 </div>
 
 <div class="JUnit3 JUnit4">
-<p>The JUnit 3 and JUnit 4 integration layers automatically assert 
-that all expectations have been satisfied.</p>
+<p>The JUnit 3 and JUnit 4 integration layers automatically assert that all
+expectations have been satisfied.</p>
 </div>
 
 <h2>Expectations</h2>
 
 <p>Expectations have the following structure:</p>
-
 <pre class="Source Java"><var>cardinality</var> (<var>mock-object</var>).<var>method</var>(<var>argument-constraints</var>);
     will(<var>action</var>);
     named(<var>name</var>);
     before(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);
     after(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);</pre>
 
-<p>Except for the cardinality and the mock object, all clauses are optional.</p>
+<p>Except for the cardinality and the mock object, all clauses are
+optional.</p>
 
 <p>Some examples:</p>
-
 <pre class="Source Java">one (sheep).eat(grass);      // The mock sheep will be told to eat the grass once only
 allowing (sheep).baa();      // The mock sheep can baa any number of times, or not at all
 ignoring (sheep);            // The mock sheep can do anything; this test ignores it.
@@ -151,43 +159,46 @@ one (merino).shear();        // The mock merino will be sheared once, returning 
 <h3>Cardinalities</h3>
 
 <table>
-<tr>
-  <td>one</td>
-  <td>The invocation is expected once and once only.</td>
-</tr>
-<tr>
-  <td>exactly(<var>n</var>).of</td>
-  <td>The invocation is expected exactly <var>n</var> times.
-  Note: <code>one</code> is a convenient shorthand for
-  <code>exactly(1)</code>.</td>
-</tr>
-<tr>
-  <td>atLeast(<var>n</var>).of</td>
-  <td>The invocation is expected at least <var>n</var>.</td>
-</tr>
-<tr>
-  <td>atMost(<var>n</var>).of</td>
-  <td>The invocation is expected at most <var>n</var> times.</td>
-</tr>
-<tr>
-  <td>between(<var>min</var>,&nbsp;<var>max</var>).of</td>
-  <td>The invocation is expected at least <var>min</var> times and at most
-  <var>max</var> times.</td>
-</tr>
-<tr>
-  <td>allowing</td>
-  <td>The invocation is allowed any number of times but does not have to happen.</td>
-</tr>
-<tr>
-  <td>ignoring</td>
-  <td>The same as <code>allowing</code>.  Allowing or ignoring should be
-  chosen to make the test code clearly express intent.</td>
-</tr>
-<tr>
-  <td>never</td>
-  <td>The invocation is not expected at all. This is used to make tests
-  more explicit and so easier to understand.</td>
-</tr>
+  <tbody>
+    <tr>
+      <td>one</td>
+      <td>The invocation is expected once and once only.</td>
+    </tr>
+    <tr>
+      <td>exactly(<var>n</var>).of</td>
+      <td>The invocation is expected exactly <var>n</var> times. Note:
+        <code>one</code> is a convenient shorthand for
+        <code>exactly(1)</code>.</td>
+    </tr>
+    <tr>
+      <td>atLeast(<var>n</var>).of</td>
+      <td>The invocation is expected at least <var>n</var>.</td>
+    </tr>
+    <tr>
+      <td>atMost(<var>n</var>).of</td>
+      <td>The invocation is expected at most <var>n</var> times.</td>
+    </tr>
+    <tr>
+      <td>between(<var>min</var>, <var>max</var>).of</td>
+      <td>The invocation is expected at least <var>min</var> times and at
+        most <var>max</var> times.</td>
+    </tr>
+    <tr>
+      <td>allowing</td>
+      <td>The invocation is allowed any number of times but does not have to
+        happen.</td>
+    </tr>
+    <tr>
+      <td>ignoring</td>
+      <td>The same as <code>allowing</code>. Allowing or ignoring should be
+        chosen to make the test code clearly express intent.</td>
+    </tr>
+    <tr>
+      <td>never</td>
+      <td>The invocation is not expected at all. This is used to make tests
+        more explicit and so easier to understand.</td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>Methods And Expectations</h3>
@@ -195,77 +206,84 @@ one (merino).shear();        // The mock merino will be sheared once, returning 
 <p>Expected methods are specified by a literal call to the method within an
 expectation block.</p>
 
-<p>Arguments passed to the method in an expectation will be compared for equality.</p>
-
+<p>Arguments passed to the method in an expectation will be compared for
+equality.</p>
 <pre class="Source Java">one (calculator).add(1, 1); will(returnValue(2));
 one (calculator).add(2, 2); will(returnValue(5));</pre>
 
-<p>To define looser constraints, specify <em>all</em> arguments as matchers 
+<p>To define looser constraints, specify <em>all</em> arguments as matchers
 within <code>with</code> clauses:</p>
-
 <pre class="Source Java">allowing (calculator).add(with(any(int.class)), with(any(int.class)));</pre>
 
 <h3>Argument Matchers</h3>
+
 <p>Some commonly used matchers:</p>
+
 <table>
-<tr>
-  <td>equal(<var>n</var>)</td>
-  <td>The argument is equal to <var>n</var>.</td>
-</tr>
-<tr>
-  <td>same(<var>o</var>)</td>
-  <td>The argument is the same object as <var>o</var>.</td>
-</tr>
-<tr>
-  <td>any(Class&lt;T&gt; type)</td>
-  <td>The argument is any value of type T.</td>
-</tr>
-<tr>
-  <td>not(<var>m</var>)</td>
-  <td>The argument does not match <var>m</var>.</td>
-</tr>
-<tr>
-  <td>anyOf(<var>m1</var>, <var>m2</var>, ...)</td>
-  <td>The argument matches one of <var>m1</var>, <var>m2</var>...</td>
-</tr>
-<tr>
-  <td>allOf(<var>m1</var>, <var>m2</var>, ...)</td>
-  <td>The argument matches all of <var>m1</var>, <var>m2</var>...</td>
-</tr>
+  <tbody>
+    <tr>
+      <td>equal(<var>n</var>)</td>
+      <td>The argument is equal to <var>n</var>.</td>
+    </tr>
+    <tr>
+      <td>same(<var>o</var>)</td>
+      <td>The argument is the same object as <var>o</var>.</td>
+    </tr>
+    <tr>
+      <td>any(Class&lt;T&gt; type)</td>
+      <td>The argument is any value of type T.</td>
+    </tr>
+    <tr>
+      <td>not(<var>m</var>)</td>
+      <td>The argument does not match <var>m</var>.</td>
+    </tr>
+    <tr>
+      <td>anyOf(<var>m1</var>, <var>m2</var>, ...)</td>
+      <td>The argument matches one of <var>m1</var>, <var>m2</var>...</td>
+    </tr>
+    <tr>
+      <td>allOf(<var>m1</var>, <var>m2</var>, ...)</td>
+      <td>The argument matches all of <var>m1</var>, <var>m2</var>...</td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>Actions</h3>
 
 <table>
-<tr>
-  <td>returnValue(<var>v</var>)</td>
-  <td>Return <var>v</var> to the caller</td>
-</tr>
-<tr>
-  <td>throwException(<var>e</var>)</td>
-  <td>Throw <var>e</var> to the caller.</td>
-</tr>
+  <tbody>
+    <tr>
+      <td>returnValue(<var>v</var>)</td>
+      <td>Return <var>v</var> to the caller</td>
+    </tr>
+    <tr>
+      <td>throwException(<var>e</var>)</td>
+      <td>Throw <var>e</var> to the caller.</td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>Ordering Constraints</h3>
 
 <table>
-<tr>
-  <td>named(<var>name</var>);</td>
-  <td>Assigns a name to the last expectation.</td>
-</tr>
-<tr>
-  <td>before(<var>name_1</var>,&nbsp;<var>name_2</var>,&nbsp;...,&nbsp;<var>name_n</var>);</td>
-  <td>Constrains the last expectation to occur before the expectations that have
-  the names given as parameters.</td>
-</tr>
-<tr>
-  <td>after(<var>name_1</var>,&nbsp;<var>name_2</var>,&nbsp;...,&nbsp;<var>name_n</var>);</td>
-  <td>Constrains the last expectation to occur after the expectations that have
-  the names given as parameters.</td>
-</tr>
+  <tbody>
+    <tr>
+      <td>named(<var>name</var>);</td>
+      <td>Assigns a name to the last expectation.</td>
+    </tr>
+    <tr>
+      <td>before(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);</td>
+      <td>Constrains the last expectation to occur before the expectations
+        that have the names given as parameters.</td>
+    </tr>
+    <tr>
+      <td>after(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);</td>
+      <td>Constrains the last expectation to occur after the expectations
+        that have the names given as parameters.</td>
+    </tr>
+  </tbody>
 </table>
 
-<p class="Blurb">Copyright &copy; 2007 Nat Pryce.</p>
+<p class="Blurb">Copyright © 2007 Nat Pryce.</p>
 </body>
 </html>

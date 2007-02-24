@@ -1,6 +1,6 @@
 # Make sure you have installed the catalog files for XHTML on your local filesystem
 
-SITE=np2@howard.doc.ic.ac.uk:/homes/np2/public_html/temp/jmock-website-test
+SITE=howard.doc.ic.ac.uk:/homes/np2/public_html/temp/jmock-website-test
 
 
 CONTENT=$(shell find content -not -name '*~' -and -not -wholename '*/CVS*')
