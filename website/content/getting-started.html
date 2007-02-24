@@ -188,7 +188,7 @@ class PublisherTest extends MockObjectTestCase {
         final String message = "message";
         
         // expectations
-        context.checking(new Expectations() {{
+        checking(new Expectations() {{
             one (subscriber).receive(message);
         }});
 
@@ -203,7 +203,8 @@ class PublisherTest extends MockObjectTestCase {
 
 <div class="JUnit4">
 <h3>JUnit 4</h3>
-<pre class="Source Java">import org.jmock.integration.junit4.Mockery;
+<pre class="Source Java">import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.Mockery;
 import org.jmock.Expectations;
 
 @RunWith(JMock.class)
@@ -233,8 +234,7 @@ class PublisherTest {
 
 <div class="Raw">
 <h3>Raw</h3>
-<pre class="Source Java">import org.jmock.integration.junit4.JMock;
-import org.jmock.Mockery;
+<pre class="Source Java">import org.jmock.Mockery;
 import org.jmock.Expectations;
 
 class PublisherTest extends TestCase {
