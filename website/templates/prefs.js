@@ -82,5 +82,4 @@ function getCookie(name) {
   return unescape(cookies.substring(begin + prefix.length, end));
 }
 
-restorePreferredTestFramework();
 

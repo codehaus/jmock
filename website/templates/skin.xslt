@@ -23,20 +23,15 @@
       <head>
 	<title>jMock - <xsl:value-of select="/html:html/html:head/html:title"/></title>
 	<link media="screen" rel="stylesheet" type="text/css" href="jmock.css"/>
-	<style id="testFrameworkStyle" type="text/css">
-	  <!-- To remain compatible with the prefs.js script this must always be the second
-	       stylesheet in the header.
-	  -->
-	  <xsl:text> </xsl:text>
-        </style>
 	<link media="print" rel="stylesheet" type="text/css" href="print.css"/>
 	
 	<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+	<script type="text/javascript" src="prefs.js"><xsl:comment/></script>
 	
 	<xsl:copy-of select="html:html/html:head/*[not(name()='title')]"/>
       </head>
       
-      <body>
+      <body onload="restorePreferredTestFramework()">
 	<div id="banner">
 	  <a href="index.html"><img id="logo" src="logo.png" alt="jMock"/></a>
 	  <div id="testFrameworkSelector">
@@ -49,8 +44,6 @@
 	       onclick="selectTestFramework('Raw')">Other</a>
 	  </div>
 	</div>
-	
-	<script type="text/javascript" src="prefs.js"/>
 	
 	<div id="center">
 	  <xsl:choose>
