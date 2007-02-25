@@ -418,6 +418,19 @@ ul, ol {
     color: #e0e0ff;
 }
 
+#testFrameworkSelector .ActiveSelector {
+    font-weight: bold;
+    color: white;
+}
+
+.Selected h3 {
+    display: none;
+}
+
+.Deselected {
+    display: none;
+}
+
 .Copyright {
 	color: #aaaaaa;
 	margin-top: 16px;

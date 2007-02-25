@@ -41,8 +41,18 @@ clean:
 
 again: clean all
 
+SCANNED_FILES=content templates assets data Makefile
+
 continually: 
-	while [ true ]; do make all; inotifywait -r -qq -e modify -e delete content templates assets data Makefile; done
+	@while true; do \
+	  if make all; \
+	  then \
+	    echo clear jMock Website Build | nc localhost 10000 ; \
+	  else \
+	    echo raise jMock Website Build | nc localhost 10000 ; \
+	  fi ; \
+	  inotifywait -r -qq -e modify -e delete $(SCANNED_FILES); \
+	done
 
 published: all
 	rsync --recursive --delete --cvs-exclude --compress --stats --verbose --rsh=ssh build/ $(SITE)

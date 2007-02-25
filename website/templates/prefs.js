@@ -1,24 +1,30 @@
 
-testFrameworks = ["JUnit4", "JUnit3", "Raw"];
-styleElement = document.getElementById("testFrameworkStyle");
+var testFrameworks = ["JUnit4", "JUnit3", "Raw"];
+
+
+function setClassOnAll(elements, newClass) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].className = newClass;
+  }
+}
 
 function selectTestFramework(frameworkToShow) {
-  css = "";
-  
-  for (i in testFrameworks) {
-    framework = testFrameworks[i];
+  for (var i = 0; i < testFrameworks.length; i++) {
+    var framework = testFrameworks[i];
+    var newClass;
     
     if (framework == frameworkToShow) {
-      css += "." + framework + "{ display: block; }\n";
-      css += "." + framework + " h3 { display: none; }\n";
-      css += "#selector" + framework + "{ font-weight: bold; color: white; }\n";
+      newClass = framework + " Selected";
+      document.getElementById('selector'+framework).className = "ActiveSelector";
     }
     else {
-      css += "." + framework + "{ display: none; }\n";
+      newClass = framework + " Deselected";
+      document.getElementById('selector'+framework).className = null;
     }
+    
+    setClassOnAll(getElementsByClass(framework), newClass);
   }
   
-  styleElement.innerHTML = css;
   setCookie("preferredTestFramework", frameworkToShow);
 }
 
@@ -27,6 +33,25 @@ function restorePreferredTestFramework() {
   if (framework != null) {
     selectTestFramework(framework);
   }
+}
+
+function getElementsByClass(searchClass, node, tag) {
+  var classElements = new Array();
+  
+  if ( node == null ) node = document;
+  if ( tag == null ) tag = '*';
+  
+  var els = node.getElementsByTagName(tag);
+  var pattern = new RegExp('(^|\\s)'+searchClass+'(\\s|$)');
+  
+  for (i = 0, j = 0; i < els.length; i++) {
+    if (pattern.test(els[i].className)) {
+      classElements[j] = els[i];
+      j++;
+    }
+  }
+  
+  return classElements;
 }
 
 function setCookie(name, value) {

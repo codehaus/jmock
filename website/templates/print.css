@@ -32,7 +32,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0px;
     font-weight: normal;
     color: black;
-    background-color: none;
 }
 
 img {
@@ -148,7 +147,6 @@ ul, ol {
 	padding: 0pt;
 	border: 0pt;
 	font-size: inherit;
-	line-spacing: 100%;
 }
 
 .DynaMock:before {

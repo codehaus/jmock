@@ -13,19 +13,23 @@
   <xsl:output
       method="xml"
       version="1.0"
-      encoding="utf8"
+      encoding="utf-8"
       doctype-public="-//W3C//DTD XHTML 1.1//EN"
       doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
       indent="yes"/>
-  
   
   <xsl:template match="html:html">
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
 	<title>jMock - <xsl:value-of select="/html:html/html:head/html:title"/></title>
 	<link media="screen" rel="stylesheet" type="text/css" href="jmock.css"/>
+	<style id="testFrameworkStyle" type="text/css">
+	  <!-- To remain compatible with the prefs.js script this must always be the second
+	       stylesheet in the header.
+	  -->
+	  <xsl:text> </xsl:text>
+        </style>
 	<link media="print" rel="stylesheet" type="text/css" href="print.css"/>
-	<style id="testFrameworkStyle" type="text/css"></style>
 	
 	<meta http-equiv="Content-Script-Type" content="text/javascript"/>
 	
