@@ -22,7 +22,7 @@ function selectTestFramework(frameworkToShow) {
       document.getElementById('selector'+framework).className = null;
     }
     
-    setClassOnAll(getElementsByClass(framework), newClass);
+    setClassOnAll(elementsWithClass(framework), newClass);
   }
   
   setCookie("preferredTestFramework", frameworkToShow);
@@ -35,7 +35,7 @@ function restorePreferredTestFramework() {
   }
 }
 
-function getElementsByClass(searchClass, node, tag) {
+function elementsWithClass(searchClass, node, tag) {
   var classElements = new Array();
   
   if ( node == null ) node = document;
