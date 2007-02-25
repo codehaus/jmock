@@ -231,21 +231,40 @@ within <code>with</code> clauses:</p>
     </tr>
     <tr>
       <td>any(Class&lt;T&gt; type)</td>
-      <td>The argument is any value of type T.</td>
+      <td>The argument is any value. The type argument is required to force
+        Java to type-check the argument at compile time.</td>
+    </tr>
+    <tr>
+      <td>a(Class&lt;T&gt; type)<br />
+        an(Class&lt;T&gt; type)</td>
+      <td>The argument is an instance of <var>type</var> or a subclass of
+        <var>type</var>.</td>
+    </tr>
+    <tr>
+      <td>aNull(Class&lt;T&gt; type)</td>
+      <td>The argument is null. The type argument is required to force Java
+        to type-check the argument at compile time.</td>
+    </tr>
+    <tr>
+      <td>aNonNull(Class&lt;T&gt; type)</td>
+      <td>The argument is not null. The type argument is required to force
+        Java to type-check the argument at compile time.</td>
     </tr>
     <tr>
       <td>not(<var>m</var>)</td>
       <td>The argument does not match <var>m</var>.</td>
     </tr>
     <tr>
-      <td>anyOf(<var>m<sub>1</sub></var>, <var>m<sub>2</sub></var>, ...)</td>
-      <td>The argument matches one of <var>m<sub>1</sub></var>,
-        <var>m<sub>2</sub></var>...</td>
+      <td>anyOf(<var>m<sub>1</sub></var>, <var>m<sub>2</sub></var>, ...,
+        <var>m<sub>n</sub></var>)</td>
+      <td>The argument matches one of <var>m<sub>1</sub></var> to
+        <var>m<sub>n</sub><sub></sub></var>.</td>
     </tr>
     <tr>
-      <td>allOf(<var>m<sub>1</sub></var>, <var>m<sub>2</sub></var>, ...)</td>
-      <td>The argument matches all of <var>m<sub>1</sub></var>,
-        <var>m<sub>2</sub></var>...</td>
+      <td>allOf(<var>m<sub>1</sub></var>, <var>m<sub>2</sub></var>, ...,
+        m<sub>n</sub>)</td>
+      <td>The argument matches all of <var>m<sub>1</sub></var> to
+        <var>m<sub>n</sub></var>.</td>
     </tr>
   </tbody>
 </table>

@@ -9,9 +9,17 @@
 <body>
 <h1>Matchers</h1>
 
-<p>When defining expectations upon your mock objects, jMock forces you to be
-explicit about the argument values that will be passed to the expected
-methods. Expected argument values are defined using "matchers". Matchers are
+<p>Most of the time you can define expectations by specifying literal
+parameter values that are compared for equality against the actual parameters
+of invoked methods. For example:</p>
+<pre>allowing (calculator).add(2,2); will(returnValue(5));</pre>
+
+<p>Sometimes, however, you will need to define looser constraints over
+parameter values to clearly express the intent of the test or to ignore
+parameters (or parts of parameters) that are not relevant to the behaviour
+being tested.</p>
+
+<p>Expected argument values are defined using "matchers". Matchers are
 implemented by the <a href="http://www.hamcrest.org">Hamcrest</a> project,
 which is bundled with jMock. Hamcrest provides a set of matchers that are
 suitable for almost all tests. These can be combined to tighten or loosen the
@@ -21,19 +29,20 @@ cover unusual testing scenarios.</p>
 
 <p>Matchers are specified by calling "syntactic sugar" methods of Hamcrest's
 <code>Matchers</code> class. Typically you will statically import these into
-your test code. The most commonly used matchers for jMock tests are:</p>
+your test code. This recipe describes the matchers that are most commonly
+used in jMock tests.</p>
 
 <h2>Basic Matchers</h2>
 
 <h3>Object Equality</h3>
 
-<p>The most commonly used matcher is <code>equal</code>, which specifies that
-the received argument must be equal to a given value. The code below, for
-example, specifies that the method "m" must be called with one argument of
-value 1.</p>
+<p>The most commonly used matcher is <code>equalTo</code>, which specifies
+that the received argument must be equal to a given value. The code below,
+for example, specifies that the method "m" must be called with one argument
+of value 1.</p>
 
 <div class="Source Java">
-<pre>one (mock).doSomething(with(equal(1)));</pre>
+<pre>one (mock).doSomething(with(equalTo(1)));</pre>
 </div>
 
 <p>The <code>equal</code> constraint uses the <code>equals</code> method of
@@ -113,14 +122,14 @@ second must not be null.</p>
 
 <h3>Anything</h3>
 
-<p>The <code>any&lt;T&gt;(Class&lt;T&gt;)</code> constraint
-specifies that any value of the given type is allowed. This is useful for
-ignoring arguments that are not relevant to the scenario being tested.
-Judicious use of the <code>any</code> constraint ensure that your tests are
-flexible and do not require constant maintenance when tested code changes.
-The following code specifies that the method "doSomething" must be called
-with two arguments, the first of which is equal to 1 and the second of which
-is ignored in this test.</p>
+<p>The <code>any&lt;T&gt;(Class&lt;T&gt;)</code> constraint specifies that
+any value of the given type is allowed. This is useful for ignoring arguments
+that are not relevant to the scenario being tested. Judicious use of the
+<code>any</code> constraint ensure that your tests are flexible and do not
+require constant maintenance when tested code changes. The following code
+specifies that the method "doSomething" must be called with two arguments,
+the first of which is equal to 1 and the second of which is ignored in this
+test.</p>
 
 <div class="Source Java">
 <pre>one (mock).doSomething(with(eq(1)), with(any(String.class)));</pre>
