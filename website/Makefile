@@ -47,9 +47,9 @@ continually:
 	@while true; do \
 	  if make all; \
 	  then \
-	    echo clear jMock Website Build | nc localhost 10000 ; \
+	    echo clear jmock-website-build | nc localhost 10000 ; \
 	  else \
-	    echo raise jMock Website Build | nc localhost 10000 ; \
+	    echo raise jmock-website-build: jMock Website Build Broken | nc localhost 10000 ; \
 	  fi ; \
 	  inotifywait -r -qq -e modify -e delete $(SCANNED_FILES); \
 	done

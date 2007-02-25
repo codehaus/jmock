@@ -36,16 +36,16 @@ used in jMock tests.</p>
 
 <h3>Object Equality</h3>
 
-<p>The most commonly used matcher is <code>equalTo</code>, which specifies
-that the received argument must be equal to a given value. The code below,
-for example, specifies that the method "m" must be called with one argument
-of value 1.</p>
+<p>The most commonly used matcher is <code>equal</code>, which specifies that
+the received argument must be equal to a given value. The code below, for
+example, specifies that the method "m" must be called with one argument of
+value 1.</p>
 
 <div class="Source Java">
-<pre>one (mock).doSomething(with(equalTo(1)));</pre>
+<pre>one (mock).doSomething(with(equal(1)));</pre>
 </div>
 
-<p>The <code>equal</code> constraint uses the <code>equals</code> method of
+<p>The <code>equalTo</code> constraint uses the <code>equals</code> method of
 the expected value to compare the expected and actual values for equality.
 Null values are checked beforehand, so it is safe to specify
 <code>equal(null)</code> or apply the matcher to a null actual value. Arrays
