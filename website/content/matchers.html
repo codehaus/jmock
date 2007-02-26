@@ -9,30 +9,34 @@
 <body>
 <h1>Matchers</h1>
 
-<p>Most of the time you can define expectations by specifying literal
-parameter values that are compared for equality against the actual parameters
-of invoked methods. For example:</p>
+<p>Most of the time expectations specify literal parameter values that are
+compared for equality against the actual parameters of invoked methods. For
+example:</p>
 <pre>allowing (calculator).add(2,2); will(returnValue(5));</pre>
 
 <p>Sometimes, however, you will need to define looser constraints over
 parameter values to clearly express the intent of the test or to ignore
 parameters (or parts of parameters) that are not relevant to the behaviour
-being tested.</p>
+being tested. For example:</p>
+<pre>allowing (calculator).sqrt(with(lessThan(0)); will(throwException(new IllegalArgumentException());
+one (log).append(with(equal(Log.ERROR)), with(stringContaining("sqrt"));</pre>
 
-<p>Expected argument values are defined using "matchers". Matchers are
-implemented by the <a href="http://www.hamcrest.org">Hamcrest</a> project,
-which is bundled with jMock. Hamcrest provides a set of matchers that are
-suitable for almost all tests. These can be combined to tighten or loosen the
-specification if necessary. The set of matchers is <a
+<p></p>
+
+<p>Expected argument values are defined using "matchers" from the <a
+href="http://www.hamcrest.org">Hamcrest</a> project, which is bundled with
+jMock. Hamcrest provides a set of matchers that are suitable for almost all
+tests. The most common matchers are defined in the Expectations class .
+Others are defined as static methods in the org.hamcrest.Matchers class.
+Typically you will statically import thse Matchers into your test code:</p>
+<pre>import static org.hamcrest.Matchers.*;</pre>
+
+<p>Matchers can be combined to tighten or loosen the specification if
+necessary. The set of matchers is <a
 href="custom-matchers.html">extensible</a> so you can write new matchers to
 cover unusual testing scenarios.</p>
 
-<p>Matchers are specified by calling "syntactic sugar" methods of Hamcrest's
-<code>Matchers</code> class. Typically you will statically import these into
-your test code. This recipe describes the matchers that are most commonly
-used in jMock tests.</p>
-
-<h2>Basic Matchers</h2>
+<p>The following matchers are most common in jMock tests.</p>
 
 <h3>Object Equality</h3>
 
@@ -49,9 +53,8 @@ value 1.</p>
 the expected value to compare the expected and actual values for equality.
 Null values are checked beforehand, so it is safe to specify
 <code>equal(null)</code> or apply the matcher to a null actual value. Arrays
-are treated as a special case: two arrays are considered equal by
-<code>equal</code> if they are the same size and all their elements are
-considered equal by <code>equal</code>.</p>
+are treated as a special case: two arrays are considered equal if they are
+the same size and all their elements are considered equal.</p>
 
 <h3>Numeric Equality with Error Margin</h3>
 
@@ -92,7 +95,7 @@ method "m" must be called with an argument that is an ActionEvent.</p>
 <pre>one (mock).doSomething(with(instanceOf(ActionEvent.class)));</pre>
 </div>
 
-<h3>String Contains a Substring</h3>
+<h3>String Containing a Substring</h3>
 
 <p>The <code>stringContaining</code> matcher specifies that the expected
 argument must be a string that contains the given substring. The following
@@ -174,16 +177,8 @@ contains the text "hello" or the text "howdy".</p>
 <div class="Source Java">
 <pre>one (mock).doSomething(with(anyOf(stringContains("hello"),
                                   stringContains("howdy"))));</pre>
+
+<p></p>
 </div>
-
-<h2>More Matchers</h2>
-
-<p>That covers the important matchers used in jMock tests. Most of your tests
-will only need the basic constraints. Sometimes you will have to dig into
-Hamcrest's bag of tricks more deeply. You may need to define your own
-matchers by composing existing matchers. Occasionally, however, you might
-find that no existing matcher exactly meets the need of your test. In these
-cases, you will have to extend jMock by <a
-href="custom-matchers.html">writing a custom matcher</a>.</p>
 </body>
 </html>

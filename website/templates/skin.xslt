@@ -86,7 +86,7 @@
 	    <p><a href="cheat-sheet.html">Cheat Sheet</a></p>
 	    <p><a href="docs/javadoc-2.0.0/index.html">JavaDocs</a></p>
 	    <p><a href="articles.html">Articles and Papers</a></p>
-	    <p><a href="http://www.mockobjects.com">All about Mock Objects</a></p>
+	    <p><a href="http://www.mockobjects.com">mockobjects.com</a></p>
 	  </div>
 	  
 	  <div class="MenuGroup">
