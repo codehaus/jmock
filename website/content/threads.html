@@ -18,14 +18,13 @@ throw an <code>AssertionFailedError</code> when it receives an unexpected
 call, but the error terminates the concurrent thread instead of the test
 runner's thread.</p>
 
-<p>Here's an example. We have a guard and an alarm. When the guard sees a
+<p>Here's an example. We have a guard and an alarm. When the guard notices a
 burglar, he should ring the alarm once only.</p>
-
 <pre class="Source Java">public interface Alarm {
 	void ring();
-}
+}</pre>
 
-@Test
+<pre class="Source Java">@Test
 public void ringsTheAlarmOnceWhenNoticesABurglar() {
 	final Alarm alarm = context.mock(Alarm.class);
 	Guard guard = new Guard(alarm);
@@ -38,7 +37,6 @@ public void ringsTheAlarmOnceWhenNoticesABurglar() {
 }</pre>
 
 <p>Here's an implementation of Guard that should fail the test:</p>
-
 <pre class="Source Java">public class Guard {
 	private Alarm alarm;
 	
@@ -86,7 +84,6 @@ that it asks the executor to run tasks instead of explicitly creating new
 threads.</p>
 
 <p>Our test then looks like:</p>
-
 <pre class="Source Java">@Test
 public void ringsTheAlarmOnceWhenNoticesABurglar() {
 	final Alarm alarm = context.mock(Alarm.class);
@@ -109,7 +106,6 @@ to the task's run method, but that's over-complicating things. It's much
 easier just to write a class that implements the Executor interface and lets
 us explicitly run the tasks after the <code>notice(Burglar)</code> method has
 returned:</p>
-
 <pre class="Source Java">public class DelayedExecutor implements Executor
 	private List&lt;Runnable&gt; delayedTasks = new ArrayList&lt;Runnable&gt;();
 
@@ -123,9 +119,8 @@ returned:</p>
 		}
                 delayedTasks.clear();
 	}
-}
-
-@Test
+}</pre>
+<pre class="Java Source">@Test
 public void ringsTheAlarmOnceWhenNoticesABurglar() {
 	final Alarm alarm = context.mock(Alarm.class);
 	DelayedExecutor executor = new DelayedExecutor();

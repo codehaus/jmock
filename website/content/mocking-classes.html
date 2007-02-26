@@ -12,11 +12,19 @@
 configuration of the jMock framework can only mock interfaces, not classes.
 (Actually, we consider that to be a good thing because it encourages the
 design to focus on communication between objects rather than classification
-or data storage). However, there is an optional Imposteriser in the
-<code>org.jmock.lib.nonstd</code> extension package that uses the <a
-href="http://cglib.sourceforge.net">CGLIB 2</a> library to create mock
-objects of classes as well as interfaces. If you need to mock classes you can
-plug this imposteriser into your Mockery as follows.</p>
+or data storage). However, the optional class
+<code>org.jmock.lib.nonstd.UnsafeHackConcreteClassImposteriser</code> uses
+the <a href="http://cglib.sourceforge.net">CGLIB 2</a> library to create mock
+objects of classes as well as interfaces.</p>
+
+<p class="Note Warning">The <code>UnsafeHackConcreteClassImposteriser</code>
+uses a non-standard hack to completely bypass the constructor of the class
+when creating mock objects. However, this only works on some versions of
+Sun's JVM. It's not called an unsafe hack concrete class imposteriser for
+nothing!</p>
+
+<p>If you need to mock classes you can plug this imposteriser into your
+Mockery as follows.</p>
 <ol>
   <li>Download <a
     href="http://sourceforge.net/project/showfiles.php?group_id=56933&amp;package_id=98218">CGLIB
@@ -26,8 +34,8 @@ plug this imposteriser into your Mockery as follows.</p>
     <code>jmock-nonstd-</code><var>version</var><code>.jar</code> file to the
     CLASSPATH. If you have downloaded a source snapshot, compile the source
     and add the output directory to your classpath.</li>
-  <li>In your tests, plug an UnsafeHackConcreteClassImposteriser into the
-    Mockery: 
+  <li>In your tests, plug an <code>UnsafeHackConcreteClassImposteriser</code>
+    into the Mockery: 
     <pre class="Source Java">import org.jmock.Mockery;
 import org.jmock.Expectations;
 import org.jmock.lib.nonstd.UnsafeHackConcreteClassImposteriser;
@@ -44,12 +52,5 @@ public class ConcreteClassTest extends TestCase {
     <pre class="Source Java">Graphics = context.mock(java.awt.Graphics.class);</pre>
   </li>
 </ol>
-
-<h2>Warning!</h2>
-
-<p>The <code>UnsafeHackConcreteClassImposteriser</code> uses a non-standard
-hack to completely bypass the constructor of the class when creating mock
-objects. However, this only works on some versions of Sun's JVM. It's not
-called an unsafe hack concrete class imposteriser for nothing!</p>
 </body>
 </html>

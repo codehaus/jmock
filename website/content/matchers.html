@@ -12,31 +12,38 @@
 <p>Most of the time expectations specify literal parameter values that are
 compared for equality against the actual parameters of invoked methods. For
 example:</p>
-<pre>allowing (calculator).add(2,2); will(returnValue(5));</pre>
+<pre class="Java Source">allowing (calculator).add(2,2); will(returnValue(5));</pre>
 
 <p>Sometimes, however, you will need to define looser constraints over
 parameter values to clearly express the intent of the test or to ignore
 parameters (or parts of parameters) that are not relevant to the behaviour
 being tested. For example:</p>
-<pre>allowing (calculator).sqrt(with(lessThan(0)); will(throwException(new IllegalArgumentException());
+<pre class="Java Source">allowing (calculator).sqrt(with(lessThan(0)); will(throwException(new IllegalArgumentException());
 one (log).append(with(equal(Log.ERROR)), with(stringContaining("sqrt"));</pre>
 
-<p></p>
+<p>Loose parameter constraints are defined by specifying <em>matchers</em>
+for each parameter. Matchers are created by factory methods, such as
+<code>lessThan</code>, <code>equal</code> and <code>stringContaining</code>
+in the example above, to ensure that the expectation is easy to read. Each
+syntactic sugar methods must be wrapped by a call to the <code>with</code>
+method.</p>
 
-<p>Expected argument values are defined using "matchers" from the <a
-href="http://www.hamcrest.org">Hamcrest</a> project, which is bundled with
-jMock. Hamcrest provides a set of matchers that are suitable for almost all
-tests. The most common matchers are defined in the Expectations class .
-Others are defined as static methods in the org.hamcrest.Matchers class.
-Typically you will statically import thse Matchers into your test code:</p>
-<pre>import static org.hamcrest.Matchers.*;</pre>
+<p class="Note Information">An expectation that uses parameter matchers must specify a
+matcher for <em>every</em> parameter. You cannot mix literal parameter values
+and matchers in the same expectation.</p>
+
+<p>Factory methods for commonly used matchers are defined in the Expectations
+class. More matchers are defined as static methods in the
+<code>org.hamcrest.Matchers</code> class. If you need these, statically
+import thse Matchers into your test code:</p>
+<pre class="Java Source">import static org.hamcrest.Matchers.*;</pre>
 
 <p>Matchers can be combined to tighten or loosen the specification if
 necessary. The set of matchers is <a
 href="custom-matchers.html">extensible</a> so you can write new matchers to
 cover unusual testing scenarios.</p>
 
-<p>The following matchers are most common in jMock tests.</p>
+<h2>Basic Matchers</h2>
 
 <h3>Object Equality</h3>
 
@@ -55,17 +62,6 @@ Null values are checked beforehand, so it is safe to specify
 <code>equal(null)</code> or apply the matcher to a null actual value. Arrays
 are treated as a special case: two arrays are considered equal if they are
 the same size and all their elements are considered equal.</p>
-
-<h3>Numeric Equality with Error Margin</h3>
-
-<p>An overloaded version of the <code>equal</code> constraint specifies
-floating point values as equal to another value with some margin of error to
-account for rounding error. The following code specifies that the method "m"
-will be called with one argument of value 1 plus or minus 0.002.</p>
-
-<div class="Source Java">
-<pre>one (mock).doSomething(with(equal(1, 0.002)));</pre>
-</div>
 
 <h3>Object Identity</h3>
 
@@ -95,7 +91,7 @@ method "m" must be called with an argument that is an ActionEvent.</p>
 <pre>one (mock).doSomething(with(instanceOf(ActionEvent.class)));</pre>
 </div>
 
-<h3>String Containing a Substring</h3>
+<h3>Substring</h3>
 
 <p>The <code>stringContaining</code> matcher specifies that the expected
 argument must be a string that contains the given substring. The following
@@ -136,6 +132,17 @@ test.</p>
 
 <div class="Source Java">
 <pre>one (mock).doSomething(with(eq(1)), with(any(String.class)));</pre>
+</div>
+
+<h3>Numeric Equality with Error Margin</h3>
+
+<p>An overloaded version of the <code>equal</code> constraint specifies
+floating point values as equal to another value with some margin of error to
+account for rounding error. The following code specifies that the method "m"
+will be called with one argument of value 1 plus or minus 0.002.</p>
+
+<div class="Source Java">
+<pre>one (mock).doSomething(with(equal(1, 0.002)));</pre>
 </div>
 
 <h2>Combining Matchers</h2>

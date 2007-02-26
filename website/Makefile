@@ -33,13 +33,18 @@ $(OUTDIR)/%: templates/%
 	@mkdir -p $(dir $@)
 	cp $< $@
 
+$(OUTDIR)/logo.png: WIDTH=176
+$(OUTDIR)/information.png: WIDTH=32
+$(OUTDIR)/warning.png: WIDTH=40
 $(OUTDIR)/%.png: assets/%.svg
-	inkscape --without-gui --export-png=$@ --export-area-drawing --export-area-snap --export-width=176 $<
+	inkscape --without-gui --export-png=$@ --export-area-drawing --export-area-snap --export-width=$(WIDTH) $<
+
 
 clean:
 	rm -rf build
 
 again: clean all
+
 
 SCANNED_FILES=content templates assets data Makefile
 
@@ -47,9 +52,9 @@ continually:
 	@while true; do \
 	  if make all; \
 	  then \
-	    echo clear jmock-website-build | nc localhost 10000 ; \
+	    condition clear jmock-website-build; \
 	  else \
-	    echo raise jmock-website-build: jMock Website Build Broken | nc localhost 10000 ; \
+	    condition raise jmock-website-build "jMock Website Build Broken"; \
 	  fi ; \
 	  inotifywait -r -qq -e modify -e delete $(SCANNED_FILES); \
 	done
