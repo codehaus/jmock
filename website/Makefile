@@ -60,4 +60,4 @@ continually:
 	done
 
 published: all
-	rsync --recursive --delete --cvs-exclude --compress --stats --verbose --rsh=ssh build/ $(SITE)
+	rsync --recursive --checksum --delete --cvs-exclude --compress --stats --verbose --rsh=ssh build/ $(SITE)
