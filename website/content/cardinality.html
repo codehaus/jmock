@@ -17,10 +17,10 @@ need to specify expectations with different cardinalities to allow some
 method calls to occur but not fail if they don't, expect methods to be called
 more than once or not all, or ignore mock objects that are not relevant.</p>
 
-<p>The "cardinality" of an expectation defines the minimum and maximum number
-of times that the expected method is allowed to be called. It is specified
-before the mock object in the expectation.</p>
-<pre><var>cardinality</var> (<var>mock</var>).<var>method</var>(<var>parameters</var>); ...</pre>
+<p>The "invocation count" of an expectation defines the minimum and maximum
+number of times that the expected method is allowed to be invoked. It is
+specified before the mock object in the expectation.</p>
+<pre><var>invocation-count</var> (<var>mock</var>).<var>method</var>(<var>parameters</var>); ...</pre>
 
 <p>JMock defines the following cardinalities:</p>
 

@@ -30,7 +30,7 @@ public class AJMock2TestCase ... {
 <pre class="Source Java">import org.jmock.integration.junit3.MockObjectTestCase;
 import org.jmock.Expectations;
 
-public class AJMock2TestCase extends MockObjectTestCase {
+public class TurtleDrawingTest extends MockObjectTestCase {
     ...
 }</pre>
 </div>
@@ -69,20 +69,20 @@ variable.</p>
 
 <div class="Raw">
 <h3>Raw</h3>
-<pre class="Source Java">Sheep sheep = context.mock(Sheep.class);
-Sheep merino = context.mock(Sheep.class, "merino");</pre>
+<pre class="Source Java">Turtle turtle = context.mock(Turtle.class);
+Turtle turtle2 = context.mock(Sheep.class, "turtle2");</pre>
 </div>
 
 <div class="JUnit3">
 <h3>JUnit 3 Integration</h3>
-<pre class="Source Java">Sheep sheep = mock(Sheep.class);
-Sheep merino = mock(Sheep.class, "merino");</pre>
+<pre class="Source Java">Turtle turtle = mock(Turtle.class);
+Turtle turtle2 = mock(Sheep.class, "turtle2");</pre>
 </div>
 
 <div class="JUnit4">
 <h3>JUnit 4 Integration</h3>
-<pre class="Source Java">Sheep sheep = context.mock(Sheep.class);
-Sheep merino = context.mock(Sheep.class, "merino");</pre>
+<pre class="Source Java">Turtle turtle = context.mock(Turtle.class);
+Turtle turtle2 = context.mock(Sheep.class, "turtle2");</pre>
 </div>
 
 <p>Local variables holding references to mock objects must be declared as
@@ -140,23 +140,28 @@ expectations have been satisfied.</p>
 <h2>Expectations</h2>
 
 <p>Expectations have the following structure:</p>
-<pre class="Source Java"><var>cardinality</var> (<var>mock-object</var>).<var>method</var>(<var>argument-constraints</var>);
+<pre class="Source Java"><var>invocation-count</var> (<var>mock-object</var>).<var>method</var>(<var>argument-constraints</var>);
+    inSequence(<var>sequence-name</var>);
+    when(<var>state-machine</var>.is(<var>state-name</var>));
     will(<var>action</var>);
-    named(<var>name</var>);
-    before(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);
-    after(<var>name_1</var>, <var>name_2</var>, ..., <var>name_n</var>);</pre>
+    then(<var>state-machine</var>.is(<var>new-state-name</var>));</pre>
 
-<p>Except for the cardinality and the mock object, all clauses are
+<p>Except for the invocation count and the mock object, all clauses are
 optional.</p>
 
 <p>Some examples:</p>
-<pre class="Source Java">one (sheep).eat(grass);      // The mock sheep will be told to eat the grass once only
-allowing (sheep).baa();      // The mock sheep can baa any number of times, or not at all
-ignoring (sheep);            // The mock sheep can do anything; this test ignores it.
-one (merino).shear();        // The mock merino will be sheared once, returning wool
-    will(returnValue(wool));</pre>
+<pre class="Source Java">one (turtle).turn(45);           // The turtle will be told to turn 45 degrees once only
 
-<h3>Cardinalities</h3>
+allowing (turtle).flashLEDs();   // The turtle can be told to flash its LEDs any number of types or not at all
+
+ignoring (turtle2);              // Turtle 2 can be told to do anything.  This test ignores it.
+
+allowing (turtle).queryPen();    // The turtle can be asked about its pen any number of times and will always
+    will(returnValue(PEN_DOWN)); // return PEN_DOWN
+
+atLeast(1).of (turtle).stop();   // The turtle will be told to stop at least once.</pre>
+
+<h3>Invocation Count</h3>
 
 <table>
   <tbody>
@@ -301,26 +306,92 @@ within <code>with</code> clauses:</p>
   </tbody>
 </table>
 
-<h3>Ordering Constraints</h3>
+<h3>Sequences</h3>
+
+<p>Invocations that are expected in a sequence must occur in the order in
+which they appear in the test code. A test can create more than one sequence
+and an expectation can be part of more than once sequence at a time.</p>
+
+<p>To define a new sequence:</p>
+
+<div class="Raw">
+<h3>Raw</h3>
+<pre class="Java Source">final Sequence <var>sequence-name</var> = context.sequence("<var>sequence-name</var>");</pre>
+</div>
+
+<div class="JUnit3">
+<h3>JUnit 3</h3>
+<pre class="Java Source">final Sequence <var>sequence-name</var> = sequence("<var>sequence-name</var>");</pre>
+</div>
+
+<div class="JUnit4">
+<h3>JUnit 4</h3>
+<pre class="Java Source">final Sequence <var>sequence-name</var> = context.sequence("<var>sequence-name</var>");</pre>
+</div>
+
+<p>To expect a sequence of invocations, write the expectations in order and
+add the <code>inSequence(<var>sequence</var>)</code> clause to each one. For
+example:</p>
+<pre class="Java Source">one (turtle).forward(10); inSequence(drawing);
+one (turtle).turn(45); inSequence(drawing);
+one (turtle).forward(10); inSequence(drawing);</pre>
+
+<p>Expectations in a sequence can have any invocation count.</p>
+
+<h2>States</h2>
+
+<p>States are used to constrain invocations to occur only when a condition is
+true. Conditions are represented as states of state machines. A test can
+create multiple state machines and each state machine can have multiple
+states. An invocation can be constrained to occur during a state of one more
+more state machines.</p>
+
+<p>To define a new state machine:</p>
+
+<div class="Raw">
+<h3>Raw</h3>
+<pre class="Java Source">final States <var>state-machine-name</var> = context.states("<var>state-machine-name</var>").startsAs("<var>initial-state</var>");</pre>
+</div>
+
+<div class="JUnit3">
+<h3>JUnit 3</h3>
+<pre class="Java Source">final States <var>state-machine-name</var> = states("<var>state-machine-name</var>").startsAs("<var>initial-state</var>");</pre>
+</div>
+
+<div class="JUnit4">
+<h3>JUnit 4</h3>
+<pre class="Java Source">final States <var>state-machine-name</var> = context.states("<var>state-machine-name</var>").startsAs("<var>initial-state</var>");</pre>
+</div>
+
+<p>The intial state is optional. If not specified, the state machine starts
+in an unnamed initial state.</p>
+
+<p>The following clauses constrain invocations to occur within specific
+states and define how an invocation will change the current state of a state
+machine.</p>
 
 <table>
   <tbody>
     <tr>
-      <td>named(<var>name</var>);</td>
-      <td>Assigns a name to the last expectation.</td>
+      <td>when(<var>state-machine</var>.is("<var>state-name</var>"));</td>
+      <td>Constrains the last expectation to occur only when the state
+        machine is in the named state.</td>
     </tr>
     <tr>
-      <td>before(<var>name<sub>1</sub></var>, <var>name<sub>2</sub></var>, ..., <var>name<sub>n</sub></var>);</td>
-      <td>Constrains the last expectation to occur before the expectations
-        that have the names given as parameters.</td>
-    </tr>
-    <tr>
-      <td>after(<var>name<sub>1</sub></var>, <var>name<sub>2</sub></var>, ..., <var>name<sub>n</sub></var>);</td>
-      <td>Constrains the last expectation to occur after the expectations
-        that have the names given as parameters.</td>
+      <td>then(<var>state-machine</var>.is("<var>state-name</var>"));</td>
+      <td>Changes the state of <var>state-machine</var> to the named state
+        when the invocation occurs.</td>
     </tr>
   </tbody>
 </table>
+
+<p>For example:</p>
+<pre class="Java Source">final States pen = context.states("pen").startsAs("up");
+one (turtle).penDown(); then(pen.is("down"));
+one (turtle).forward(10); when(pen.is("down"));
+one (turtle).turn(90); when(pen.is("down"));
+one (turtle).forward(10); when(pen.is("down"));
+one (turtle).penUp(); then(pen.is("up"));</pre>
 
 <p class="Copyright">Copyright © 2007 Nat Pryce.</p>
 </body>
