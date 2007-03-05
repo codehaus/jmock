@@ -14,9 +14,9 @@ OUTPUT=$(CONTENT:content/%=$(OUTDIR)/%) \
 
 all: $(OUTPUT)
 
-$(OUTDIR)/index.html: data/versions-*.xml
+$(OUTDIR)/index.html: content/news-rss2.xml
 
-$(OUTDIR)/%.html: content/%.html templates/skin.xslt
+$(OUTDIR)/%.html: content/%.html templates/skin.xslt data/versions-*.xml
 	@mkdir -p $(dir $@)
 	xsltproc \
 	  --nodtdattr \

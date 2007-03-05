@@ -111,7 +111,7 @@
 	      <h1>Recent News</h1>
 	      <xsl:for-each select="document('../content/news-rss2.xml')/rss/channel/item[position() &lt;= 5]">
 		<div class="NewsItem">
-		  <p class="NewsTitle"><xsl:value-of select="title"/></p>
+		  <h2 class="NewsTitle"><a><xsl:attribute name="href"><xsl:value-of select="link"/></xsl:attribute><xsl:value-of select="title"/></a></h2>
 		  <p class="NewsDate"><xsl:value-of select="pubDate"/></p>
 		  <p class="NewsText"><xsl:copy-of select="html:div/node()"/></p>
 		</div>
