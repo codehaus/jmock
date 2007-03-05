@@ -67,9 +67,9 @@ href="http://www.hibernate.org">Hibernate</a> <code>SessionFactory</code>,
 and the current <code>Session</code> obtained from the
 <code>getCurrentSession()</code> method, and the Transaction returned from
 the <code>beginTransaction()</code> method and the <code>commit()</code> and
-<code>rollback()</code> methods of the Transaction. So you can specify how
-the object under test coordinates transactions separately from other aspects
-of its behaviour and completely ignore transactions in other tests.</p>
+<code>rollback()</code> methods of the Transaction. So you can specify the
+behaviour of the object independently of how it coordinates transactions and
+test the transaction management in other tests.</p>
 <pre class="Java Source">ignoring (hibernateSessionFactory);</pre>
 </body>
 </html>

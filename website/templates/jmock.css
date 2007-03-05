@@ -17,46 +17,43 @@
     left: 8px;
 }
 
-#left {
+#navigation {
     position: absolute;
     z-index: 2;
     left: 0px;
     width: 184px;
-    top: 88px;
+    top: 80px;
     margin: 0px;
-    padding: 0px;
+    padding-top: 8px;
 }
 
-#right {
+#news {
     position: absolute;
     z-index: 1;
     right: 0px;
     width: 320px;
-    top: 88px;
+    top: 80px;
     margin: 0px;
-    padding: 0px;
+    padding-left: 16px;
+    padding-top: 8px;
 }
 
-.Content3Column {
+.ContentWithNews {
     position: absolute;
     top: 80px;
-    left: 202px;
+    left: 184px;
     right: 320px;
+    padding-left: 16px;
+    padding-right: 32px;
+    padding-top: 8px;
 }
 
-.Content2Column {
+.Content {
     position: absolute;
     top: 80px;
-    left: 202px;
+    left: 184px;
     right: 8px;
-}
-
-#center {
-    z-index: 3;
-    margin: 0px;
-    border: 0px;
-    padding: 8px;
-    height: auto;
+    padding-top: 8px;
 }
 
 
@@ -141,8 +138,6 @@ ul, ol {
     font-family: Bitstream Charter, serif;
     font-size: 28px;
     font-weight: bold;
-    padding: 2px;
-    margin-top: 24px;
     margin-bottom: 12px;
 }
 
@@ -292,30 +287,20 @@ ul, ol {
  *  Side panels
  */
 
-.SidePanel {
+#navigation {
     background-color: white;
     font-size: 11px;
 }
 
-.SidePanel a { text-decoration: none; }
-.SidePanel a:link { color: #006; }
-.SidePanel a:visited { color: #006; }
-.SidePanel a:active { color: red; }
-.SidePanel a:hover { color: red; }
-
-#left > div {
+#navigation > div {
     -moz-border-radius: 0px 6px 6px 0px;
 }
 
-#left > div h1 {
+#navigation > div h1 {
     -moz-border-radius: 0px 6px 6px 0px;
 }
 
-#right > div {
-    -moz-border-radius: 6px 0px 0px 6px;
-}
-
-.SidePanel > div {
+#navigation > div {
     margin: 0px;
     margin-bottom: 8px;
     padding: 0px;
@@ -323,7 +308,7 @@ ul, ol {
     color: #006;
 }
 
-.SidePanel h1 {
+#navigation h1 {
     padding: 4px;
     margin-bottom: 4px;
     font-size: 14px;
@@ -332,7 +317,7 @@ ul, ol {
     background-color: #e0e0ff;
 }
 
-.SidePanel h2 {
+#navigation h2 {
     font-size: 11px;
     font-weight: bold;
     margin-top: 0px;
@@ -341,7 +326,7 @@ ul, ol {
     margin-right: 4px;
 }
 
-.SidePanel p {
+#navigation p {
     margin-top: 0px;
     margin-bottom: 0px;
     margin-left: 4px;
@@ -349,51 +334,42 @@ ul, ol {
     padding-bottom: 4px;
 }
 
-.SidePanel ul {
+#navigation ul {
     margin-bottom: 4px;
 }
 
-.SidePanel a { text-decoration: none; }
+#navigation a { text-decoration: none; }
 
-.SidePanel a:link { color: #006; }
-.SidePanel a:visited { color: #006; }
-.SidePanel a:active { color: red; }
-.SidePanel a:hover { color: red; }
+#navigation a:link { color: #006; }
+#navigation a:visited { color: #006; }
+#navigation a:active { color: red; }
+#navigation a:hover { color: red; }
 
-.SidePanel h1 a:link { color: #006; }
-.SidePanel h1 a:visited { color: #006; }
-
-
-/*---------------------------------------------------------------------------
- *  Menus
- */
-
-.More {
-    text-align: right;
-}
+#navigation h1 a:link { color: #006; }
+#navigation h1 a:visited { color: #006; }
 
 
 /*---------------------------------------------------------------------------
  *  News panel
  */
 
-#right {
+#news {
     border-left: 1px solid #ccc;
-}
-
-#right div {
     background: white;
 }
 
-#right h1 {
+#news div {
+}
+
+#news h1 {
     background: white;
     font-family: Bitstream Charter, serif;
     font-size: 28px;
     font-weight: bold;
+    color: #006;
 }
 
 .NewsItem {
-    margin: 4px;
     margin-bottom: 16px;
 }
 
@@ -403,8 +379,10 @@ ul, ol {
     font-weight: bold;
 
     font-weight: bold;
-    margin: 0px;
-    padding: 0px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+
+    color: #006;
 }
 
 .NewsDate {
@@ -427,7 +405,6 @@ ul, ol {
 
 .NewsMore {
     font-size: smaller;
-    margin: 4px;
     margin-top: 12px;
     text-align: left;
 }
@@ -436,6 +413,15 @@ ul, ol {
     font-size: 12px;
 }
 
+#news a { text-decoration: underline; }
+
+#news a:link { color: #006; }
+#news a:visited { color: #006; }
+#news a:active { color: red; }
+#news a:hover { color: red; }
+
+#news h1 a:link { color: #006; }
+#news h1 a:visited { color: #006; }
 
 /*---------------------------------------------------------------------------
  *  Document meta-information

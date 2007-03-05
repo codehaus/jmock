@@ -35,7 +35,7 @@
 	<div id="banner">
 	  <a href="index.html"><img id="logo" src="logo.png" alt="jMock"/></a>
 	  <div id="testFrameworkSelector">
-	    Preferred test framework:
+	    Show examples for:
 	    <a id="selectorJUnit3" href="#"
 	       onclick="selectTestFramework('JUnit3')">JUnit 3</a>,
             <a id="selectorJUnit4" href="#"
@@ -48,10 +48,10 @@
 	<div id="center">
 	  <xsl:choose>
 	    <xsl:when test="$path = 'index.html'">
-	      <xsl:attribute name="class">Content3Column</xsl:attribute>
+	      <xsl:attribute name="class">ContentWithNews</xsl:attribute>
 	    </xsl:when>
 	    <xsl:otherwise>
-	      <xsl:attribute name="class">Content2Column</xsl:attribute>
+	      <xsl:attribute name="class">Content</xsl:attribute>
 	    </xsl:otherwise>
 	  </xsl:choose>
 	  
@@ -69,7 +69,7 @@
           </xsl:if>
 	</div>
 	
-	<div class="SidePanel" id="left">
+	<div id="navigation">
 	  <div class="MenuGroup">
 	    <h1><a href="download.html">Software</a></h1>
 	    <xsl:apply-templates select="document('../data/versions-jmock1.xml')"/>
@@ -107,7 +107,7 @@
 	</div>
 	
 	<xsl:if test="$path = 'index.html'">
-	  <div class="SidePanel" id="right">
+	  <div id="news">
 	    <div class="NewsGroup">
 	      <h1>Recent News</h1>
 	      <xsl:for-each select="document('../content/news-rss2.xml')/rss/channel/item[position() &lt;= 5]">
