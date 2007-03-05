@@ -317,10 +317,25 @@ ul, ol {
     background: url(use-it.png);
 }
 
-#content .Button:link { background-color: #e0e0ff; color: #006; }
-#content .Button:visited { background-color: #e0e0ff; color: #006; }
-#content .Button:active { background-color: yellow; color: #006; }
-#content .Button:hover { background-color: yellow; color: #006; }
+#content .Button:link { 
+    background-color: #e0e0ff; 
+    color: #006; 
+}
+
+#content .Button:visited { 
+    background-color: #e0e0ff; 
+    color: #006; 
+}
+
+#content .Button:active { 
+    background-color: #ffffa0; 
+    color: #006; 
+}
+
+#content .Button:hover { 
+    background-color: #ffffa0; 
+    color: #006; 
+}
 
 
 /*---------------------------------------------------------------------------

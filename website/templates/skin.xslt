@@ -98,7 +98,6 @@
 	  
 	  <div class="MenuGroup">
 	    <h1>Development</h1>
-	    <p><a href="how-to-contribute.html">How to Contribute</a></p>
 	    <p><a href="team.html">Development Team</a></p>
 	    <p><a href="coding-conventions.html">Coding Conventions</a></p>
             <p><a href="development-feeds.html">Development News Feeds</a></p>
