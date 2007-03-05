@@ -37,7 +37,7 @@ $(OUTDIR)/logo.png: WIDTH=176
 $(OUTDIR)/information.png: WIDTH=32
 $(OUTDIR)/warning.png: WIDTH=40
 $(OUTDIR)/download-it.png: WIDTH=40
-$(OUTDIR)/use-it.png: WIDTH=44
+$(OUTDIR)/use-it.png: WIDTH=40
 $(OUTDIR)/%.png: assets/%.svg
 	inkscape --without-gui --export-png=$@ --export-area-drawing --export-area-snap --export-width=$(WIDTH) $<
 
