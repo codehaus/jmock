@@ -53,6 +53,7 @@
     top: 80px;
     left: 184px;
     right: 8px;
+    padding-left: 16px;
     padding-top: 8px;
 }
 
@@ -267,21 +268,60 @@ ul, ol {
 }
 
 #content .Diagram {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 8px;
-	margin-bottom: 8px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
-
 #content .Inline {
-	display: inline;
+    display: inline;
 }
 
 .RuleOfThumb {
-	font-weight: bold;
+    font-weight: bold;
 }
+
+#content .ButtonBox {
+    position: relative;
+    white-space: nowrap;
+    display: block;
+    margin-top: 40px;
+}
+
+#content .Button {
+    display: block;
+    position: absolute;
+    border: 1px solid #006;
+    -moz-border-radius: 6px;
+    width: 40%;
+    height: 30px;
+    padding-top: 50px;
+    background-position: center 4px;
+    background-repeat: no-repeat;
+    
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#download-it {
+    left: 24px;
+    background: url(download-it.png);
+}
+
+#use-it {
+    right: 24px;
+    background: url(use-it.png);
+}
+
+#content .Button:link { background-color: #e0e0ff; color: #006; }
+#content .Button:visited { background-color: #e0e0ff; color: #006; }
+#content .Button:active { background-color: yellow; color: #006; }
+#content .Button:hover { background-color: yellow; color: #006; }
+
 
 /*---------------------------------------------------------------------------
  *  Side panels
@@ -422,6 +462,7 @@ ul, ol {
 
 #news h1 a:link { color: #006; }
 #news h1 a:visited { color: #006; }
+
 
 /*---------------------------------------------------------------------------
  *  Document meta-information
