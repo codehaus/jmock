@@ -72,8 +72,8 @@
 	<div id="navigation">
 	  <div class="MenuGroup">
 	    <h1><a href="download.html">Software</a></h1>
-	    <xsl:apply-templates select="document('../data/versions-jmock1.xml')"/>
 	    <xsl:apply-templates select="document('../data/versions-jmock2.xml')"/>
+	    <xsl:apply-templates select="document('../data/versions-jmock1.xml')"/>
 	    <p><a href="repository.html">Anonymous CVS Access</a></p>
 	    <p><a href="license.html">Project License</a></p>
 	    <p><a href="versioning.html">Version Numbering</a></p>
@@ -84,8 +84,9 @@
 	    <p><a href="getting-started.html">Getting Started</a></p>
 	    <p><a href="cookbook.html">Cookbook</a></p>
 	    <p><a href="cheat-sheet.html">Cheat Sheet</a></p>
-	    <p><a href="docs/javadoc-2.0.0/index.html">JavaDocs</a></p>
+	    <p><a href="javadoc/2.0.0/index.html">JavaDocs</a></p>
 	    <p><a href="articles.html">Articles and Papers</a></p>
+	    <p><a href="jmock1.html">jMock 1 Documentation</a></p>
 	    <p><a href="http://www.mockobjects.com">mockobjects.com</a></p>
 	  </div>
 	  
