@@ -97,11 +97,10 @@
 	  </div>
 	  
 	  <div class="MenuGroup">
-	    <h1>Development</h1>
+	    <h1>Credits</h1>
 	    <p><a href="team.html">Development Team</a></p>
-	    <p><a href="coding-conventions.html">Coding Conventions</a></p>
-            <p><a href="development-feeds.html">Development News Feeds</a></p>
 	    <p><a href="http://www.codehaus.org">Project hosted by Codehaus</a></p>
+            <p><a href="http://www.tango-project.org">Icons by the Tango Project</a></p>
 	  </div>
 	</div>
 	
