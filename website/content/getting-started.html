@@ -57,12 +57,12 @@ class PublisherTest extends MockObjectTestCase {
 <div class="JUnit4">
 <h3>JUnit 4</h3>
 <pre class="Java Source">import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.Expectations;
 
 @RunWith(JMock.class)
 class PublisherTest {
-    Mockery context = new Mockery();
+    Mockery context = new JUnit4Mockery();
     ...    
 }</pre>
 </div>
@@ -204,12 +204,12 @@ class PublisherTest extends MockObjectTestCase {
 <div class="JUnit4">
 <h3>JUnit 4</h3>
 <pre class="Source Java">import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.Expectations;
 
 @RunWith(JMock.class)
 class PublisherTest {
-    Mockery context = new Mockery();
+    Mockery context = new JUnit4Mockery();
     
     @Test 
     public void oneSubscriberReceivesAMessage() {
