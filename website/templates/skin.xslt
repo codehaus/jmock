@@ -101,6 +101,7 @@
 	    <h1>Credits</h1>
 	    <p><a href="team.html">Development Team</a></p>
 	    <p><a href="http://www.codehaus.org">Project hosted by Codehaus</a></p>
+	    <p><a href="http://www.doc.ic.ac.uk">Development supported by Imperial College, London</a></p>
             <p><a href="http://www.tango-project.org">Icons by the Tango Project</a></p>
 	  </div>
 	</div>
