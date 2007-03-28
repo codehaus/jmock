@@ -161,10 +161,9 @@ will be sent.</p>
 the mock Subscriber was called as expected. If the expected calls were not
 made, the test will fail. <span class="JUnit3">The
 <code>MockObjectTestCase</code> does this automatically. You don't have to
-explicitly veify the mock objects in your tests. </span> <span
+explicitly verify the mock objects in your tests.</span> <span
 class="JUnit4">The <code>JMock</code> test runner does this automatically.
-You don't have to explicitly veify the mock objects in your tests. </span>
-</p>
+You don't have to explicitly verify the mock objects in your tests.</span></p>
 
 <div class="Raw">
 <pre class="Java Source">mockery.assertIsSatisfied();</pre>
@@ -194,9 +193,6 @@ class PublisherTest extends MockObjectTestCase {
 
         // execute
         publisher.publish(message);
-        
-        // verify
-        context.assertIsSatisfied();
     }
 }</pre>
 </div>
