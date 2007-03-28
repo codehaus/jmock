@@ -12,30 +12,36 @@
 configuration of the jMock framework can only mock interfaces, not classes.
 (Actually, we consider that to be a good thing because it encourages the
 design to focus on communication between objects rather than classification
-or data storage). However, the optional class
-<code>org.jmock.lib.nonstd.UnsafeHackConcreteClassImposteriser</code> uses
-the <a href="http://cglib.sourceforge.net">CGLIB 2</a> library to create mock
-objects of classes as well as interfaces.</p>
+or data storage). However, the optional class <code><a
+href="http://cvs.jmock.codehaus.org/browse/~raw,r=HEAD/jmock/jmock2/src/org/jmock/lib/nonstd/UnsafeHackConcreteClassImposteriser.java">org.jmock.lib.nonstd.UnsafeHackConcreteClassImposteriser</a></code>
+uses the <a href="http://cglib.sourceforge.net">CGLIB 2</a> library to create
+mock objects of classes as well as interfaces.</p>
 
 <p class="Note Warning">The <code>UnsafeHackConcreteClassImposteriser</code>
 uses a non-standard hack to completely bypass the constructor of the class
-when creating mock objects. However, this only works on some versions of
-Sun's JVM. It's not called an unsafe hack concrete class imposteriser for
-nothing!</p>
+when creating mock objects. This only works on some versions of Sun's JVM.
+We can't support this class so we don't distribute it as part of
+the released jMock packages. If you want to use it you must either copy the
+class into your own project and build it yourself or <a
+href="repository.html">check the jMock source out of CVS</a> and build the
+JAR with the Ant build-file<code></code>.</p>
 
-<p>If you need to mock classes you can plug this imposteriser into your
-Mockery as follows.</p>
+<p>Assuming you are building the <code>UnsafeHackConcreteClassImposteriser</code> class
+from jMock source.</p>
 <ol>
   <li>Download <a
     href="http://sourceforge.net/project/showfiles.php?group_id=56933&amp;package_id=98218">CGLIB
-    2</a> and the <a href="http://www.jmock.org/download.html">jMock
-    Non-standard Extensions</a>.</li>
+    2</a>.</li>
+  <li>In the root of the jMock source tree, build the jmock-nonstd-2.0.0.jar
+    file with the command '<code>ant jar.unsafe</code>'. This will create a
+    JAR file called
+    <code>jmock-nonstd-</code><var>version</var><code>.jar</code> in the
+    build subdirectory of the jMock source tree.</li>
   <li>Add CGLIB and the
     <code>jmock-nonstd-</code><var>version</var><code>.jar</code> file to the
-    CLASSPATH. If you have downloaded a source snapshot, compile the source
-    and add the output directory to your classpath.</li>
-  <li>In your tests, plug an <code>UnsafeHackConcreteClassImposteriser</code>
-    into the Mockery: 
+    CLASSPATH.</li>
+  <li>In your tests, plug the
+    <code>UnsafeHackConcreteClassImposteriser</code> into the Mockery: 
     <pre class="Source Java">import org.jmock.Mockery;
 import org.jmock.Expectations;
 import org.jmock.lib.nonstd.UnsafeHackConcreteClassImposteriser;

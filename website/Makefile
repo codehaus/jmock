@@ -7,7 +7,7 @@ CONTENT=$(shell find content -not -name '*~' -and -not -wholename '*/CVS*')
 SKIN=$(shell find templates -not -name '*.xslt' -and -not -name '*~' -and -not -wholename '*/CVS*')
 ASSETS=$(shell find assets -not -name '*~' -and -not -wholename '*/CVS*')
 
-OUTDIR=build
+OUTDIR=skinned
 OUTPUT=$(CONTENT:content/%=$(OUTDIR)/%) \
        $(SKIN:templates/%=$(OUTDIR)/%) \
        $(ASSETS:assets/%.svg=$(OUTDIR)/%.png)
