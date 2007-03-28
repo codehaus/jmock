@@ -84,10 +84,10 @@
 	    <p><a href="getting-started.html">Getting Started</a></p>
 	    <p><a href="cookbook.html">Cookbook</a></p>
 	    <p><a href="cheat-sheet.html">Cheat Sheet</a></p>
-	    <p><a href="javadoc/2.0.0/index.html">JavaDocs</a></p>
+	    <p><a href="javadoc.html">API Documentation</a></p>
 	    <p><a href="articles.html">Articles and Papers</a></p>
 	    <p><a href="jmock1.html">jMock 1 Documentation</a></p>
-	    <p><a href="http://www.mockobjects.com">mockobjects.com</a></p>
+	    <p><a href="http://www.mockobjects.com">About Mock Objects</a></p>
 	  </div>
 	  
 	  <div class="MenuGroup">
@@ -101,7 +101,6 @@
 	    <h1>Credits</h1>
 	    <p><a href="team.html">Development Team</a></p>
 	    <p><a href="http://www.codehaus.org">Project hosted by Codehaus</a></p>
-	    <p><a href="http://www.doc.ic.ac.uk">Development supported by Imperial College, London</a></p>
             <p><a href="http://www.tango-project.org">Icons by the Tango Project</a></p>
 	  </div>
 	</div>

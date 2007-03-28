@@ -21,37 +21,7 @@
 	over version 1.1.0, including a more convenient and readable API, 
 	better support for refactoring IDEs and support for multiple test frameworks.
       </xhtml:div>
-      <pubDate>5 Mar 2007</pubDate>
-    </item>
-
-    <item>
-      <title>TDD with jMock 2 Tutorial at SPA 2007</title>
-      <category>Event</category>
-      <link>http://www.spaconference.org/spa2007/</link>
-      <xhtml:div>
-	<a href="http://www.cocking.co.uk">Romilly Cocking</a>, 
-	<a href="http://www.pols.co.uk">Andy Pols</a> and 
-	<a href="http://nat.truemesh.com">Nat Pryce</a> will be 
-	teaching a tutorial at 
-        <a href="http://www.spaconference.org/spa2007/">SPA 2007</a> 
-	entitled
-	<a href="http://www.spaconference.org/spa2007/sessions/session83.html">Test Driven Development with jMock 2</a>.
-      </xhtml:div>
-      <pubDate>5 Mar 2007</pubDate>
-    </item>
-
-    <item>
-      <title>Presentation: The Evolution of jMock at OOPLSA 2006</title>
-      <category>Event</category>
-      <link>http://www.oopsla.org/2006/submission/practitioner_reports/evolving_an_embedded_domain-specific_language_in_java.html</link>
-      <description>jMock at OOPLSA 2006</description>
-      <xhtml:div><a href="http://stevef.truemesh.com">Steve Freeman</a> and 
-      <a href="http://nat.truemesh.com">Nat Pryce</a> will present at 
-      <a href="http://www.ooplsa.org">OOPLSA 2006</a>
-      on the evolution of jMock's API and techniques for writing embedded domain-specific 
-      languages in Java and C#.
-      </xhtml:div>
-      <pubDate>27 Aug 2006</pubDate>
+      <pubDate>28 Mar 2007</pubDate>
     </item>
     
     <!-- item template

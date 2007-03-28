@@ -280,27 +280,27 @@ within <code>with</code> clauses:</p>
 <table>
   <tbody>
     <tr>
-      <td>returnValue(<var>v</var>)</td>
+      <td>will(returnValue(<var>v</var>))</td>
       <td>Return <var>v</var> to the caller.</td>
     </tr>
     <tr>
-      <td>returnIterator(<var>c</var>)</td>
+      <td>will(returnIterator(<var>c</var>))</td>
       <td>Return a new iterator over collection <var>c</var> on each
         invocation.</td>
     </tr>
     <tr>
-      <td>returnIterator(<var>v<sub>1</sub></var>, <var>v<sub>2</sub></var>,
-        ..., <var>v<sub>n</sub></var>)</td>
+      <td>will(returnIterator(<var>v<sub>1</sub></var>, <var>v<sub>2</sub></var>,
+        ..., <var>v<sub>n</sub></var>))</td>
       <td>Return a new iterator over elements <var>v<sub>1</sub></var> to
         <var>v<sub>n</sub></var> on each invocation.</td>
     </tr>
     <tr>
-      <td>throwException(<var>e</var>)</td>
+      <td>will(throwException(<var>e</var>))</td>
       <td>Throw <var>e</var> to the caller.</td>
     </tr>
     <tr>
-      <td>doAll(<var>a<sub>1</sub></var>, <var>a<sub>2</sub></var>, ...,
-        <var>a<sub>n</sub></var>)</td>
+      <td>will(doAll(<var>a<sub>1</sub></var>, <var>a<sub>2</sub></var>, ...,
+        <var>a<sub>n</sub></var>))</td>
       <td>Do all actions <var>a<sub>1</sub></var> to <var>a<sub>n</sub></var>
         on every invocation.</td>
     </tr>
