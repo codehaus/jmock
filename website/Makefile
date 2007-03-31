@@ -62,4 +62,4 @@ continually:
 	done
 
 published: all
-	rsync --recursive --checksum --delete --cvs-exclude --compress --stats --verbose --rsh=ssh $(OUTDIR) $(SITE)
+	rsync --recursive --checksum --delete --cvs-exclude --compress --stats --verbose --rsh=ssh $(OUTDIR)/* $(SITE)

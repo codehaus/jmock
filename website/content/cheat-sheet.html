@@ -56,8 +56,7 @@ checks expectations that are set upon those mock objects. By convention the
 Mockery is stored in an instance variable named <var>context</var>.</p>
 
 <p class="JUnit3">Tests written with JUnit 3 can extend MockObjectTestCase,
-in which case they don't need to explictly create or refer to the context.
-Some of the method names are renamed to be more declarative:</p>
+in which case they don't need to explictly create or refer to the context.</p>
 
 <p class="JUnit4">Tests written with JUnit 4 do not need to extend a specific
 base class but must specify that they use jMock with the
@@ -86,15 +85,18 @@ Turtle turtle2 = mock(Turtle.class, "turtle2");</pre>
 Turtle turtle2 = context.mock(Turtle.class, "turtle2");</pre>
 </div>
 
-<p>Local variables holding references to mock objects must be declared as
-<code>final</code> so that they can be used within expectation blocks (see
-below).</p>
+<p>The examples above assume that the mock object is stored in an instance
+variable. If a mock object is stored in a local variable, the variable must
+be declared as <code>final</code> so that it can be referred to from within
+expectation blocks (see below).</p>
 
 <h2>Tests with Expectations</h2>
 
 <div class="Raw">
 <h3>Raw</h3>
-<pre class="Source Java">public void testSomeAction() {
+<pre class="Source Java">... create mock objects ...
+
+public void testSomeAction() {
     context.checking(new Expectations() {{
         ... expectations go here ...
     }});
@@ -109,7 +111,9 @@ below).</p>
 
 <div class="JUnit3">
 <h3>JUnit 3 Integration</h3>
-<pre class="Source Java">public void testSomeAction() {
+<pre class="Source Java">... create mock objects ...
+
+public void testSomeAction() {
     checking(new Expectations() {{
         ... expectations go here ...
     }});
@@ -122,7 +126,9 @@ below).</p>
 
 <div class="JUnit4">
 <h3>JUnit 4 Integration</h3>
-<pre class="Source Java">public void testSomeAction() {
+<pre class="Source Java">... create mock objects ...
+
+public void testSomeAction() {
     context.checking(new Expectations() {{
         ... expectations go here ...
     }});
@@ -258,22 +264,26 @@ within <code>with</code> clauses:</p>
     </tr>
     <tr>
       <td>not(<var>m</var>)</td>
-      <td>The argument does not match <var>m</var>.</td>
+      <td>The argument does not match the Matcher <var>m</var>.</td>
     </tr>
     <tr>
       <td>anyOf(<var>m<sub>1</sub></var>, <var>m<sub>2</sub></var>, ...,
         <var>m<sub>n</sub></var>)</td>
-      <td>The argument matches one of <var>m<sub>1</sub></var> to
-        <var>m<sub>n</sub><sub></sub></var>.</td>
+      <td>The argument matches one of the Matchers <var>m<sub>1</sub></var>
+        to <var>m<sub>n</sub><sub></sub></var>.</td>
     </tr>
     <tr>
       <td>allOf(<var>m<sub>1</sub></var>, <var>m<sub>2</sub></var>, ...,
         m<sub>n</sub>)</td>
-      <td>The argument matches all of <var>m<sub>1</sub></var> to
-        <var>m<sub>n</sub></var>.</td>
+      <td>The argument matches all of the Matchers <var>m<sub>1</sub></var>
+        to <var>m<sub>n</sub></var>.</td>
     </tr>
   </tbody>
 </table>
+
+<p>More matchers are defined as static factory methods of the <a
+href="javadoc/2.0.0/org/hamcrest/Matchers.html">Hamcrest Matchers class</a>,
+which can be statically imported at the top of the test code.</p>
 
 <h3>Actions</h3>
 
@@ -289,8 +299,8 @@ within <code>with</code> clauses:</p>
         invocation.</td>
     </tr>
     <tr>
-      <td>will(returnIterator(<var>v<sub>1</sub></var>, <var>v<sub>2</sub></var>,
-        ..., <var>v<sub>n</sub></var>))</td>
+      <td>will(returnIterator(<var>v<sub>1</sub></var>,
+        <var>v<sub>2</sub></var>, ..., <var>v<sub>n</sub></var>))</td>
       <td>Return a new iterator over elements <var>v<sub>1</sub></var> to
         <var>v<sub>n</sub></var> on each invocation.</td>
     </tr>
