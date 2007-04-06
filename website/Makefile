@@ -43,7 +43,7 @@ $(OUTDIR)/%.png: assets/%.svg
 
 
 clean:
-	rm -rf build
+	rm -rf $(OUTDIR)/
 
 again: clean all
 
