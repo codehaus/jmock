@@ -17,9 +17,12 @@ href="http://cvs.jmock.codehaus.org/">http://cvs.jmock.codehaus.org/</a></p>
 <p>This project's CVS repository can be checked out through anonymous
 (pserver) CVS with the following instruction set. When prompted for a
 password for anonymous, simply press the Enter key.</p>
-<pre class="Shell">cvs -d:pserver:anonymous@cvs.jmock.codehaus.org:/home/projects/jmock/scm login
+<pre class="Shell">cvs -d:pserver:anonymous@cvs.jmock.codehaus.org:/scm/jmock login
 
-cvs -d:pserver:anonymous@cvs.jmock.codehaus.org:/home/projects/jmock/scm checkout jmock</pre>
+cvs -d:pserver:anonymous@cvs.jmock.codehaus.org:/scm/jmock checkout <var>module</var></pre>
+
+<p>Where <var>module</var> is <code>jmock2</code> for jMock 2 and
+<code>jmock</code> for jMock 1.</p>
 
 <p>Updates from within the module's directory do not need the -d
 parameter.</p>

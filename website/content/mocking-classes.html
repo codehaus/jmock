@@ -19,21 +19,21 @@ mock objects of classes as well as interfaces.</p>
 
 <p class="Note Warning">The <code>UnsafeHackConcreteClassImposteriser</code>
 uses a non-standard hack to completely bypass the constructor of the class
-when creating mock objects. This only works on some versions of Sun's JVM.
-We can't support this class so we don't distribute it as part of
-the released jMock packages. If you want to use it you must either copy the
-class into your own project and build it yourself or <a
+when creating mock objects. This only works on some versions of Sun's JVM and
+some versions of CGLIB. We can't support this class so we don't distribute it
+as part of the released jMock packages. If you want to use it you must either
+copy the class into your own project and build it yourself or <a
 href="repository.html">check the jMock source out of CVS</a> and build the
 JAR with the Ant build-file<code></code>.</p>
 
-<p>Assuming you are building the <code>UnsafeHackConcreteClassImposteriser</code> class
-from jMock source.</p>
+<p>Assuming you are building the
+<code>UnsafeHackConcreteClassImposteriser</code> class from jMock source.</p>
 <ol>
   <li>Download <a
     href="http://sourceforge.net/project/showfiles.php?group_id=56933&amp;package_id=98218">CGLIB
     2</a>.</li>
   <li>In the root of the jMock source tree, build the jmock-nonstd-2.0.0.jar
-    file with the command '<code>ant jar.unsafe</code>'. This will create a
+    file with the command '<code>ant jar.nonstd</code>'. This will create a
     JAR file called
     <code>jmock-nonstd-</code><var>version</var><code>.jar</code> in the
     build subdirectory of the jMock source tree.</li>
