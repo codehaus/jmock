@@ -5,12 +5,22 @@
     <link>http://www.jmock.org/</link>
     <description>jMock is a lightweight mock object testing library for Java.</description>
     <image>
-      <url>http://www.jmock.org/logo.gif</url>
+      <url>http://www.jmock.org/logo.png</url>
       <title>jMock</title>
       <link>http://www.jmock.org/</link>
     </image>
-    <language>en-us</language>
+    <language>en-gb</language>
     
+    <item>
+      <title>jMock 1.2.0</title>
+      <category>Release</category>
+      <link>http://www.jmock.org</link>
+      <xhtml:div>
+	JMock 1.2.0 has been released.  This release fixes several bugs and
+	adds a few incremental API improvements to jMock 1.1.0.
+      </xhtml:div>
+      <pubDate>10 Apr 2007</pubDate>
+    </item>
     
     <item>
       <title>jMock 2 Release Candidate 1</title>
