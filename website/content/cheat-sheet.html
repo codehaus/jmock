@@ -37,9 +37,10 @@ public class TurtleDrawingTest extends MockObjectTestCase {
 
 <div class="JUnit4">
 <h3>JUnit 4 Integration</h3>
-<pre class="Source Java">import org.jmock.integration.junit4.JMock;
+<pre class="Source Java">import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.Expectations;
 
 @RunWith(JMock.class)
 public class AJMock2TestCase {
@@ -254,12 +255,12 @@ href="javadoc/2.0.0/org/jmock/Expectations.html">Expectations</a> class:</p>
         <var>type</var>.</td>
     </tr>
     <tr>
-      <td>aNull(Class&lt;T&gt;&nbsp;type)</td>
+      <td>aNull(Class&lt;T&gt; type)</td>
       <td>The argument is null. The type argument is required to force Java
         to type-check the argument at compile time.</td>
     </tr>
     <tr>
-      <td>aNonNull(Class&lt;T&gt;&nbsp;type)</td>
+      <td>aNonNull(Class&lt;T&gt; type)</td>
       <td>The argument is not null. The type argument is required to force
         Java to type-check the argument at compile time.</td>
     </tr>
