@@ -12,6 +12,18 @@
     <language>en-gb</language>
     
     <item>
+      <title>jMock 2.0.0</title>
+      <category>Release</category>
+      <link>http://www.jmock.org</link>
+      <xhtml:div>
+	JMock 2.0.0 has been released.  Version two brings many improvements
+	over version one, including a more convenient and readable API, 
+	better support for refactoring IDEs and support for multiple test frameworks.
+      </xhtml:div>
+      <pubDate>11 Apr 2007</pubDate>
+    </item>
+    
+    <item>
       <title>jMock 1.2.0</title>
       <category>Release</category>
       <link>http://www.jmock.org</link>
