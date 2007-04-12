@@ -6,49 +6,35 @@
 </head>
 
 <body>
-<h1>Mocking Classes with jMock and CGLIB</h1>
+<h1>Mocking Classes with jMock and the Objenesis Imposteriser</h1>
 
 <p>Because it uses Java's standard reflection capability, the default
 configuration of the jMock framework can only mock interfaces, not classes.
 (Actually, we consider that to be a good thing because it encourages the
 design to focus on communication between objects rather than classification
-or data storage). However, the optional class <code><a
-href="http://cvs.jmock.codehaus.org/browse/~raw,r=HEAD/jmock/jmock2/src/org/jmock/lib/nonstd/UnsafeHackConcreteClassImposteriser.java">org.jmock.lib.nonstd.UnsafeHackConcreteClassImposteriser</a></code>
-uses the <a href="http://cglib.sourceforge.net">CGLIB 2</a> library to create
+or data storage). However, the extension class
+<code>jmock.lib.objenesis.ObjenesisImposteriser</code> uses the <a
+href="http://cglib.sourceforge.net">CGLIB 2.1</a> and <a
+href="http://code.google.com/p/objenesis/">Objenesis</a> libraries to create
 mock objects of classes as well as interfaces.</p>
 
-<p class="Note Warning">The <code>UnsafeHackConcreteClassImposteriser</code>
-uses a non-standard hack to completely bypass the constructor of the class
-when creating mock objects. This only works on some versions of Sun's JVM and
-some versions of CGLIB. We can't support this class so we don't distribute it
-as part of the released jMock packages. If you want to use it you must either
-copy the class into your own project and build it yourself or <a
-href="repository.html">check the jMock source out of CVS</a> and build the
-JAR with the Ant build-file<code></code>.</p>
+<p class="Note Warning">This functionality is currently only in CVS. If you
+want to use it you must <a href="repository.html">check the jMock source out
+of CVS</a> and build the JAR with the Ant build-file.</p>
 
-<p>Assuming you are building the
-<code>UnsafeHackConcreteClassImposteriser</code> class from jMock source.</p>
+<p>To use the ObjenesisImposteriser:</p>
 <ol>
-  <li>Download <a
-    href="http://sourceforge.net/project/showfiles.php?group_id=56933&amp;package_id=98218">CGLIB
-    2</a>.</li>
-  <li>In the root of the jMock source tree, build the jmock-nonstd-2.0.0.jar
-    file with the command '<code>ant jar.nonstd</code>'. This will create a
-    JAR file called
-    <code>jmock-nonstd-</code><var>version</var><code>.jar</code> in the
-    build subdirectory of the jMock source tree.</li>
-  <li>Add CGLIB and the
-    <code>jmock-nonstd-</code><var>version</var><code>.jar</code> file to the
-    CLASSPATH.</li>
-  <li>In your tests, plug the
-    <code>UnsafeHackConcreteClassImposteriser</code> into the Mockery: 
+  <li>Add jmock-objenesis-2.0.0.jar, cglib-nodep-2.1_3.jar and
+    objenesis-1.0.jar to your CLASSPATH.</li>
+  <li>In your tests, plug the <code>ObjenesisImposteriser</code> into the
+    Mockery: 
     <pre class="Source Java">import org.jmock.Mockery;
 import org.jmock.Expectations;
-import org.jmock.lib.nonstd.UnsafeHackConcreteClassImposteriser;
+import org.jmock.lib.objenesis.ObjenesisImposteriser;
 
 public class ConcreteClassTest extends TestCase {
     private Mockery context = new Mockery() {{
-        setImposteriser(UnsafeHackConcreteClassImposteriser.INSTANCE);
+        setImposteriser(ObjenesisImposteriser.INSTANCE);
     }};
     
     ...
