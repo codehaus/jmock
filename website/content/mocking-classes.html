@@ -27,6 +27,9 @@ of CVS</a> and build the JAR with the Ant build-file.</p>
     objenesis-1.0.jar to your CLASSPATH.</li>
   <li>In your tests, plug the <code>ObjenesisImposteriser</code> into the
     Mockery: 
+
+    <div class="Raw">
+    <h3>Raw</h3>
     <pre class="Source Java">import org.jmock.Mockery;
 import org.jmock.Expectations;
 import org.jmock.lib.objenesis.ObjenesisImposteriser;
@@ -38,6 +41,38 @@ public class ConcreteClassTest extends TestCase {
     
     ...
 }</pre>
+    </div>
+
+    <div class="JUnit3">
+    <h3>JUnit 3</h3>
+    <pre class="Source Java">import org.jmock.Expectations;
+import org.jmock.integration.junit3.MockObjectTestCase;
+import org.jmock.lib.objenesis.ObjenesisImposteriser;
+
+public class ConcreteClassTest extends TestCase {
+    private Mockery context = new Mockery() {{
+        setImposteriser(ObjenesisImposteriser.INSTANCE);
+    }};
+    
+    ...
+}</pre>
+    </div>
+
+    <div class="JUnit4">
+    <h3>JUnit 4</h3>
+    <pre class="Source Java">import org.jmock.Mockery;
+import org.jmock.Expectations;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.objenesis.ObjenesisImposteriser;
+
+public class ConcreteClassTest extends TestCase {
+    private Mockery context = new JUnit4Mockery() {{
+        setImposteriser(ObjenesisImposteriser.INSTANCE);
+    }};
+    
+    ...
+}</pre>
+    </div>
   </li>
   <li>Your tests can now create mocks of abstract or even concrete classes: 
     <pre class="Source Java">Graphics g = context.mock(java.awt.Graphics.class);</pre>
