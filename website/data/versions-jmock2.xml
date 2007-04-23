@@ -2,5 +2,6 @@
 <versions>
   <branch>jMock 2 (Java 1.5+)</branch>
   
+  <version number="2.1.0-RC1">Unstable</version>
   <version number="2.0.0">Stable</version>
 </versions>

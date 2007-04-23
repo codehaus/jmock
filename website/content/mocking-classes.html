@@ -15,15 +15,16 @@ design to focus on communication between objects rather than classification
 or data storage). However, the <code>ObjenesisImposteriser</code> extension
 class uses the <a href="http://cglib.sourceforge.net">CGLIB 2.1</a> and <a
 href="http://code.google.com/p/objenesis/">Objenesis</a> libraries to create
-mock objects of classes as well as interfaces.</p>
+mock objects of classes as well as interfaces. This is useful when working
+with legacy code to tease apart dependencies between tightly coupled
+classes.</p>
 
-<p class="Note Warning">This functionality is currently only in CVS. If you
-want to use it you must <a href="repository.html">check the jMock source out
-of CVS</a> and build the JAR with the Ant build-file.</p>
+<p class="Note Warning">This functionality is currently in the release
+candidate version 2.1.0-RC1.</p>
 
-<p>To use the ObjenesisImposteriser:</p>
+<p>To use the Objenesis imposteriser:</p>
 <ol>
-  <li>Add jmock-objenesis-2.0.0.jar, cglib-nodep-2.1_3.jar and
+  <li>Add jmock-objenesis-2.1.0-RC1.jar, cglib-nodep-2.1_3.jar and
     objenesis-1.0.jar to your CLASSPATH.</li>
   <li>In your tests, plug the <code>ObjenesisImposteriser</code> into the
     Mockery: 

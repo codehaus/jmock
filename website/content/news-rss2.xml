@@ -12,6 +12,18 @@
     <language>en-gb</language>
     
     <item>
+      <title>jMock 2.1.0-RC1</title>
+      <category>Release</category>
+      <link>http://www.jmock.org</link>
+      <xhtml:div>
+	JMock 2.1.0-RC1 has been released.  This version extends jMock 2.0.0 with the
+	ability to <a href="http://www.jmock.org/mocking-classes.html">mock abstract and concrete classes</a> 
+        to aid in working with legacy code.  In all other respects it is the same as version 2.0.0.
+      </xhtml:div>
+      <pubDate>19 Apr 2007</pubDate>
+    </item>
+    
+    <item>
       <title>jMock 2.0.0</title>
       <category>Release</category>
       <link>http://www.jmock.org</link>
