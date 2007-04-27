@@ -51,9 +51,9 @@ import org.jmock.integration.junit3.MockObjectTestCase;
 import org.jmock.lib.objenesis.ObjenesisImposteriser;
 
 public class ConcreteClassTest extends TestCase {
-    private Mockery context = new Mockery() {{
+    {
         setImposteriser(ObjenesisImposteriser.INSTANCE);
-    }};
+    }
     
     ...
 }</pre>
