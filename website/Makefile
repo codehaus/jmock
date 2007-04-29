@@ -54,9 +54,9 @@ continually:
 	@while true; do \
 	  if make all; \
 	  then \
-	    condition clear jmock-website-build; \
+	    condition clear "jMock Website Build"; \
 	  else \
-	    condition raise jmock-website-build "jMock Website Build Broken"; \
+	    condition alert "jMock Website Build" "jMock Website Build Broken"; \
 	  fi ; \
 	  inotifywait -r -qq -e modify -e delete $(SCANNED_FILES); \
 	done
