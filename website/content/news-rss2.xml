@@ -12,6 +12,16 @@
     <language>en-gb</language>
     
     <item>
+      <title>jMock 2.1.0-RC2</title>
+      <category>Release</category>
+      <link>http://www.jmock.org</link>
+      <xhtml:div>
+	JMock 2.1.0-RC2 has been released, which fixes a bug that stopped jMock mocking package-protected types.
+      </xhtml:div>
+      <pubDate>30 Apr 2007</pubDate>
+    </item>
+
+    <item>
       <title>jMock 2.1.0-RC1</title>
       <category>Release</category>
       <link>http://www.jmock.org</link>
