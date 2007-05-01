@@ -48,6 +48,11 @@ machine.</p>
         machine is in the named state.</td>
     </tr>
     <tr>
+      <td>when(<var>state-machine</var>.isNot("<var>state-name</var>"));</td>
+      <td>Constrains the last expectation to occur only when the state
+        machine is not in the named state.</td>
+    </tr>
+    <tr>
       <td>then(<var>state-machine</var>.is("<var>state-name</var>"));</td>
       <td>Changes the state of <var>state-machine</var> to the named state
         when the invocation occurs.</td>
@@ -56,7 +61,7 @@ machine.</p>
 </table>
 
 <p>For example:</p>
-<pre>final States pen = context.states("pen").startsAs("up");
+<pre class="Java Source">final States pen = context.states("pen").startsAs("up");
 one (turtle).penDown(); then(pen.is("down"));
 one (turtle).forward(10); when(pen.is("down"));
 one (turtle).turn(90); when(pen.is("down"));
