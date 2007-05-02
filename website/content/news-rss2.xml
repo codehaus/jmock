@@ -12,6 +12,18 @@
     <language>en-gb</language>
     
     <item>
+      <title>jMock 2.1.0-RC3</title>
+      <category>Release</category>
+      <link>http://www.jmock.org</link>
+      <xhtml:div>
+	<a href="http://www.jmock.org/download.html">JMock 2.1.0-RC3</a> has been released.  This release
+        improves the names of the package and classes for working with legacy code to better express
+        their intent and be independent of the technology used under the hood.
+      </xhtml:div>
+      <pubDate>30 Apr 2007</pubDate>
+    </item>
+    
+    <item>
       <title>jMock 2.1.0-RC2</title>
       <category>Release</category>
       <link>http://www.jmock.org</link>
