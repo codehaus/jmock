@@ -12,6 +12,17 @@
     <language>en-gb</language>
     
     <item>
+      <title>jMock available in the Maven repository</title>
+      <category>Release</category>
+      <link>http://www.jmock.org/maven.html</link>
+      <xhtml:div>
+	jMock 1 and 2 are now published in the Maven repository. Maven projects can pull in jMock
+        JARs by <a href="http://www.jmock.org/maven.html">defining dependencies in their POM file</a>.
+      </xhtml:div>
+      <pubDate>8 May 2007</pubDate>
+    </item>
+
+    <item>
       <title>jMock 2.1.0-RC3</title>
       <category>Release</category>
       <link>http://www.jmock.org</link>
