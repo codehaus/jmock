@@ -17,7 +17,7 @@ invocation. After the invocation, the matching expectation might stop
 matching further invocations. For example, an <code>one</code> expectation
 only matches once and will be ignored on future invocations while an
 <code>atLeast(1)</code> expectation will always be matched against
-invocations. </p>
+invocations.</p>
 
 <p>This scheme allows you to set up different expectations for the same
 method with different action per invocation. However, it's better to use the
@@ -44,8 +44,9 @@ for a method. For example:</p>
        returnValue(20),
        throwException(new IOException("no more stuff"))));</pre>
 
-<p>If you want to specify more complex ordering constraints use the
-<code>named, after</code> and <code>before</code> methods to explicitly
-define a total or partial ordering of invocations.</p>
+<p>If you want to specify more complex ordering constraints use the <a
+href="sequences.html">sequences</a> or <a href="states.html">state
+machines</a> to explicitly define a total or partial ordering of
+invocations.</p>
 </body>
 </html>
