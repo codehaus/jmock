@@ -12,6 +12,17 @@
     <language>en-gb</language>
     
     <item>
+      <title>jMock 2.1.0-RC4</title>
+      <category>Release</category>
+      <link>http://www.jmock.org</link>
+      <xhtml:div>
+	<a href="http://www.jmock.org/download.html">JMock 2.1.0-RC4</a> has been released.  This release
+        fixes issues with class loaders and generics.
+      </xhtml:div>
+      <pubDate>14 May 2007</pubDate>
+    </item>
+
+    <item>
       <title>jMock available in the Maven repository</title>
       <category>Release</category>
       <link>http://www.jmock.org/maven.html</link>
