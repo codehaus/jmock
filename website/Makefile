@@ -16,7 +16,7 @@ all: $(OUTPUT)
 
 $(OUTDIR)/index.html: content/news-rss2.xml
 
-$(OUTDIR)/%.html: content/%.html templates/skin.xslt data/versions-*.xml
+$(OUTDIR)/%.html: content/%.html templates/skin.xslt data/versions.xml
 	@mkdir -p $(dir $@)
 	xsltproc \
 	  --nodtdattr \

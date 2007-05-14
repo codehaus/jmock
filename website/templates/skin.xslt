@@ -72,8 +72,7 @@
 	<div id="navigation">
 	  <div class="MenuGroup">
 	    <h1><a href="download.html">Software</a></h1>
-	    <xsl:apply-templates select="document('../data/versions-jmock2.xml')"/>
-	    <xsl:apply-templates select="document('../data/versions-jmock1.xml')"/>
+	    <xsl:apply-templates select="document('../data/versions.xml')"/>
 	    <p><a href="repository.html">Anonymous CVS Access</a></p>
 	    <p><a href="license.html">Project License</a></p>
 	    <p><a href="versioning.html">Version Numbering</a></p>
@@ -134,11 +133,14 @@
     <xsl:copy-of select="."/><sup class="LinkFootnoteRef"><xsl:number level="any" format="1"/></sup>
   </xsl:template>
   
-  <xsl:template match="versions">
-    <h2><xsl:value-of select="branch"/></h2>
+  <xsl:template match="branch">
+    <h2><xsl:value-of select="."/></h2>
     <ul>
-      <xsl:for-each select="version">
-	<li><a href="download.html"><xsl:value-of select="."/>: <xsl:value-of select="@number"/></a></li>
+      <xsl:for-each select="@unstable">
+	    <li><a href="download.html">Unstable: <xsl:value-of select="."/></a></li>
+      </xsl:for-each>
+      <xsl:for-each select="@stable">
+	    <li><a href="download.html">Stable: <xsl:value-of select="."/></a></li>
       </xsl:for-each>
     </ul>
   </xsl:template>

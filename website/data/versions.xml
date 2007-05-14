@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<versions>
+  <branch major="2" unstable="2.1.0-RC4" stable="2.0.0">jMock 2 (Java 1.5+)</branch>
+  <branch major="1" stable="1.2.0">jMock 1 (Java 1.3+)</branch>
+</versions>
