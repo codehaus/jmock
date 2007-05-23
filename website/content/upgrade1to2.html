@@ -15,5 +15,12 @@
 time without class names clashing. This allows you to run jMock 1 and 2 tests
 simultaneously. You can write new tests with jMock 2 and gradually port older
 tests to the new version as you find the need.</p>
+
+<h3>Beware!</h3>
+
+<p>Make sure your test fixture extends the correct base class: extend
+<code>org.jmock.MockObjectTestCase</code> in jMock 1 tests and
+<code>org.jmock.integration.junit3.MockObjectTestCase</code> in jMock 2
+tests.</p>
 </body>
 </html>
