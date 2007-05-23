@@ -12,6 +12,17 @@
     <language>en-gb</language>
     
     <item>
+      <title>jMock 2.1.0-RC5</title>
+      <category>Release</category>
+      <link>http://www.jmock.org</link>
+      <xhtml:div>
+	<a href="http://www.jmock.org/download.html">JMock 2.1.0-RC5</a> has been released.  This release
+        fixes all outstanding JIRA issues and should be the last 2.1.0 release candidate (fingers crossed!). 
+      </xhtml:div>
+      <pubDate>23 May 2007</pubDate>
+    </item>
+
+    <item>
       <title>jMock 2.1.0-RC4</title>
       <category>Release</category>
       <link>http://www.jmock.org</link>
