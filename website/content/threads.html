@@ -23,7 +23,6 @@ burglar, he should ring the alarm once only.</p>
 <pre class="Source Java">public interface Alarm {
 	void ring();
 }</pre>
-
 <pre class="Source Java">@Test
 public void ringsTheAlarmOnceWhenNoticesABurglar() {
 	final Alarm alarm = context.mock(Alarm.class);
@@ -101,8 +100,8 @@ public void ringsTheAlarmOnceWhenNoticesABurglar() {
 Executor that creates a new thread we'll be back where we started and our
 tests will still, wrongly, appear to pass. We need to run the task in the
 same thread as the test runner. To do this we could mock the Executor
-interface and use a <a href="custom-stubs.html">custom stub</a> to call back
-to the task's run method, but that's over-complicating things. It's much
+interface and use a <a href="custom-actions.html">custom action</a> to call
+back to the task's run method, but that's over-complicating things. It's much
 easier just to write a class that implements the Executor interface and lets
 us explicitly run the tasks after the <code>notice(Burglar)</code> method has
 returned:</p>
